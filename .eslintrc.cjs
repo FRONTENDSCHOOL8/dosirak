@@ -10,7 +10,6 @@ module.exports = {
     'plugin:react/jsx-runtime',
     'plugin:storybook/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:storybook/recommended',
     'plugin:tailwindcss/recommended',
   ],
   overrides: [
