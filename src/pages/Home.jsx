@@ -1,3 +1,3 @@
 export const Home = () => {
-  return <span>홈</span>;
+  return <span>홈12312412312312</span>;
 };
