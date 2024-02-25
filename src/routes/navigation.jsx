@@ -1,5 +1,6 @@
 import { Home } from '@/pages/Home';
 import Login from '@/pages/Login';
+import Register from '@/pages/Register';
 
 const navigationItems = [
   {
@@ -15,6 +16,13 @@ const navigationItems = [
     path: '/login',
     text: '로그인 화면',
     element: <Login />,
+    // lazy: () => import('@/pages/Login'),
+  },
+  {
+    id: 'register',
+    path: '/register',
+    text: '회원가입 화면',
+    element: <Register />,
     // lazy: () => import('@/pages/Login'),
   },
 ];

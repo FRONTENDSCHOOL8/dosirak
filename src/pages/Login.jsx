@@ -76,7 +76,9 @@ const Login = () => {
                     <Link className="">비밀번호 찾기</Link>
                   </td>
                   <td className="px-4">
-                    <Link className="">회원가입 하기</Link>
+                    <Link to="/register" className="">
+                      회원가입 하기
+                    </Link>
                   </td>
                 </tr>
               </tbody>
