@@ -7,10 +7,9 @@ const Layout = () => {
         <section className="hidden w-[594px] bg-slate-600 lg:block">
           <h2 className="sr-only">한 끼 도시락</h2>
         </section>
-        <section className="w-[430px] bg-white">
-          <h2 className="sr-only">컨텐츠 영역</h2>
+        <div className="w-[430px] bg-white">
           <Outlet />
-        </section>
+        </div>
       </div>
     </main>
   );
