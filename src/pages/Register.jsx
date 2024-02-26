@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ReactComponent as Prev } from '@/assets/header/prev.svg';
 
-const Register = () => {
+export const Component = () => {
   return (
     <section className="relative flex h-full flex-col items-stretch">
       <section className="absolute flex h-[75px] w-full items-end px-9 pb-2">
@@ -63,4 +63,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+Component.displayName = 'Register';

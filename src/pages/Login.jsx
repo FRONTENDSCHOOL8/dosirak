@@ -3,7 +3,7 @@ import { ReactComponent as Naver } from '@/assets/login/naver.svg';
 import { ReactComponent as Kakao } from '@/assets/login/kakao.svg';
 import { ReactComponent as Insta } from '@/assets/login/insta.svg';
 
-const Login = () => {
+export const Component = () => {
   return (
     <section className="flex h-screen items-center">
       <h2 className="sr-only">로그인</h2>
@@ -88,4 +88,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+Component.displayName = 'Login';
