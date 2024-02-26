@@ -1,3 +1,5 @@
-export const Home = () => {
-  return <span>홈12312412312312</span>;
+export const Component = () => {
+  return <span>홈</span>;
 };
+
+Component.displayName = 'Home';
