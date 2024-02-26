@@ -8,7 +8,7 @@ const Login = () => {
     <section className="flex h-screen items-center">
       <h2 className="sr-only">로그인</h2>
       <div className="mx-9 flex w-full flex-col gap-[60px]">
-        <section className="">
+        <section>
           <h2 className="font-Gong-Gothic-l text-login-lg text-4xl">
             <p>오늘의</p>
             <p>
@@ -76,9 +76,7 @@ const Login = () => {
                     <Link className="">비밀번호 찾기</Link>
                   </td>
                   <td className="px-4">
-                    <Link to="/register" className="">
-                      회원가입 하기
-                    </Link>
+                    <Link to="/register">회원가입 하기</Link>
                   </td>
                 </tr>
               </tbody>
