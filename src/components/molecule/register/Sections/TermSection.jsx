@@ -3,7 +3,7 @@ import SectionInfo from './SectionInfo';
 
 const TermSection = () => {
   return (
-    <section className="step-2 mt-40 flex w-[430px] flex-col gap-8 px-9">
+    <section className="step-2 mobile:w-screen mt-40 flex w-[430px] flex-col gap-8 px-9">
       <SectionInfo>
         <p>약관에 동의하시면</p> <p>회원가입이 완료됩니다.</p>
       </SectionInfo>

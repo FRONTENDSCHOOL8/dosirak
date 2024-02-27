@@ -2,11 +2,18 @@ import gsap from 'gsap';
 import useRegisterStore from '@/store/useRegisterStore';
 import { useEffect } from 'react';
 
+const { innerWidth } = window;
+
+const getWidth = (index) => {
+  if (innerWidth < 430) return -1 * index * innerWidth;
+  else return -1 * index * 430;
+};
+
 const STEP_TRANSITION = [
-  { x: 0, width: '25%' },
-  { x: -430, width: '50%' },
-  { x: -860, width: '75%' },
-  { x: -1290, width: '100%' },
+  { x: getWidth(0), width: '25%' },
+  { x: getWidth(1), width: '50%' },
+  { x: getWidth(2), width: '75%' },
+  { x: getWidth(3), width: '100%' },
 ];
 
 const ButtonSection = () => {
@@ -47,11 +54,11 @@ const ButtonSection = () => {
       }
     }
 
-    return true;
+    return false;
   };
 
   return (
-    <section className="flex flex-col gap-4 px-9 lg:mt-8">
+    <section className="mobile:w-screen flex w-[430px] flex-col gap-4 px-9 lg:mt-8">
       {step < 3 && (
         <button
           type="button"

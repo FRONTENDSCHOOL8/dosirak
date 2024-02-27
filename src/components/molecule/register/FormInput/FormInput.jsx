@@ -51,7 +51,7 @@ const FormInput = ({
     <div className={`${hasButton && 'relative'} flex flex-col gap-2`}>
       <label
         htmlFor={category}
-        className="noto px-1 text-label text-primary-color"
+        className="noto select-none px-1 text-label text-primary-color"
       >
         {children}
       </label>

@@ -7,7 +7,7 @@ const PhoneSection = () => {
     useRegisterStore((state) => state);
 
   return (
-    <section className="step-2 mt-40 flex w-[430px] flex-col gap-16 px-9">
+    <section className="step-2 mobile:w-screen mt-40 flex w-[430px] flex-col gap-16 px-9">
       <SectionInfo>
         <p>휴대폰 번호를 알려주세요.</p>
       </SectionInfo>

@@ -4,7 +4,7 @@ import FormInput from '../FormInput/FormInput';
 
 const LoginInfoSection = () => {
   return (
-    <section className="step-2 mt-40 flex w-[430px] flex-col gap-8 px-9">
+    <section className="step-2 mobile:w-screen mt-40 flex w-[430px] flex-col gap-8 px-9">
       <SectionInfo>
         <p>사용할 아이디와</p> <p>비밀번호를 알려주세요.</p>
       </SectionInfo>

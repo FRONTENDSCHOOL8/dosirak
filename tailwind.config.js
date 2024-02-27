@@ -5,6 +5,10 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      mobile: {'max':'430px'},
+      tablet: {'max':'1024px'},
+    },
     extend: {
       colors: {
         "primary-color": "var(--primary)",
