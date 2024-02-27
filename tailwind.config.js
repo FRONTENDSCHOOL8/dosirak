@@ -11,11 +11,16 @@ export default {
         "secondary-color": "var(--secondary)",
         "tertiary-color": "var(--tertiary)",
         "content-color": "var(--content)",
+        "semiblack": "var(--semiblack)",
         "gray50": "var(--gray-50)",
         "gray100": "var(--gray-100)",
+        "gray200": "var(--gray-200)",
         "gray300": "var(--gray-300)",
+        "gray400": "var(--gray-400)",
         "gray500": "var(--gray-500)",
+        "gray600": "var(--gray-600)",
         "gray700": "var(--gray-700)",
+        "gray800": "var(--gray-800)",
       }
     },
     fontFamily: {
