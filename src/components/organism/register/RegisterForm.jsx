@@ -3,13 +3,13 @@ import NameSection from '@/components/molecule/register/Sections/NameSection';
 import PhoneSection from '@/components/molecule/register/Sections/PhoneSection';
 import TermSection from '@/components/molecule/register/Sections/TermSection';
 
-const RegisterForm = ({ register }) => {
+const RegisterForm = () => {
   return (
     <form className="register-form flex w-[1720px]">
-      <NameSection register={register} />
-      <PhoneSection register={register} />
-      <LoginInfoSection register={register} />
-      <TermSection register={register} />
+      <NameSection />
+      <PhoneSection />
+      <LoginInfoSection />
+      <TermSection />
     </form>
   );
 };

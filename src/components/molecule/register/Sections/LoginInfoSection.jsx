@@ -1,4 +1,3 @@
-import { ReactComponent as Eye } from '@/assets/register/eye.svg';
 import SectionInfo from './SectionInfo';
 import FormInput from '../FormInput/FormInput';
 

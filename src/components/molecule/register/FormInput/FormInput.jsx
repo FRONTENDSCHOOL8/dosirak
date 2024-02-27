@@ -1,20 +1,21 @@
 import { ReactComponent as Eye } from '@/assets/register/eye.svg';
+import WarningMessage from '@/components/atom/common/WarningMessage';
 import { debounce } from '@/util';
 
-const displayButton = (buttonType) => {
+const displayButton = (buttonType, validation, buttonEvent) => {
   switch (buttonType) {
     case 'duplicate':
       return (
         <button
           type="button"
-          className="absolute bottom-2 right-0 w-[83px] rounded-2xl bg-primary-color px-2 py-1 text-paragraph-lg text-white"
+          className="absolute bottom-1 right-0 w-[85px] rounded-2xl bg-primary-color px-2 py-1 text-paragraph-lg text-white disabled:bg-gray500"
         >
           중복 확인
         </button>
       );
     case 'password':
       return (
-        <button type="button" className="absolute bottom-2 right-0">
+        <button type="button" className="absolute bottom-1 right-0">
           <Eye />
         </button>
       );
@@ -22,7 +23,9 @@ const displayButton = (buttonType) => {
       return (
         <button
           type="button"
-          className="absolute bottom-2 right-0 w-[83px] rounded-2xl bg-primary-color px-2 py-1 text-paragraph-lg text-white"
+          className="absolute bottom-0.5 right-0 w-[85px] rounded-2xl border-[1px] border-primary-color bg-primary-color px-2 py-0.5 text-paragraph-lg text-white disabled:bg-white disabled:text-primary-color"
+          disabled={validation}
+          onClick={buttonEvent}
         >
           인증 요청
         </button>
@@ -31,7 +34,8 @@ const displayButton = (buttonType) => {
       return (
         <button
           type="button"
-          className="absolute bottom-2 right-0 w-[83px] rounded-2xl border-[1px] border-primary-color bg-white px-2 py-1 text-paragraph-lg text-primary-color"
+          className="absolute bottom-0.5 right-0 w-[85px] rounded-2xl border-[1px] border-primary-color bg-primary-color px-2 py-0.5 text-paragraph-lg text-white disabled:bg-white disabled:text-primary-color"
+          onClick={buttonEvent}
         >
           확인
         </button>
@@ -46,9 +50,15 @@ const FormInput = ({
   buttonType,
   value,
   updater,
+  buttonEvent,
+  validation,
+  warningText,
+  ...restProps
 }) => {
+  const validCheck = Boolean(validation && value?.length);
+
   return (
-    <div className={`${hasButton && 'relative'} flex flex-col gap-2`}>
+    <div className="relative flex flex-col gap-2">
       <label
         htmlFor={category}
         className="noto select-none px-1 text-label text-primary-color"
@@ -63,11 +73,13 @@ const FormInput = ({
         }
         id={category}
         defaultValue={value}
-        onChange={debounce(updater)}
+        onChange={debounce(updater, 100)}
         placeholder={`${children} 입력`}
-        className="h-8 w-full border-b-2 border-gray300 px-1 text-paragraph-base outline-none focus:border-primary-color"
+        className="noto h-8 w-full border-b-2 border-gray300 px-1 text-paragraph-lg outline-none focus:border-primary-color disabled:select-none disabled:bg-gray-300"
+        {...restProps}
       />
-      {hasButton && displayButton(buttonType)}
+      {hasButton && displayButton(buttonType, validation, buttonEvent)}
+      {validCheck && <WarningMessage>{warningText}</WarningMessage>}
     </div>
   );
 };

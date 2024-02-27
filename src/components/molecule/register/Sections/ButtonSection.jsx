@@ -6,7 +6,8 @@ const { innerWidth } = window;
 
 const getWidth = (index) => {
   if (innerWidth < 430) return -1 * index * innerWidth;
-  else return -1 * index * 430;
+
+  return -1 * index * 430;
 };
 
 const STEP_TRANSITION = [
@@ -22,8 +23,7 @@ const ButtonSection = () => {
     nextStep,
     prevStep,
     nameValue,
-    phoneValue,
-    authValue,
+    isCheckAuth,
     idValue,
     passwordValue,
     confirmValue,
@@ -49,12 +49,12 @@ const ButtonSection = () => {
         return true;
       }
       case 1: {
-        if (phoneValue && authValue) return false;
+        if (isCheckAuth) return false;
         return true;
       }
     }
 
-    return false;
+    return true;
   };
 
   return (
@@ -62,7 +62,7 @@ const ButtonSection = () => {
       {step < 3 && (
         <button
           type="button"
-          className="noto h-14 w-full rounded-md border-2 border-primary-color text-label text-primary-color disabled:border-gray500 disabled:bg-gray500"
+          className="noto h-14 w-full rounded-md border-[1px] border-primary-color bg-primary-color text-label text-white disabled:bg-white disabled:text-primary-color"
           disabled={stepDisable()}
           onClick={nextStep}
         >
@@ -72,7 +72,7 @@ const ButtonSection = () => {
       {step == 3 && (
         <button
           type="submit"
-          className="noto h-14 w-full rounded-md border-2 border-primary-color text-label text-primary-color disabled:border-gray500 disabled:bg-gray500"
+          className="noto h-14 w-full rounded-md border-[1px] border-primary-color bg-primary-color text-label text-white disabled:bg-white disabled:text-primary-color"
         >
           가입하기
         </button>
@@ -80,7 +80,7 @@ const ButtonSection = () => {
       {step > 0 && (
         <button
           type="button"
-          className="noto h-14 w-full rounded-md border-2 border-primary-color text-label text-primary-color"
+          className="noto h-14 w-full rounded-md border-[1px] border-primary-color bg-primary-color text-label text-white"
           onClick={prevStep}
         >
           이전으로
