@@ -9,8 +9,11 @@ const initialState = {
   authTypeValue: '',
   isCheckAuth: 0,
   idValue: '',
+  isIdDuplicate: null,
   passwordValue: '',
+  isPwVisible: false,
   confirmValue: '',
+  isCfVisible: false,
   checkValue: {},
   isPhoneAuthProcess: false,
 };
@@ -31,6 +34,11 @@ const createState = (set) => ({
   setIdValue: (e) => set(() => ({idValue: e.target.value})),
   setPasswordValue: (e) => set(() => ({passwordValue: e.target.value})),
   setConfirmValue: (e) => set(() => ({confirmValue: e.target.value})),
+  setCheckResult: (value) => set(() => ({isIdDuplicate: value})),
+  changeVisible: (target) => set((state) => {
+    if(target === 'password') { return { isPwVisible: !state.isPwVisible } }
+    if(target === 'confirm') { return { isCfVisible: !state.isCfVisible } }
+  }),
 
   clearRegisterState: () => {
     set(initialState)

@@ -8,7 +8,7 @@ const Notice = ({ type, children }) => {
 
   return (
     <span
-      className={`noto absolute -bottom-5 text-paragraph-base font-bold ${colorStyle[type]}`}
+      className={`noto absolute -bottom-5 left-1 text-paragraph-base font-bold ${colorStyle[type]}`}
     >
       {children}
     </span>

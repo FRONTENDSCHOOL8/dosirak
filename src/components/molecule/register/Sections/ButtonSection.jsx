@@ -25,6 +25,7 @@ const ButtonSection = () => {
     nameValue,
     isCheckAuth,
     idValue,
+    isIdDuplicate,
     passwordValue,
     confirmValue,
     checkValue,
@@ -51,6 +52,14 @@ const ButtonSection = () => {
       case 1: {
         if (isCheckAuth === 1) return false;
         return true;
+      }
+      case 2: {
+        if (
+          !isIdDuplicate &&
+          passwordValue === confirmValue &&
+          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(passwordValue)
+        )
+          return false;
       }
     }
 

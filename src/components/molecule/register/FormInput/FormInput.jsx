@@ -14,7 +14,11 @@ const displayButton = (buttonType, validation, buttonEvent) => {
       );
     case 'password':
       return (
-        <button type="button" className="absolute bottom-1 right-0">
+        <button
+          type="button"
+          className="absolute bottom-1 right-0"
+          onClick={buttonEvent}
+        >
           <Eye />
         </button>
       );
@@ -47,6 +51,8 @@ const FormInput = ({
   errorText,
   complete,
   completeText,
+  isPwVisible,
+  isCfVisible,
   ...restProps
 }) => {
   const validCheck = Boolean(validation && value?.length);
@@ -61,7 +67,8 @@ const FormInput = ({
       </label>
       <input
         type={
-          category === 'password' || category === 'confirm'
+          (category === 'password' && !isPwVisible) ||
+          (category === 'confirm' && !isCfVisible)
             ? 'password'
             : 'text'
         }
