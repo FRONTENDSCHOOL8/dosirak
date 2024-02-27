@@ -1,12 +1,12 @@
 import CurrentStep from '@/components/atom/register/CurrentStep';
+import SectionInfo from './SectionInfo';
 
 const TermSection = () => {
   return (
     <section className="step-2 mt-40 flex w-[430px] flex-col gap-8 px-9">
-      <h2 className="mb-8 font-Gong-Gothic-l text-heading-lg">
-        <CurrentStep />
+      <SectionInfo>
         <p>약관에 동의하시면</p> <p>회원가입이 완료됩니다.</p>
-      </h2>
+      </SectionInfo>
       <div className="flex items-center gap-3 rounded-lg p-5 shadow-[0_0_4px_2px_rgba(204,204,204,0.3)]">
         <input
           type="checkbox"
