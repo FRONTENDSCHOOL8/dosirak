@@ -10,7 +10,12 @@ const NameSection = ({ register }) => {
       <SectionInfo>
         <p>이름을 알려주세요.</p>
       </SectionInfo>
-      <FormInput category="name" value={nameValue} updater={setNameValue}>
+      <FormInput
+        category="name"
+        value={nameValue}
+        updater={setNameValue}
+        autoComplete="off"
+      >
         이름
       </FormInput>
     </section>

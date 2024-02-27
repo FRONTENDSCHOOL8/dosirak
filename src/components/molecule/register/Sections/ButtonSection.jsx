@@ -49,7 +49,7 @@ const ButtonSection = () => {
         return true;
       }
       case 1: {
-        if (isCheckAuth) return false;
+        if (isCheckAuth === 1) return false;
         return true;
       }
     }

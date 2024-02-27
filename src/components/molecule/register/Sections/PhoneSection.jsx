@@ -20,16 +20,26 @@ const PhoneSection = () => {
     if (isPhoneAuthProcess) return;
     changePhoneAuthProcess();
 
-    const randomNumber = Math.floor(Math.random() * 1000000);
+    const randomNumber = String(Math.floor(Math.random() * 1000000)).padStart(
+      6,
+      '0'
+    );
     setAuthValue(randomNumber);
     console.log(`인증번호는 [${randomNumber}] 입니다. 정확히 입력해 주세요.`);
   };
 
   const confirmAuthNumber = () => {
-    if (isCheckAuth) return;
+    if (isCheckAuth === 1) return;
     if (parseInt(authValue) === parseInt(authTypeValue)) {
-      changeCheckAuth();
+      changeCheckAuth(1);
+    } else {
+      changeCheckAuth(2);
     }
+  };
+
+  const updateAuthTypeValue = (e) => {
+    if (isCheckAuth === 2) changeCheckAuth(0);
+    setAuthTypeValue(e);
   };
 
   return (
@@ -49,6 +59,7 @@ const PhoneSection = () => {
         warningText="'-'(하이픈)을 포함해 정확히 입력해 주세요."
         maxLength={13}
         disabled={isPhoneAuthProcess}
+        autoComplete="off"
       >
         휴대폰 번호
       </FormInput>
@@ -58,12 +69,17 @@ const PhoneSection = () => {
         hasButton
         buttonType="auth"
         value={authTypeValue}
-        updater={setAuthTypeValue}
+        updater={updateAuthTypeValue}
         buttonEvent={confirmAuthNumber}
         validation={!/^[0-9]{6}/.test(authTypeValue)}
         warningText={'숫자 6자리를 정확히 입력해 주세요.'}
+        error={isCheckAuth === 2}
+        errorText={'인증번호가 틀렸습니다.'}
+        complete={isCheckAuth === 1}
+        completeText={'인증되었습니다.'}
         maxLength={6}
-        disabled={isCheckAuth}
+        disabled={isCheckAuth === 1}
+        autoComplete="off"
       >
         인증 번호
       </FormInput>

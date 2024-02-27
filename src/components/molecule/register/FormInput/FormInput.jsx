@@ -1,17 +1,16 @@
 import { ReactComponent as Eye } from '@/assets/register/eye.svg';
-import WarningMessage from '@/components/atom/common/WarningMessage';
+import Notice from '@/components/atom/common/Notice';
+import CheckButton from '@/components/atom/register/CheckButton';
 import { debounce } from '@/util';
+import { memo } from 'react';
 
 const displayButton = (buttonType, validation, buttonEvent) => {
   switch (buttonType) {
     case 'duplicate':
       return (
-        <button
-          type="button"
-          className="absolute bottom-1 right-0 w-[85px] rounded-2xl bg-primary-color px-2 py-1 text-paragraph-lg text-white disabled:bg-gray500"
-        >
+        <CheckButton disabled={validation} onClick={buttonEvent}>
           중복 확인
-        </button>
+        </CheckButton>
       );
     case 'password':
       return (
@@ -21,24 +20,15 @@ const displayButton = (buttonType, validation, buttonEvent) => {
       );
     case 'requestAuth':
       return (
-        <button
-          type="button"
-          className="absolute bottom-0.5 right-0 w-[85px] rounded-2xl border-[1px] border-primary-color bg-primary-color px-2 py-0.5 text-paragraph-lg text-white disabled:bg-white disabled:text-primary-color"
-          disabled={validation}
-          onClick={buttonEvent}
-        >
+        <CheckButton disabled={validation} onClick={buttonEvent}>
           인증 요청
-        </button>
+        </CheckButton>
       );
     case 'auth':
       return (
-        <button
-          type="button"
-          className="absolute bottom-0.5 right-0 w-[85px] rounded-2xl border-[1px] border-primary-color bg-primary-color px-2 py-0.5 text-paragraph-lg text-white disabled:bg-white disabled:text-primary-color"
-          onClick={buttonEvent}
-        >
+        <CheckButton disabled={validation} onClick={buttonEvent}>
           확인
-        </button>
+        </CheckButton>
       );
   }
 };
@@ -53,6 +43,10 @@ const FormInput = ({
   buttonEvent,
   validation,
   warningText,
+  error,
+  errorText,
+  complete,
+  completeText,
   ...restProps
 }) => {
   const validCheck = Boolean(validation && value?.length);
@@ -79,7 +73,9 @@ const FormInput = ({
         {...restProps}
       />
       {hasButton && displayButton(buttonType, validation, buttonEvent)}
-      {validCheck && <WarningMessage>{warningText}</WarningMessage>}
+      {validCheck && <Notice type="error">{warningText}</Notice>}
+      {error && <Notice type="error">{errorText}</Notice>}
+      {complete && <Notice type="complete">{completeText}</Notice>}
     </div>
   );
 };
@@ -104,4 +100,4 @@ const FormInput = ({
 </div> */
 }
 
-export default FormInput;
+export default memo(FormInput);

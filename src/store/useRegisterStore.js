@@ -7,7 +7,7 @@ const initialState = {
   phoneValue: '',
   authValue: null,
   authTypeValue: '',
-  isCheckAuth: false,
+  isCheckAuth: 0,
   idValue: '',
   passwordValue: '',
   confirmValue: '',
@@ -26,7 +26,7 @@ const createState = (set) => ({
   setAuthValue: (value) => set(() => ({authValue: value})),
   setAuthTypeValue: (e) => set(() => ({authTypeValue: e.target.value})),
   changePhoneAuthProcess: () => set((state) => ({isPhoneAuthProcess: !state.isPhoneAuthProcess})),
-  changeCheckAuth: () => set((state) => ({isCheckAuth: !state.isCheckAuth})),
+  changeCheckAuth: (value) => set(() => ({isCheckAuth: value})),
 
   setIdValue: (e) => set(() => ({idValue: e.target.value})),
   setPasswordValue: (e) => set(() => ({passwordValue: e.target.value})),
