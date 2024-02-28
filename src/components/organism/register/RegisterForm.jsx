@@ -15,6 +15,17 @@ const fetchRegister = async (data) => {
   return result;
 };
 
+const fetchLogin = async (data) => {
+  pb.authStore.clear();
+  localStorage.removeItem('token');
+  sessionStorage.removeItem('token');
+  const result = await pb
+    .collection('users')
+    .authWithPassword(data.username, data.password);
+
+  return result;
+};
+
 const RegisterForm = () => {
   const { clearRegisterState } = useRegisterStore((state) => state);
   const { setIsPending } = useCommonStore((state) => state);
@@ -32,12 +43,16 @@ const RegisterForm = () => {
     }
 
     setIsPending(true);
-    fetchRegister(registerData).then(() => {
-      alert('회원가입이 완료되었습니다!\n로그인하고 한 끼 드셔보세요!');
-      navigate('/login');
-      clearRegisterState();
-      setTimeout(() => setIsPending(false), 1000);
-    });
+    fetchRegister(registerData)
+      .then(setTimeout(() => fetchLogin(registerData), 1000))
+      .then((data) => {
+        sessionStorage.setItem('token', data.token);
+        setTimeout(() => {
+          navigate('/');
+          clearRegisterState();
+          setTimeout(() => setIsPending(false), 1000);
+        }, 2000);
+      });
   };
 
   return (

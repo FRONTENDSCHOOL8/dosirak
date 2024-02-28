@@ -1,16 +1,22 @@
-const FormCheckBox = ({
-  name,
-  checkImgSrc,
-  unCheckImgSrc,
-  styleClass,
-  labelStyle,
-  children,
-  updater,
-  checked,
-}) => {
+import { forwardRef } from 'react';
+
+const FormCheckBox = (
+  {
+    name,
+    checkImgSrc,
+    unCheckImgSrc,
+    styleClass,
+    labelStyle,
+    children,
+    updater,
+    checked,
+  },
+  ref
+) => {
   return (
     <>
       <input
+        ref={ref}
         type="checkbox"
         name={name}
         id={name}
@@ -25,4 +31,4 @@ const FormCheckBox = ({
   );
 };
 
-export default FormCheckBox;
+export default forwardRef(FormCheckBox);
