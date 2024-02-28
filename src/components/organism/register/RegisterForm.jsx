@@ -47,11 +47,9 @@ const RegisterForm = () => {
       .then(setTimeout(() => fetchLogin(registerData), 1000))
       .then((data) => {
         sessionStorage.setItem('token', data.token);
-        setTimeout(() => {
-          navigate('/');
-          clearRegisterState();
-          setTimeout(() => setIsPending(false), 1000);
-        }, 2000);
+        navigate('/');
+        clearRegisterState();
+        setTimeout(() => setIsPending(false), 1000);
       });
   };
 
