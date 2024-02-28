@@ -7,6 +7,7 @@ const initialState = {
   phoneValue: '',
   authValue: null,
   authTypeValue: '',
+  isPhoneAuthProcess: false,
   isCheckAuth: 0,
   idValue: '',
   isIdDuplicate: null,
@@ -14,8 +15,7 @@ const initialState = {
   isPwVisible: false,
   confirmValue: '',
   isCfVisible: false,
-  checkValue: {},
-  isPhoneAuthProcess: false,
+  checkValue: [],
 };
 
 const createState = (set) => ({
@@ -39,6 +39,8 @@ const createState = (set) => ({
     if(target === 'password') { return { isPwVisible: !state.isPwVisible } }
     if(target === 'confirm') { return { isCfVisible: !state.isCfVisible } }
   }),
+
+  setCheckValue: (checkArray) => set(() => ({ checkValue: checkArray })),
 
   clearRegisterState: () => {
     set(initialState)
