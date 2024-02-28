@@ -2,18 +2,21 @@ import useRegisterStore from '@/store/useRegisterStore';
 import FormCheckBox from '../Form/FormCheckBox';
 import SectionInfo from './SectionInfo';
 
-const TERM_LIST = [
+export const TERM_LIST = [
   {
     name: 'service',
     children: '서비스 이용 약관 (필수)',
+    required: true,
   },
   {
     name: 'personal-info',
     children: '개인정보 처리방침 (필수)',
+    required: true,
   },
   {
     name: 'marketing',
-    children: '마케팅 정보 수신 동의 (필수)',
+    children: '마케팅 정보 수신 동의 (선택)',
+    required: false,
   },
 ];
 

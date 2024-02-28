@@ -1,5 +1,4 @@
-
-import { create } from "zustand";
+import { create } from 'zustand';
 
 const initialState = {
   step: 0,
@@ -16,36 +15,50 @@ const initialState = {
   confirmValue: '',
   isCfVisible: false,
   checkValue: [],
+  isPending: false,
 };
 
 const createState = (set) => ({
   ...initialState,
-  nextStep: () => set((state) => ({step: state.step + 1})),
-  prevStep: () => set((state) => ({step: state.step - 1})),
+  nextStep: () => set((state) => ({ step: state.step + 1 })),
+  prevStep: () => set((state) => ({ step: state.step - 1 })),
 
-  setNameValue: (e) => set(() => ({nameValue: e.target.value})),
+  // setNameValue: (e) => set(() => ({ nameValue: e.target.value })),
+  setNameValue: (e) =>
+    set(() => {
+      // console.log('hi');
+      return { nameValue: e.target.value };
+    }),
 
-  setPhoneValue: (e) => set(() => ({phoneValue: e.target.value})),
-  setAuthValue: (value) => set(() => ({authValue: value})),
-  setAuthTypeValue: (e) => set(() => ({authTypeValue: e.target.value})),
-  changePhoneAuthProcess: () => set((state) => ({isPhoneAuthProcess: !state.isPhoneAuthProcess})),
-  changeCheckAuth: (value) => set(() => ({isCheckAuth: value})),
+  setPhoneValue: (e) => set(() => ({ phoneValue: e.target.value })),
+  setAuthValue: (value) => set(() => ({ authValue: value })),
+  setAuthTypeValue: (e) => set(() => ({ authTypeValue: e.target.value })),
+  changePhoneAuthProcess: () =>
+    set((state) => ({ isPhoneAuthProcess: !state.isPhoneAuthProcess })),
+  changeCheckAuth: (value) => set(() => ({ isCheckAuth: value })),
 
-  setIdValue: (e) => set(() => ({idValue: e.target.value})),
-  setPasswordValue: (e) => set(() => ({passwordValue: e.target.value})),
-  setConfirmValue: (e) => set(() => ({confirmValue: e.target.value})),
-  setCheckResult: (value) => set(() => ({isIdDuplicate: value})),
-  changeVisible: (target) => set((state) => {
-    if(target === 'password') { return { isPwVisible: !state.isPwVisible } }
-    if(target === 'confirm') { return { isCfVisible: !state.isCfVisible } }
-  }),
+  setIdValue: (e) => set(() => ({ idValue: e.target.value })),
+  setPasswordValue: (e) => set(() => ({ passwordValue: e.target.value })),
+  setConfirmValue: (e) => set(() => ({ confirmValue: e.target.value })),
+  setCheckResult: (value) => set(() => ({ isIdDuplicate: value })),
+  changeVisible: (target) =>
+    set((state) => {
+      if (target === 'password') {
+        return { isPwVisible: !state.isPwVisible };
+      }
+      if (target === 'confirm') {
+        return { isCfVisible: !state.isCfVisible };
+      }
+    }),
 
   setCheckValue: (checkArray) => set(() => ({ checkValue: checkArray })),
 
+  setIsPending: (value) => set(() => ({ isPending: value })),
+
   clearRegisterState: () => {
-    set(initialState)
-  }
-})
+    set(initialState);
+  },
+});
 
 const useRegisterStore = create(createState);
 

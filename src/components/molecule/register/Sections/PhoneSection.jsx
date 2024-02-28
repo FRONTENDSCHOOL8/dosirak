@@ -59,7 +59,7 @@ const PhoneSection = () => {
         validation={!/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(phoneValue)}
         warningText="'-'(하이픈)을 포함해 정확히 입력해 주세요."
         maxLength={13}
-        disabled={isPhoneAuthProcess}
+        readOnly={isPhoneAuthProcess}
         autoComplete="off"
       >
         휴대폰 번호

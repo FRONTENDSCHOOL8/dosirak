@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { ReactComponent as Prev } from '@/assets/header/prev.svg';
-import ButtonSection from '@/components/molecule/register/Sections/ButtonSection';
 import RegisterForm from '@/components/organism/register/RegisterForm';
 import RegisterStatusBar from '@/components/molecule/register/RegisterStatusBar';
 import useRegisterStore from '@/store/useRegisterStore';
+import Spinner from '@/components/atom/common/Spinner';
 
 export const Component = () => {
-  const { clearRegisterState } = useRegisterStore((state) => state);
+  const { clearRegisterState, isPending } = useRegisterStore((state) => state);
 
   return (
     <section className="relative flex h-full flex-col items-stretch gap-4 overflow-hidden">
@@ -24,7 +24,15 @@ export const Component = () => {
         <RegisterStatusBar />
       </section>
       <RegisterForm />
-      <ButtonSection />
+      {isPending && (
+        <Spinner
+          textArray={[
+            '한 끼 만드는 중...',
+            '탕수육 만드는 중...',
+            '도시락 포장 중...',
+          ]}
+        />
+      )}
     </section>
   );
 };
