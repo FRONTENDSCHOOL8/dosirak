@@ -7,9 +7,9 @@ export const Component = () => {
   return (
     <section className="flex h-screen items-center">
       <h2 className="sr-only">로그인</h2>
-      <div className="mx-9 flex w-full flex-col gap-[60px]">
+      <div className="mx-9 flex w-full flex-col gap-[30px]">
         <section>
-          <h2 className="font-Gong-Gothic-l text-login-lg text-4xl">
+          <h2 className="text-4xl font-Gong-Gothic-l text-login-lg">
             <p>오늘의</p>
             <p>
               하루 <span className="font-Gong-Gothic-m">한 끼</span>,
@@ -30,7 +30,7 @@ export const Component = () => {
                 type="email"
                 id="id"
                 placeholder="아이디를 입력해 주세요"
-                className="border-gray300 focus:border-primary-color text-paragraph-base h-11 w-full rounded-[5px] border-2 px-3 outline-none"
+                className="h-11 w-full rounded-[5px] border-2 border-gray300 px-3 text-paragraph-base outline-none focus:border-primary-color"
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -41,10 +41,10 @@ export const Component = () => {
                 type="password"
                 id="password"
                 placeholder="비밀번호를 입력해 주세요"
-                className="border-gray300 focus:border-primary-color text-paragraph-base h-11 w-full rounded-[5px] border-2 px-3 outline-none"
+                className="h-11 w-full rounded-[5px] border-2 border-gray300 px-3 text-paragraph-base outline-none focus:border-primary-color"
               />
             </div>
-            <button className="bg-primary-color text-label noto mt-3 h-12 rounded-[5px] text-white">
+            <button className="noto mt-3 h-12 rounded-[5px] bg-primary-color text-label text-white">
               로그인 하기
             </button>
           </form>
@@ -66,7 +66,7 @@ export const Component = () => {
                 <Insta />
               </button>
             </div>
-            <table className="noto text-paragraph-base mt-6">
+            <table className="noto mt-6 text-paragraph-base">
               <tbody>
                 <tr>
                   <td className="border-r px-4">

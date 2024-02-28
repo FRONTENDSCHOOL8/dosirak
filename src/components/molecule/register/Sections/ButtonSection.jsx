@@ -2,11 +2,19 @@ import gsap from 'gsap';
 import useRegisterStore from '@/store/useRegisterStore';
 import { useEffect } from 'react';
 
+const { innerWidth } = window;
+
+const getWidth = (index) => {
+  if (innerWidth < 430) return -1 * index * innerWidth;
+
+  return -1 * index * 430;
+};
+
 const STEP_TRANSITION = [
-  { x: 0, width: '25%' },
-  { x: -430, width: '50%' },
-  { x: -860, width: '75%' },
-  { x: -1290, width: '100%' },
+  { x: getWidth(0), width: '25%' },
+  { x: getWidth(1), width: '50%' },
+  { x: getWidth(2), width: '75%' },
+  { x: getWidth(3), width: '100%' },
 ];
 
 const ButtonSection = () => {
@@ -15,9 +23,9 @@ const ButtonSection = () => {
     nextStep,
     prevStep,
     nameValue,
-    phoneValue,
-    authValue,
+    isCheckAuth,
     idValue,
+    isIdDuplicate,
     passwordValue,
     confirmValue,
     checkValue,
@@ -42,8 +50,16 @@ const ButtonSection = () => {
         return true;
       }
       case 1: {
-        if (phoneValue && authValue) return false;
+        if (isCheckAuth === 1) return false;
         return true;
+      }
+      case 2: {
+        if (
+          !isIdDuplicate &&
+          passwordValue === confirmValue &&
+          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(passwordValue)
+        )
+          return false;
       }
     }
 
@@ -51,11 +67,11 @@ const ButtonSection = () => {
   };
 
   return (
-    <section className="flex flex-col gap-4 px-9 lg:mt-8">
+    <section className="mobile:w-screen flex w-[430px] flex-col gap-4 px-9 lg:mt-8">
       {step < 3 && (
         <button
           type="button"
-          className="noto h-14 w-full rounded-md border-2 border-primary-color text-label text-primary-color disabled:border-gray500 disabled:bg-gray500"
+          className="noto h-14 w-full rounded-md border-[1px] border-primary-color bg-primary-color text-label text-white disabled:bg-white disabled:text-primary-color"
           disabled={stepDisable()}
           onClick={nextStep}
         >
@@ -65,7 +81,7 @@ const ButtonSection = () => {
       {step == 3 && (
         <button
           type="submit"
-          className="noto h-14 w-full rounded-md border-2 border-primary-color text-label text-primary-color disabled:border-gray500 disabled:bg-gray500"
+          className="noto h-14 w-full rounded-md border-[1px] border-primary-color bg-primary-color text-label text-white disabled:bg-white disabled:text-primary-color"
         >
           가입하기
         </button>
@@ -73,7 +89,7 @@ const ButtonSection = () => {
       {step > 0 && (
         <button
           type="button"
-          className="noto h-14 w-full rounded-md border-2 border-primary-color text-label text-primary-color"
+          className="noto h-14 w-full rounded-md border-[1px] border-primary-color bg-primary-color text-label text-white"
           onClick={prevStep}
         >
           이전으로
