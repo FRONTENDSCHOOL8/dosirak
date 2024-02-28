@@ -54,10 +54,9 @@ const TermSection = () => {
       </SectionInfo>
       <div className="flex items-center gap-3 rounded-lg p-5 shadow-[0_0_4px_2px_rgba(204,204,204,0.3)]">
         <FormCheckBox
-          checkImgSrc={'@/assets/register/circle-check.svg'}
-          unCheckImgSrc={'@/assets/register/circle-uncheck.svg'}
-          name={'allCheck'}
-          labelStyle={'text-[20px] font-bold text-primary-color'}
+          styleClass="checked:bg-circle-check bg-circle-uncheck"
+          name="allCheck"
+          labelStyle="text-[20px] font-bold text-primary-color"
           updater={handleAllCheck}
           checked={allCheckCurrent}
         >
@@ -71,11 +70,11 @@ const TermSection = () => {
             className="relative flex w-full items-center gap-3"
           >
             <FormCheckBox
-              checkImgSrc={'@/assets/register/check.svg'}
-              unCheckImgSrc={'@/assets/register/uncheck.svg'}
+              checkImgSrc="@/assets/register/check.svg"
+              unCheckImgSrc="@/assets/register/uncheck.svg"
               name={item.name}
-              styleClass={'[&:checked+label]:text-primary-color'}
-              labelStyle={'text-paragraph-lg text-gray500'}
+              styleClass="checked:bg-check bg-uncheck [&:checked+label]:text-primary-color"
+              labelStyle="text-paragraph-lg text-gray500"
               updater={handleCheckBox}
               checked={checkValue.includes(item.name)}
             >

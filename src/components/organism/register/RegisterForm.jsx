@@ -7,6 +7,7 @@ import useRegisterStore from '@/store/useRegisterStore';
 import { pb } from '@/util';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useCommonStore from '@/store/useCommonStore';
 
 const fetchRegister = async (data) => {
   const result = await pb.collection('users').create(data);
@@ -15,9 +16,8 @@ const fetchRegister = async (data) => {
 };
 
 const RegisterForm = () => {
-  const { clearRegisterState, setIsPending } = useRegisterStore(
-    (state) => state
-  );
+  const { clearRegisterState } = useRegisterStore((state) => state);
+  const { setIsPending } = useCommonStore((state) => state);
   const navigate = useNavigate();
   const formRef = useRef(null);
 

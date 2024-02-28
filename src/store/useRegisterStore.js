@@ -15,7 +15,6 @@ const initialState = {
   confirmValue: '',
   isCfVisible: false,
   checkValue: [],
-  isPending: false,
 };
 
 const createState = (set) => ({
@@ -23,12 +22,7 @@ const createState = (set) => ({
   nextStep: () => set((state) => ({ step: state.step + 1 })),
   prevStep: () => set((state) => ({ step: state.step - 1 })),
 
-  // setNameValue: (e) => set(() => ({ nameValue: e.target.value })),
-  setNameValue: (e) =>
-    set(() => {
-      // console.log('hi');
-      return { nameValue: e.target.value };
-    }),
+  setNameValue: (e) => set(() => ({ nameValue: e.target.value })),
 
   setPhoneValue: (e) => set(() => ({ phoneValue: e.target.value })),
   setAuthValue: (value) => set(() => ({ authValue: value })),
@@ -52,8 +46,6 @@ const createState = (set) => ({
     }),
 
   setCheckValue: (checkArray) => set(() => ({ checkValue: checkArray })),
-
-  setIsPending: (value) => set(() => ({ isPending: value })),
 
   clearRegisterState: () => {
     set(initialState);

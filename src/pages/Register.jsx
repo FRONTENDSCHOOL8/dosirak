@@ -4,9 +4,11 @@ import RegisterForm from '@/components/organism/register/RegisterForm';
 import RegisterStatusBar from '@/components/molecule/register/RegisterStatusBar';
 import useRegisterStore from '@/store/useRegisterStore';
 import Spinner from '@/components/atom/common/Spinner';
+import useCommonStore from '@/store/useCommonStore';
 
 export const Component = () => {
-  const { clearRegisterState, isPending } = useRegisterStore((state) => state);
+  const { clearRegisterState } = useRegisterStore((state) => state);
+  const { isPending } = useCommonStore((state) => state);
 
   return (
     <section className="relative flex h-full flex-col items-stretch gap-4 overflow-hidden">
