@@ -1,5 +1,5 @@
 import SectionInfo from './SectionInfo';
-import FormInput from './../FormInput/FormInput';
+import FormInput from './../Form/FormInput';
 import useRegisterStore from '@/store/useRegisterStore';
 
 const PhoneSection = () => {
@@ -26,6 +26,7 @@ const PhoneSection = () => {
     );
     setAuthValue(randomNumber);
     console.log(`인증번호는 [${randomNumber}] 입니다. 정확히 입력해 주세요.`);
+    alert(`인증번호는 [${randomNumber}] 입니다. 정확히 입력해 주세요.`);
   };
 
   const confirmAuthNumber = () => {

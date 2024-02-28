@@ -1,4 +1,3 @@
-import CurrentStep from '@/components/atom/register/CurrentStep';
 import SectionInfo from './SectionInfo';
 
 const TermSection = () => {

@@ -87,24 +87,4 @@ const FormInput = ({
   );
 };
 
-{
-  /* <div className="relative flex flex-col gap-2">
-  <label htmlFor="id" className="noto px-1 text-label text-primary-color">
-    아이디
-  </label>
-  <input
-    type="text"
-    id="id"
-    placeholder="아이디 입력"
-    className="h-8 w-full border-b-2 border-gray300 px-1 text-paragraph-base outline-none focus:border-primary-color"
-  />
-  <button
-    type="button"
-    className="absolute bottom-2 right-0 w-[83px] rounded-2xl bg-primary-color px-2 py-1 text-paragraph-lg text-white"
-  >
-    중복 확인
-  </button>
-</div> */
-}
-
 export default memo(FormInput);

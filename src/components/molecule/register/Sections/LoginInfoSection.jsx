@@ -1,5 +1,5 @@
 import SectionInfo from './SectionInfo';
-import FormInput from '../FormInput/FormInput';
+import FormInput from '../Form/FormInput';
 import useRegisterStore from '@/store/useRegisterStore';
 import { pb } from '@/util';
 
@@ -38,6 +38,7 @@ const LoginInfoSection = () => {
         completeText="사용 가능한 아이디입니다."
         maxLength={30}
         disabled={isIdDuplicate === false}
+        autoComplete="off"
       >
         아이디
       </FormInput>
@@ -73,6 +74,8 @@ const LoginInfoSection = () => {
         warningText="숫자와 영문자를 포함해 8글자 이상으로 입력해 주세요."
         buttonEvent={() => changeVisible('confirm')}
         isCfVisible={isCfVisible}
+        error={passwordValue !== confirmValue && confirmValue.length > 0}
+        errorText="같은 비밀번호를 입력해주세요."
         complete={
           passwordValue === confirmValue &&
           /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(passwordValue)

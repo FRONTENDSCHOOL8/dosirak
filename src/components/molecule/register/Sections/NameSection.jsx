@@ -1,5 +1,5 @@
 import useRegisterStore from '@/store/useRegisterStore';
-import FormInput from '../FormInput/FormInput';
+import FormInput from '../Form/FormInput';
 import SectionInfo from './SectionInfo';
 
 const NameSection = ({ register }) => {
