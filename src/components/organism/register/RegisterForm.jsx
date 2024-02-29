@@ -28,7 +28,7 @@ const fetchLogin = async (data) => {
 
 const RegisterForm = () => {
   const { clearRegisterState } = useRegisterStore((state) => state);
-  const { setIsPending } = useCommonStore((state) => state);
+  const { setIsPending, setLoginUser } = useCommonStore((state) => state);
   const navigate = useNavigate();
   const formRef = useRef(null);
 
@@ -44,12 +44,15 @@ const RegisterForm = () => {
 
     setIsPending(true);
     fetchRegister(registerData)
-      .then(setTimeout(() => fetchLogin(registerData), 1000))
+      .then(() => fetchLogin(registerData))
       .then((data) => {
         sessionStorage.setItem('token', data.token);
-        navigate('/');
-        clearRegisterState();
-        setTimeout(() => setIsPending(false), 1000);
+        setTimeout(() => {
+          setLoginUser(registerData.name);
+          navigate('/');
+          clearRegisterState();
+          setTimeout(() => setIsPending(false), 500);
+        }, 1000);
       });
   };
 

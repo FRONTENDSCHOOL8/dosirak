@@ -11,7 +11,7 @@ const Spinner = ({ textArray }) => {
       if (index === textArray.length - 1) {
         addIndex(0);
       }
-    }, 1000);
+    }, 600);
     return () => clearInterval(interval);
   }, [index]);
 
