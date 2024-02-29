@@ -17,7 +17,7 @@ export const Component = () => {
   console.log(cachedFeedsData);
 
   return (
-    <section>
+    <section className="h-full overflow-y-scroll">
       <h2 className="sr-only">피드</h2>
       <div className="noto h-10 justify-center bg-primary-color text-center">
         헤더

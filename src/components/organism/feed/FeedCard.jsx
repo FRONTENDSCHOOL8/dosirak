@@ -1,6 +1,10 @@
 import SwiperCard from '@/components/atom/common/SwiperCard';
 import FeedWriter from '@/components/molecule/feed/FeedWriter';
 
+import FeedInteraction from '@/components/molecule/feed/FeedInteraction';
+import FeedSubject from '@/components/atom/feed/FeedSubject';
+import FeedText from '@/components/molecule/feed/FeedText';
+
 const FeedCard = ({ feed }) => {
   console.log(feed);
   return (
@@ -11,6 +15,9 @@ const FeedCard = ({ feed }) => {
         imgStyle="rounded-2xl"
         imageArray={feed.images}
       />
+      <FeedInteraction feed={feed} />
+      <FeedSubject feed={feed} />
+      <FeedText feed={feed} />
     </li>
   );
 };

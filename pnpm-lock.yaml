@@ -32,6 +32,9 @@ dependencies:
   swiper:
     specifier: ^11.0.6
     version: 11.0.6
+  tailwind-scrollbar-hide:
+    specifier: ^1.1.7
+    version: 1.1.7
   zustand:
     specifier: ^4.5.1
     version: 4.5.1(@types/react@18.2.57)(react@18.2.0)
@@ -8977,6 +8980,10 @@ packages:
   /synchronous-promise@2.0.17:
     resolution: {integrity: sha512-AsS729u2RHUfEra9xJrE39peJcc2stq2+poBXX8bcM08Y6g9j/i/PUzwNQqkaJde7Ntg1TO7bSREbR5sdosQ+g==}
     dev: true
+
+  /tailwind-scrollbar-hide@1.1.7:
+    resolution: {integrity: sha512-X324n9OtpTmOMqEgDUEA/RgLrNfBF/jwJdctaPZDzB3mppxJk7TLIDmOreEDm1Bq4R9LSPu4Epf8VSdovNU+iA==}
+    dev: false
 
   /tailwindcss@3.4.1:
     resolution: {integrity: sha512-qAYmXRfk3ENzuPBakNK0SRrUDipP8NQnEY6772uDhflcQz5EhRdD7JNZxyrFHVQNCwULPBn6FNPp9brpO7ctcA==}

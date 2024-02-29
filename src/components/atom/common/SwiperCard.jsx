@@ -38,6 +38,7 @@ const SwiperCard = ({ imageArray, slideStyle, imgStyle }) => {
 
   return (
     <section>
+      <h2 className="sr-only">이미지 미리보기</h2>
       <swiper-container
         ref={swiperRef}
         init="false"
