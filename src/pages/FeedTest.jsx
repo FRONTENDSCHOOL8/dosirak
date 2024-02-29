@@ -1,4 +1,5 @@
-import { getDate, getPbImage, pb } from '@/util';
+import FeedCard from '@/components/organism/feed/FeedCard';
+import { getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
 import { useQuery } from '@tanstack/react-query';
 import { useLoaderData } from 'react-router-dom';
@@ -24,24 +25,7 @@ export const Component = () => {
       <section className="mt-20">
         <ul className="px-9">
           {cachedFeedsData.items.map((feed) => (
-            <li key={feed.id} className="noto">
-              <div className="flex items-center justify-between">
-                <figure className="flex items-center gap-2.5">
-                  <img
-                    className="size-[45px] rounded-full"
-                    src={feed.expand.writer.thumbnail}
-                    alt=""
-                  />
-                  <figcaption>
-                    <p className="text-label">{feed.expand.writer.nickname}</p>
-                    <p className="text-paragraph-base text-gray-600">
-                      {getDate(feed.created)}
-                    </p>
-                  </figcaption>
-                </figure>
-                <div>팔로우버튼</div>
-              </div>
-            </li>
+            <FeedCard feed={feed} key={feed.id} />
           ))}
         </ul>
       </section>
