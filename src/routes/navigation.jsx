@@ -1,5 +1,3 @@
-import Test from '@/components/organism/mypage/Test';
-
 const navigationItems = [
   {
     id: 'main',
