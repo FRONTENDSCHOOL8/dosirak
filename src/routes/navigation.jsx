@@ -1,3 +1,5 @@
+import { queryClient } from '@/App';
+
 const navigationItems = [
   {
     id: 'main',
@@ -28,7 +30,15 @@ const navigationItems = [
     id: 'feed',
     path: '/feed',
     text: '피드 화면',
-    lazy: () => import('@/pages/FeedTest'),
+    // lazy: () => import('@/pages/FeedTest'),
+    async lazy() {
+      const { Component, loader } = await import('@/pages/FeedTest');
+
+      return {
+        loader: loader(queryClient),
+        Component,
+      };
+    },
   },
   {
     id: 'mypage',
