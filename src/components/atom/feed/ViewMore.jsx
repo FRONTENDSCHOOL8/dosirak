@@ -1,4 +1,9 @@
-const ViewMore = ({ onClick, isExpand }) => {
+import useFeedStore from '@/store/useFeedStore';
+
+const ViewMore = ({ feedId }) => {
+  const { expandFeed, setExpandFeed } = useFeedStore((state) => state);
+  const isExpand = expandFeed === feedId;
+
   return (
     <div
       style={{
@@ -9,7 +14,7 @@ const ViewMore = ({ onClick, isExpand }) => {
     >
       {!isExpand && <span>... </span>}
       <button
-        onClick={onClick}
+        onClick={() => setExpandFeed(feedId)}
         className="bg-white text-paragraph-lg text-gray-600 underline"
       >
         {!isExpand ? '더보기' : '접기'}

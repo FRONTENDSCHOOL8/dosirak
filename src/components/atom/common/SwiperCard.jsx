@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { register } from 'swiper/element/bundle';
 
-const SwiperCard = ({ imageArray, slideStyle, imgStyle }) => {
+const SwiperCard = ({ imageArray, slideStyle, imgStyle, onClick }) => {
   const swiperRef = useRef(null);
 
   useEffect(() => {
@@ -49,7 +49,10 @@ const SwiperCard = ({ imageArray, slideStyle, imgStyle }) => {
       >
         {imageArray.map((imageSrc, index) => (
           <swiper-slide key={index} loading="lazy">
-            <figure className={`${slideStyle} flex w-full justify-center`}>
+            <figure
+              onClick={onClick}
+              className={`${slideStyle} flex w-full justify-center`}
+            >
               <img className={imgStyle} src={imageSrc} alt="" />
               <figcaption className="sr-only">{`${index + 1}번 째 슬라이드`}</figcaption>
             </figure>

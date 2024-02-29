@@ -4,14 +4,18 @@ import FeedWriter from '@/components/molecule/feed/FeedWriter';
 import FeedInteraction from '@/components/molecule/feed/FeedInteraction';
 import FeedSubject from '@/components/atom/feed/FeedSubject';
 import FeedText from '@/components/molecule/feed/FeedText';
+import useFeedStore from '@/store/useFeedStore';
 
 const FeedCard = ({ feed }) => {
-  console.log(feed);
+  const { setExpandFeed } = useFeedStore((state) => state);
+  const handleFeedExpand = () => setExpandFeed(feed.id);
+
   return (
-    <li className="noto flex flex-col gap-3">
+    <li className="noto pointer flex flex-col gap-3">
       <FeedWriter feed={feed} />
       <SwiperCard
-        slideStyle="h-[200px]"
+        onClick={handleFeedExpand}
+        slideStyle="h-[200px] select-none cursor-pointer"
         imgStyle="rounded-2xl"
         imageArray={feed.images}
       />

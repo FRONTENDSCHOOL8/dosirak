@@ -22,8 +22,8 @@ export const Component = () => {
       <div className="noto h-10 justify-center bg-primary-color text-center">
         헤더
       </div>
-      <section className="mt-20">
-        <ul className="px-9">
+      <section className="mb-10 mt-20">
+        <ul className="flex flex-col gap-6 px-9">
           {cachedFeedsData.items.map((feed) => (
             <FeedCard feed={feed} key={feed.id} />
           ))}
