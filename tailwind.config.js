@@ -8,20 +8,21 @@ export default {
     },
     extend: {
       colors: {
-        'primary-color': 'var(--primary)',
-        'secondary-color': 'var(--secondary)',
-        'tertiary-color': 'var(--tertiary)',
-        'content-color': 'var(--content)',
-        semiblack: 'var(--semiblack)',
-        gray50: 'var(--gray-50)',
-        gray100: 'var(--gray-100)',
-        gray200: 'var(--gray-200)',
-        gray300: 'var(--gray-300)',
-        gray400: 'var(--gray-400)',
-        gray500: 'var(--gray-500)',
-        gray600: 'var(--gray-600)',
-        gray700: 'var(--gray-700)',
-        gray800: 'var(--gray-800)',
+        "primary-color": "var(--primary)",
+        "secondary-color": "var(--secondary)",
+        "tertiary-color": "var(--tertiary)",
+        "content-color": "var(--content)",
+        "content-transparent": "rgba(51, 51, 51, 0.50)",
+        "semiblack": "var(--semiblack)",
+        "gray50": "var(--gray-50)",
+        "gray100": "var(--gray-100)",
+        "gray200": "var(--gray-200)",
+        "gray300": "var(--gray-300)",
+        "gray400": "var(--gray-400)",
+        "gray500": "var(--gray-500)",
+        "gray600": "var(--gray-600)",
+        "gray700": "var(--gray-700)",
+        "gray800": "var(--gray-800)",
       },
       backgroundImage: (theme) => ({
         'circle-uncheck': "url('@/assets/register/circle-uncheck.svg')",
@@ -68,7 +69,8 @@ export default {
       ],
     },
     boxShadow: {
-      card: '0px 4px 4px 0px rgba(204, 204, 204, 0.25)',
+      'card': '0px 4px 4px 0px rgba(171, 171, 171, 0.25)',
+      'list': '0px 1px 4px 2px rgba(171, 171, 171, 0.25)'
     },
     backgroundImage: {
       'card-group-gradient':
