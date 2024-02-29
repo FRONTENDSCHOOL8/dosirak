@@ -1,8 +1,7 @@
-import postStore from '@/store/postStore';
+import usePostStore from '@/store/usePostStore';
 
 const HeartButton = ({ id, heartColor = 'black', className = '' }) => {
-  // const { heartType, setHeartType } = postStore((state) => state);
-  const { hearts, toggleHeart } = postStore((state) => ({
+  const { hearts, toggleHeart } = usePostStore((state) => ({
     hearts: state.hearts,
     toggleHeart: state.toggleHeart,
   }));
