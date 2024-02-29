@@ -1,3 +1,4 @@
+import MainNavBar from '@/components/molecule/common/MainNavBar';
 import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
@@ -9,6 +10,7 @@ const Layout = () => {
         </section>
         <div className=" mobile:w-screen w-[430px] min-w-[372px] bg-white">
           <Outlet />
+          <MainNavBar />
         </div>
       </div>
     </main>
