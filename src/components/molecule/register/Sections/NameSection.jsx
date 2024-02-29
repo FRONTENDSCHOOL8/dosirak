@@ -2,7 +2,7 @@ import useRegisterStore from '@/store/useRegisterStore';
 import FormInput from '../Form/FormInput';
 import SectionInfo from './SectionInfo';
 
-const NameSection = ({ register }) => {
+const NameSection = () => {
   const { nameValue, setNameValue } = useRegisterStore((state) => state);
 
   return (

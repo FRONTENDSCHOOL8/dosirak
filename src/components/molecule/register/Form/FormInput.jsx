@@ -68,15 +68,16 @@ const FormInput = ({
       <input
         type={
           (category === 'password' && !isPwVisible) ||
-          (category === 'confirm' && !isCfVisible)
+          (category === 'passwordConfirm' && !isCfVisible)
             ? 'password'
             : 'text'
         }
+        name={category}
         id={category}
         defaultValue={value}
         onChange={debounce(updater, 100)}
         placeholder={`${children} 입력`}
-        className="noto h-8 w-full border-b-2 border-gray300 px-1 text-paragraph-lg outline-none focus:border-primary-color disabled:select-none disabled:bg-gray-300"
+        className="noto h-8 w-full border-b-2 border-gray300 px-1 text-paragraph-lg outline-none read-only:select-none read-only:bg-gray-300 focus:border-primary-color disabled:select-none disabled:bg-gray-300"
         {...restProps}
       />
       {hasButton && displayButton(buttonType, validation, buttonEvent)}
@@ -87,4 +88,4 @@ const FormInput = ({
   );
 };
 
-export default memo(FormInput);
+export default FormInput;

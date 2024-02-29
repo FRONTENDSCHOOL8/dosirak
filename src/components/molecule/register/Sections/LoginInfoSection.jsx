@@ -24,7 +24,7 @@ const LoginInfoSection = () => {
         <p>사용할 아이디와</p> <p>비밀번호를 알려주세요.</p>
       </SectionInfo>
       <FormInput
-        category="id"
+        category="username"
         hasButton
         buttonType="duplicate"
         value={idValue}
@@ -37,7 +37,7 @@ const LoginInfoSection = () => {
         complete={isIdDuplicate === false}
         completeText="사용 가능한 아이디입니다."
         maxLength={30}
-        disabled={isIdDuplicate === false}
+        readOnly={isIdDuplicate === false}
         autoComplete="off"
       >
         아이디
@@ -63,15 +63,11 @@ const LoginInfoSection = () => {
         비밀번호
       </FormInput>
       <FormInput
-        category="confirm"
+        category="passwordConfirm"
         hasButton
         buttonType="password"
         value={confirmValue}
         updater={setConfirmValue}
-        validation={
-          !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(passwordValue)
-        }
-        warningText="숫자와 영문자를 포함해 8글자 이상으로 입력해 주세요."
         buttonEvent={() => changeVisible('confirm')}
         isCfVisible={isCfVisible}
         error={passwordValue !== confirmValue && confirmValue.length > 0}

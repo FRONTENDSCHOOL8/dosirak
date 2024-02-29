@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import useRegisterStore from '@/store/useRegisterStore';
-import { useEffect } from 'react';
+import { useEffect, forwardRef } from 'react';
+import { TERM_LIST } from './TermSection';
 
 const { innerWidth } = window;
 
@@ -24,7 +25,6 @@ const ButtonSection = () => {
     prevStep,
     nameValue,
     isCheckAuth,
-    idValue,
     isIdDuplicate,
     passwordValue,
     confirmValue,
@@ -47,11 +47,9 @@ const ButtonSection = () => {
     switch (step) {
       case 0: {
         if (nameValue) return false;
-        return true;
       }
       case 1: {
         if (isCheckAuth === 1) return false;
-        return true;
       }
       case 2: {
         if (
@@ -61,13 +59,24 @@ const ButtonSection = () => {
         )
           return false;
       }
+      case 3: {
+        const requireList = TERM_LIST.filter((v) => v.required).map(
+          (item) => item.name
+        );
+
+        const isRequireChecked = requireList.filter((item) =>
+          checkValue.includes(item)
+        );
+
+        if (isRequireChecked.length === requireList.length) return false;
+      }
     }
 
     return true;
   };
 
   return (
-    <section className="mobile:w-screen flex w-[430px] flex-col gap-4 px-9 lg:mt-8">
+    <section className="mobile:w-screen mt-8 flex w-[430px] flex-col gap-4 px-9">
       {step < 3 && (
         <button
           type="button"
@@ -82,6 +91,7 @@ const ButtonSection = () => {
         <button
           type="submit"
           className="noto h-14 w-full rounded-md border-[1px] border-primary-color bg-primary-color text-label text-white disabled:bg-white disabled:text-primary-color"
+          disabled={stepDisable()}
         >
           가입하기
         </button>
