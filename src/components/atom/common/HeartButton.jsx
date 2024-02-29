@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import usePostStore from '@/store/usePostStore';
 
-const HeartButton = ({ initialType, className }) => {
-  const [type, setType] = useState(initialType);
+const HeartButton = ({ id, heartColor = 'black', className = '' }) => {
+  const { hearts, toggleHeart } = usePostStore((state) => ({
+    hearts: state.hearts,
+    toggleHeart: state.toggleHeart,
+  }));
 
-  const toggleHeart = () => {
-    setType((currentType) => (currentType === 'true' ? initialType : 'true'));
-  };
+  const heartType = hearts[id] || false;
+
+  let svgName;
+  svgName = heartType ? true : `${false}-${heartColor}`;
+
   return (
-    <button type="button" className={className} onClick={toggleHeart}>
-      <img src={`../src/assets/common/heart-${type}.svg`} alt="좋아요" />
+    <button type="button" className={className} onClick={() => toggleHeart(id)}>
+      <img src={`../src/assets/common/heart-${svgName}.svg`} alt="좋아요" />
     </button>
   );
 };
