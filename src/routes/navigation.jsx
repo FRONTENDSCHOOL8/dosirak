@@ -10,15 +10,31 @@ const navigationItems = [
     id: 'login',
     path: '/login',
     text: '로그인 화면',
-    // element: <Login />,
     lazy: () => import('@/pages/Login'),
   },
   {
     id: 'register',
     path: '/register',
     text: '회원가입 화면',
-    // element: <Register />,
     lazy: () => import('@/pages/Register'),
+  },
+  {
+    id: 'group',
+    path: '/group',
+    text: '모임 화면',
+    lazy: () => import('@/pages/GroupTest'),
+  },
+  {
+    id: 'feed',
+    path: '/feed',
+    text: '피드 화면',
+    lazy: () => import('@/pages/FeedTest'),
+  },
+  {
+    id: 'mypage',
+    path: '/mypage',
+    text: '마이페이지 화면',
+    lazy: () => import('@/pages/MyPage'),
   },
 ];
 
