@@ -1,11 +1,46 @@
+import { useRef, useEffect } from 'react';
 import { register } from 'swiper/element/bundle';
 
-register();
-
 const SwiperCard = ({ imageArray, slideStyle, imgStyle }) => {
+  const swiperRef = useRef(null);
+
+  useEffect(() => {
+    register();
+
+    const params = {
+      injectStyles: [
+        `
+        .swiper-pagination-bullet {
+          width: 7px;
+          height: 7px;
+          background-color: #545454;
+          border: 1px solid #333;
+          filter: drop-shadow(0px 1px 3px rgba(51, 51, 51, 0.20));
+        }
+        .swiper-pagination-bullet-active {
+          width: 9px;
+          height: 9px;
+          background-color: #FEFEFE;
+          border: 1px solid #DCDCDC;
+          filter: drop-shadow(0px 1px 3px rgba(51, 51, 51, 0.20));
+        }
+        `,
+      ],
+      pagination: {
+        clickable: false,
+        renderBullet: (_, className) => `<span class="${className}"></span>`,
+      },
+    };
+
+    Object.assign(swiperRef.current, params);
+    swiperRef.current.initialize();
+  }, []);
+
   return (
     <section>
       <swiper-container
+        ref={swiperRef}
+        init="false"
         className="size-full"
         slides-per-view="1"
         loop="true"
