@@ -1,100 +1,74 @@
+const getTagType = (tagType, children) => {
+  switch (tagType) {
+    case 'delete':
+      return {
+        component: 'li',
+        className:
+          'flex max-w-fit items-center gap-1 border border-gray500 py-[6px] text-primary-color',
+        extraContent: (
+          <button
+            type="button"
+            aria-label="삭제"
+            className="bg-delete h-4 w-4 bg-cover"
+          ></button>
+        ),
+      };
+
+    case 'recruit':
+      return {
+        component: 'span',
+        className:
+          children === '모집 중'
+            ? 'bg-content-color py-1 text-white'
+            : 'bg-content-transparent py-1 text-white',
+      };
+
+    case 'follow':
+      return {
+        component: 'button',
+        className:
+          children === '팔로잉'
+            ? 'flex items-center gap-1 bg-gray600 py-[6px] text-white'
+            : 'flex items-center gap-1 bg-primary-color py-[6px] text-white',
+        svg: children === '팔로잉' ? 'check' : 'plus',
+        alt: children === '팔로잉' ? '체크' : '추가',
+        label: children === '팔로잉' ? '해제' : '추가',
+      };
+
+    default:
+      return {
+        component: 'li',
+        innerComponent: 'button',
+        className:
+          children === '전체보기'
+            ? 'bg-content-color py-[6px] text-white'
+            : 'border border-gray500 py-[6px] text-gray600',
+      };
+  }
+};
+
 const Tag = ({ children, tagType, position = '' }) => {
   const commonClass = 'rounded-2xl px-3 text-paragraph-base';
-  let className = '';
+  let { component, innerComponent, className, extraContent, svg, alt, label } =
+    getTagType(tagType, children);
 
-  if (!tagType) {
-    if (children === '전체보기') {
-      className = 'bg-content-color py-[6px] text-white ';
-    } else {
-      className = 'border border-gray500 py-[6px] text-gray600';
-    }
+  const Component =
+    component === 'button' ? 'button' : component === 'li' ? 'li' : 'span';
+  const InnerComponent = innerComponent ? innerComponent : null;
 
-    return (
-      <li>
-        <button
-          type="button"
-          className={`${commonClass} ${className} ${position}`.trim()}
-        >
-          {children}
-        </button>
-      </li>
-    );
-  }
-
-  if (tagType === 'delete') {
-    className =
-      'flex max-w-fit items-center gap-1 border border-gray500 py-[6px] text-primary-color';
-
-    return (
-      <li className={`${commonClass} ${className} ${position}`.trim()}>
-        {children}
-        <button
-          type="button"
-          aria-label="삭제"
-          className="bg-delete h-4 w-4 bg-cover"
-        >
-          {/* <img src="/src/assets/common/delete.svg" alt="" /> */}
-        </button>
-      </li>
-    );
-  }
-
-  if (tagType === 'recruit') {
-    if (children === '모집 중') {
-      className = 'bg-content-color py-1 text-white';
-    } else {
-      className = 'bg-content-transparent py-1 text-white';
-    }
-
-    return (
-      <span className={`${commonClass} ${className} ${position}`.trim()}>
-        {children}
-      </span>
-    );
-  }
-
-  if (tagType === 'follow') {
-    let custom = {
-      className: '',
-      icon: '',
-      alt: '',
-    };
-
-    if (children === '팔로잉') {
-      custom = {
-        className: 'bg-gray600 py-[6px] text-white',
-        icon: 'check',
-        alt: '체크',
-        label: '해제',
-      };
-    } else {
-      custom = {
-        className: 'bg-primary-color py-[6px] text-white',
-        icon: 'plus',
-        alt: '추가',
-        label: '추가',
-      };
-    }
-
-    const { className, icon, alt, label } = custom;
-
-    return (
-      <button
-        type="button"
-        aria-label={`팔로우 ${label}`}
-        className={`${commonClass} ${className} ${position}`.trim()}
-      >
-        <figure className="flex max-w-fit items-center gap-1">
-          <img
-            src={`/src/assets/common/${icon}-white.svg`}
-            alt={`팔로우 ${alt}`}
-            className="h-3 w-3"
-          />
-          <figcaption>{children}</figcaption>
-        </figure>
-      </button>
-    );
-  }
+  return (
+    <Component className={`${commonClass} ${className} ${position}`.trim()}>
+      {svg && (
+        <img
+          src={`/src/assets/common/${svg}-white.svg`}
+          alt={`팔로우 ${alt}`}
+          className="h-3 w-3"
+        />
+      )}
+      {children}
+      {extraContent}
+    </Component>
+  );
 };
 
 export default Tag;
