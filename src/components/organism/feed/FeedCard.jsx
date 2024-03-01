@@ -31,6 +31,9 @@ const FeedCard = ({ feed }) => {
         <FeedSubject feed={feed} />
         <FeedText feed={feed} />
       </div>
+      <section>
+        <h2 className="sr-only">댓글 입력</h2>
+      </section>
     </li>
   );
 };

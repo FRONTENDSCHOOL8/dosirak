@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 const initialState = {
   isPending: false,
-  loginUser: '',
+  loginUser: {},
 };
 
 const createState = (set) => ({

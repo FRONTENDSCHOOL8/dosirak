@@ -8,11 +8,11 @@ export const Component = () => {
 
   useEffect(() => {
     const auth = JSON.parse(localStorage.getItem('pocketbase_auth'));
-    if (!loginUser && auth?.model.name) {
-      setLoginUser(auth.model.name);
+    if (!loginUser.nickname && auth?.model.nickname) {
+      setLoginUser({ id: auth.model.id, nickname: auth.model.nickname });
     }
 
-    if (!loginUser && !auth?.model.name) {
+    if (!loginUser.nickname && !auth?.model.nickname) {
       alert('로그인 후 이용 가능합니다.');
       navigate('/login');
     }
@@ -21,7 +21,7 @@ export const Component = () => {
   return (
     <section>
       <h2>홈</h2>
-      <span>{loginUser}님 안녕하세요!</span>
+      <span>{loginUser.nickname}님 안녕하세요!</span>
     </section>
   );
 };
