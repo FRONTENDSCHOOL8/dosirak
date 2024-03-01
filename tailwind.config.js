@@ -31,6 +31,7 @@ export default {
         check: "url('@/assets/register/check.svg')",
         'square-uncheck': "url('@/assets/common/square-uncheck.svg')",
         'square-check': "url('@/assets/common/square-check.svg')",
+        delete: "url('@/assets/common/delete.svg')",
       }),
     },
     fontFamily: {
