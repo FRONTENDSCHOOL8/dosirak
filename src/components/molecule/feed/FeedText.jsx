@@ -1,4 +1,3 @@
-import FeedSubject from '@/components/atom/feed/FeedSubject';
 import ViewMore from '@/components/atom/feed/ViewMore';
 import useFeedStore from '@/store/useFeedStore';
 
@@ -10,8 +9,7 @@ const FeedText = ({ feed }) => {
       ? {
           lineHeight: '21px',
           maxHeight: '9999px',
-          transition: 'all ease-in-out 3s ',
-          // overflowY: 'scroll',
+          transition: 'all ease-in-out 2.5s ',
         }
       : {
           display: '-webkit-box',
@@ -25,7 +23,7 @@ const FeedText = ({ feed }) => {
         };
 
   return (
-    <section className="relative ">
+    <section className="relative">
       <div
         style={mainTextExpandStyle}
         className="overflow-hidden pb-4"

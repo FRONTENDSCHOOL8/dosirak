@@ -7,8 +7,12 @@ import FeedText from '@/components/molecule/feed/FeedText';
 import useFeedStore from '@/store/useFeedStore';
 
 const FeedCard = ({ feed }) => {
-  const { setExpandFeed } = useFeedStore((state) => state);
+  const { expandFeed, setExpandFeed } = useFeedStore((state) => state);
   const handleFeedExpand = () => setExpandFeed(feed.id);
+
+  const handleMainTextClick = () => {
+    if (expandFeed !== feed.id) setExpandFeed(feed.id);
+  };
 
   return (
     <li className="noto pointer flex flex-col gap-3">
@@ -20,8 +24,13 @@ const FeedCard = ({ feed }) => {
         imageArray={feed.images}
       />
       <FeedInteraction feed={feed} />
-      <FeedSubject feed={feed} />
-      <FeedText feed={feed} />
+      <div
+        onClick={handleMainTextClick}
+        className={`flex flex-col gap-3 ${expandFeed === feed.id ? '' : 'cursor-pointer'}`}
+      >
+        <FeedSubject feed={feed} />
+        <FeedText feed={feed} />
+      </div>
     </li>
   );
 };

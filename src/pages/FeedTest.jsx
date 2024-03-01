@@ -23,7 +23,7 @@ export const Component = () => {
         헤더
       </div>
       <section className="mb-10 mt-20">
-        <ul className="flex flex-col gap-6 px-9">
+        <ul className="flex flex-col gap-8 px-9">
           {cachedFeedsData.items.map((feed) => (
             <FeedCard feed={feed} key={feed.id} />
           ))}
