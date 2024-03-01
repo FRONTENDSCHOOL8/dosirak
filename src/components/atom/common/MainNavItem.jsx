@@ -12,7 +12,7 @@ const MainNavItem = ({ item }) => {
       <figure className="flex w-10 flex-col items-center">
         <img
           className="size-6"
-          src={`/src/assets/common/menubar/${currentPage === item.path ? item.icon.select : item.icon.default}`}
+          src={`/assets/common/menubar/${currentPage === item.path ? item.icon.select : item.icon.default}`}
           alt=""
         />
         <figcaption

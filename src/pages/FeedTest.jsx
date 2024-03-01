@@ -11,10 +11,8 @@ export const Component = () => {
     queryKey: ['feed'],
     queryFn: fetchFeed,
     initialData: feedsData,
-    staleTime: 1000 * 20,
+    staleTime: 1000 * 5,
   });
-
-  console.log(cachedFeedsData);
 
   return (
     <section className="scrollbar-hide h-full overflow-y-scroll">

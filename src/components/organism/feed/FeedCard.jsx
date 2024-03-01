@@ -5,6 +5,7 @@ import FeedInteraction from '@/components/molecule/feed/FeedInteraction';
 import FeedSubject from '@/components/atom/feed/FeedSubject';
 import FeedText from '@/components/molecule/feed/FeedText';
 import useFeedStore from '@/store/useFeedStore';
+import CommentWrite from '@/components/molecule/feed/CommentWrite';
 
 const FeedCard = ({ feed }) => {
   const { expandFeed, setExpandFeed } = useFeedStore((state) => state);
@@ -31,9 +32,7 @@ const FeedCard = ({ feed }) => {
         <FeedSubject feed={feed} />
         <FeedText feed={feed} />
       </div>
-      <section>
-        <h2 className="sr-only">댓글 입력</h2>
-      </section>
+      <CommentWrite feed={feed} />
     </li>
   );
 };

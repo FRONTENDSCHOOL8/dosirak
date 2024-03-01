@@ -12,6 +12,8 @@ const headArray = [
   '멋쟁이',
   '오염된',
   '살찐',
+  '바쁜',
+  '한가한',
 ];
 
 const tailArray = [

@@ -50,9 +50,12 @@ const RegisterForm = () => {
         sessionStorage.setItem('token', data.token);
         setTimeout(() => {
           const model = JSON.parse(localStorage.getItem('pocketbase_auth'));
-          console.log(model);
-          // setLoginUser(registerData.name);
-          setLoginUser({ id: model.id, nickname: model.nickname });
+
+          setLoginUser({
+            id: model.id,
+            nickname: model.nickname,
+            thumbnail: `${window.location.origin}/src/assets/common/guest.svg`,
+          });
           navigate('/');
           clearRegisterState();
           setTimeout(() => setIsPending(false), 500);

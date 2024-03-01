@@ -1,22 +1,19 @@
+import { useLoginUserInfo } from '@/hook';
 import useCommonStore from '@/store/useCommonStore';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const Component = () => {
-  const { loginUser, setLoginUser } = useCommonStore((state) => state);
+  const { loginUser } = useCommonStore((state) => state);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useLoginUserInfo(() => {
     const auth = JSON.parse(localStorage.getItem('pocketbase_auth'));
-    if (!loginUser.nickname && auth?.model.nickname) {
-      setLoginUser({ id: auth.model.id, nickname: auth.model.nickname });
-    }
 
     if (!loginUser.nickname && !auth?.model.nickname) {
       alert('로그인 후 이용 가능합니다.');
       navigate('/login');
     }
-  }, []);
+  });
 
   return (
     <section>
