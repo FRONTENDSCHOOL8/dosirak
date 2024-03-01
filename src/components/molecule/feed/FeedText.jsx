@@ -8,31 +8,30 @@ const FeedText = ({ feed }) => {
   const mainTextExpandStyle =
     expandFeed === feed.id
       ? {
-          zIndex: '20',
-          background: 'white',
-          position: 'absolute',
-          top: '-310px',
-          border: '1px solid var(--gray-300)',
-          padding: '12px',
+          lineHeight: '21px',
+          maxHeight: '9999px',
+          transition: 'all ease-in-out 3s ',
+          // overflowY: 'scroll',
         }
       : {
           display: '-webkit-box',
           wordWrap: 'break-word',
           WebkitLineClamp: '2',
           WebkitBoxOrient: 'vertical',
-          textOverflow: 'ellipsis',
           overflow: 'hidden',
+          textOverflow: 'ellipsis',
           lineHeight: '21px',
-          height: '42px',
+          maxHeight: '42px',
         };
 
   return (
-    <section className="relative">
-      <div style={mainTextExpandStyle} className="flex flex-col gap-2">
-        {feed.id === expandFeed && <FeedSubject feed={feed} />}
-        <div dangerouslySetInnerHTML={{ __html: feed.maintext }}></div>
-        <ViewMore feedId={feed.id} />
-      </div>
+    <section className="relative ">
+      <div
+        style={mainTextExpandStyle}
+        className="overflow-hidden pb-4"
+        dangerouslySetInnerHTML={{ __html: feed.maintext }}
+      ></div>
+      <ViewMore feedId={feed.id} />
     </section>
   );
 };
