@@ -6,6 +6,7 @@ import FeedSubject from '@/components/atom/feed/FeedSubject';
 import FeedText from '@/components/molecule/feed/FeedText';
 import useFeedStore from '@/store/useFeedStore';
 import CommentWrite from '@/components/molecule/feed/CommentWrite';
+import CommentShowButton from '@/components/molecule/feed/CommentShowButton';
 
 const FeedCard = ({ feed }) => {
   const { expandFeed, setExpandFeed } = useFeedStore((state) => state);
@@ -32,7 +33,10 @@ const FeedCard = ({ feed }) => {
         <FeedSubject feed={feed} />
         <FeedText feed={feed} />
       </div>
-      <CommentWrite feed={feed} />
+      <div>
+        <CommentWrite feed={feed} />
+        <CommentShowButton feed={feed} />
+      </div>
     </li>
   );
 };

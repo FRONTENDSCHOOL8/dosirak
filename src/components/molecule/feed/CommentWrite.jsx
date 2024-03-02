@@ -1,5 +1,4 @@
 import LoginUserThumbnail from '@/components/atom/common/LoginUserThumbnail';
-import CommentShowButton from './CommentShowButton';
 import { debounce } from '@/util';
 import { useState } from 'react';
 
@@ -34,13 +33,12 @@ const CommentWrite = ({ feed }) => {
         />
         <button
           type="submit"
-          className={`ms-auto ${commentValue.length > 0 ? 'text-content' : 'text-gray300'}`}
+          className={`ms-auto text-nowrap ${commentValue.length > 0 ? 'text-content' : 'text-gray300'}`}
           disabled={commentValue.length === 0}
         >
           등록
         </button>
       </form>
-      <CommentShowButton feed={feed} />
     </section>
   );
 };

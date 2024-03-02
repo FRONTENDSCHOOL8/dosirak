@@ -3,7 +3,7 @@ import { ReactComponent as Close } from '@/assets/common/close.svg';
 import useFeedStore from '@/store/useFeedStore';
 
 const CommentWindowHeader = () => {
-  const { setCommentView } = useFeedStore((state) => state.setCommentView);
+  const setCommentView = useFeedStore((state) => state.setCommentView);
 
   return (
     <div
