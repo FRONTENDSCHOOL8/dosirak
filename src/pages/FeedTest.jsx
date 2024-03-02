@@ -24,7 +24,6 @@ export const Component = () => {
   });
 
   const feedsData = cachedFeedsData ? cachedFeedsData.pages : [];
-  console.log(feedsData);
 
   const feedItems = feedsData
     .map((feedsData) => feedsData.items)
@@ -43,13 +42,12 @@ export const Component = () => {
           ))}
         </ul>
       </section>
-      {commentView && <FeedComment />}
+      <FeedComment />
     </section>
   );
 };
 
 const fetchFeeds = async (pageInfo) => {
-  console.log(pageInfo);
   const feeds = await pb
     .collection('feed')
     .getList(pageInfo.pageParam, PER_PAGE, {
@@ -77,7 +75,6 @@ const queryOptions = {
   queryFn: fetchFeeds,
   initialPageParam: INITIAL_PAGE,
   getNextPageParam: (lastPage, allPages) => {
-    console.log(lastPage, allPages);
     return lastPage.page < lastPage.totalPages ? allPages.length + 1 : null;
   },
 };

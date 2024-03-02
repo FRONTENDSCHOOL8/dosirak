@@ -3,14 +3,25 @@ import useFeedStore from '@/store/useFeedStore';
 import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
-  const { setExpandFeed } = useFeedStore((state) => state);
+  const { expandFeed, setExpandFeed, commentView, setCommentView } =
+    useFeedStore((state) => state);
   const handleFeedClose = (e) => {
     if (
-      e.target.nodeName === 'SECTION' ||
-      e.target.nodeName === 'MAIN' ||
-      e.target.nodeName === 'UL'
-    )
+      expandFeed &&
+      !commentView &&
+      (e.target.nodeName === 'SECTION' ||
+        e.target.nodeName === 'MAIN' ||
+        e.target.nodeName === 'UL')
+    ) {
       setExpandFeed('');
+    }
+
+    if (
+      commentView &&
+      (e.target.nodeName === 'SECTION' || e.target.nodeName === 'MAIN')
+    ) {
+      setCommentView('');
+    }
   };
 
   return (

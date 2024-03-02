@@ -5,8 +5,6 @@ import { useState } from 'react';
 
 const CommentWrite = ({ feed }) => {
   const [commentValue, setCommentValue] = useState('');
-  console.log(feed);
-  console.log(commentValue);
 
   const handleCommentInput = (e) => {
     setCommentValue(e.target.value);
