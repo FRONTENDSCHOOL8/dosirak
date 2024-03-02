@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 const initialState = {
   expandFeed: '',
+  commentView: '',
 };
 
 const createState = (set) => ({
@@ -12,6 +13,10 @@ const createState = (set) => ({
       if (state.expandFeed === value) return { expandFeed: '' };
 
       return { expandFeed: value };
+    }),
+  setCommentView: (value) =>
+    set((state) => {
+      return { commentView: value };
     }),
 });
 

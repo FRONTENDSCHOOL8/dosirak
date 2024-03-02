@@ -1,10 +1,12 @@
 import LoginUserThumbnail from '@/components/atom/common/LoginUserThumbnail';
+import CommentShowButton from './CommentShowButton';
 import { debounce } from '@/util';
 import { useState } from 'react';
 
 const CommentWrite = ({ feed }) => {
-  const { commentValue, setCommentValue } = useState('');
+  const [commentValue, setCommentValue] = useState('');
   console.log(feed);
+  console.log(commentValue);
 
   const handleCommentInput = (e) => {
     setCommentValue(e.target.value);
@@ -12,6 +14,7 @@ const CommentWrite = ({ feed }) => {
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
+    if (commentValue.length === 0) return;
   };
 
   return (
@@ -31,11 +34,15 @@ const CommentWrite = ({ feed }) => {
           defaultValue={commentValue}
           placeholder="댓글을 입력하세요"
         />
-        <button type="submit" className="ms-auto">
+        <button
+          type="submit"
+          className={`ms-auto ${commentValue.length > 0 ? 'text-content' : 'text-gray300'}`}
+          disabled={commentValue.length === 0}
+        >
           등록
         </button>
       </form>
-      <button type="button">{feed.comments.length}개 댓글 모두 보기</button>
+      <CommentShowButton feed={feed} />
     </section>
   );
 };
