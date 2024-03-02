@@ -13,7 +13,7 @@ const useLoginUserInfo = (callbackFn) => {
         nickname: auth.model.nickname,
         thumbnail: auth.model.thumbnail
           ? getPbImage(auth.model)
-          : `${window.location.origin}/src/assets/common/guest.svg`,
+          : `${window.location.origin}/assets/common/guest.svg`,
       });
     }
 

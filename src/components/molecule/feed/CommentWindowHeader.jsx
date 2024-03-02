@@ -7,15 +7,20 @@ const CommentWindowHeader = () => {
   const setCommentView = useFeedStore((state) => state.setCommentView);
   const navigate = useNavigate();
 
+  const handleCloseCommentWindow = () => {
+    setCommentView('');
+    navigate('/feed', { replace: true });
+  };
+
   return (
     <div
       role="section"
-      className="relative flex w-full flex-col items-center py-3"
+      className="relative flex h-20 w-full flex-col items-center py-3"
     >
       <Indicator />
       <h3 className="noto mt-4 select-none text-label">댓글</h3>
       <button
-        onClick={() => navigate('/feed', { replace: true })}
+        onClick={handleCloseCommentWindow}
         className="absolute right-0 top-8"
       >
         <Close />

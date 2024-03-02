@@ -45,10 +45,12 @@ const navigationItems = [
         path: '/feed/comment/:feedId',
         text: '피드 댓글',
         async lazy() {
-          const { Component } = await import(
+          const { Component, loader } = await import(
             '@/components/organism/feed/FeedComment'
           );
+
           return {
+            loader: loader(queryClient),
             Component,
           };
         },

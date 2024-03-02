@@ -54,7 +54,7 @@ const RegisterForm = () => {
           setLoginUser({
             id: model.id,
             nickname: model.nickname,
-            thumbnail: `${window.location.origin}/src/assets/common/guest.svg`,
+            thumbnail: `${window.location.origin}/assets/common/guest.svg`,
           });
           navigate('/');
           clearRegisterState();
