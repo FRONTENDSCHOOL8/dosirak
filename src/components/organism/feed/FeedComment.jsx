@@ -1,34 +1,40 @@
 import CommentWindowHeader from '@/components/molecule/feed/CommentWindowHeader';
 import useFeedStore from '@/store/useFeedStore';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const FeedComment = () => {
-  const { commentView, setCommentView } = useFeedStore((state) => state);
-  const commentSectionStyleClass =
-    'absolute top-0 z-30 flex size-full max-w-[430px] flex-shrink-0 items-end bg-[rgba(0,0,0,0.45)] px-3';
+export const Component = () => {
+  const { setCommentView } = useFeedStore((state) => state);
+  const [commentBoxStyle, setCommentBoxStyle] = useState({
+    height: '0px',
+    overflow: 'hidden',
+  });
+  const navigate = useNavigate();
 
-  console.log(commentView);
-
-  const commentBoxStyle = commentView
-    ? {
+  useEffect(() => {
+    const timer = setTimeout(
+      setCommentBoxStyle({
         maxHeight: '60vh',
         height: '569px',
         transition: 'height ease-in-out .3s',
-      }
-    : {
-        height: '0px',
-        overflow: 'hidden',
-      };
+      }),
+      200
+    );
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleCommentClose = (e) => {
     if (e.target.closest('.comment-window')) return;
 
+    navigate('/feed', { replace: true });
     setCommentView('');
   };
 
   return (
     <section
       onClick={handleCommentClose}
-      className={commentView && commentSectionStyleClass}
+      className="absolute top-0 z-30 flex size-full max-w-[430px] flex-shrink-0 items-end bg-[rgba(0,0,0,0.45)] px-3"
     >
       <h2 className="sr-only">피드 댓글</h2>
       <div
@@ -41,4 +47,4 @@ const FeedComment = () => {
   );
 };
 
-export default FeedComment;
+Component.displayName = 'FeedComment';

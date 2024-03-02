@@ -39,6 +39,21 @@ const navigationItems = [
         Component,
       };
     },
+    children: [
+      {
+        id: 'feed-comment',
+        path: '/feed/comment/:feedId',
+        text: '피드 댓글',
+        async lazy() {
+          const { Component } = await import(
+            '@/components/organism/feed/FeedComment'
+          );
+          return {
+            Component,
+          };
+        },
+      },
+    ],
   },
   {
     id: 'mypage',

@@ -1,9 +1,9 @@
 import FeedCard from '@/components/organism/feed/FeedCard';
-import FeedComment from '@/components/organism/feed/FeedComment';
 import useFeedStore from '@/store/useFeedStore';
 import { getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { Outlet } from 'react-router-dom';
 import { useLoaderData } from 'react-router-dom';
 
 const INITIAL_PAGE = 1;
@@ -42,7 +42,8 @@ export const Component = () => {
           ))}
         </ul>
       </section>
-      <FeedComment />
+      {/* {commentView && <Outlet />} */}
+      <Outlet />
     </section>
   );
 };
@@ -52,7 +53,7 @@ const fetchFeeds = async (pageInfo) => {
     .collection('feed')
     .getList(pageInfo.pageParam, PER_PAGE, {
       sort: '-created',
-      expand: 'writer, comments, comments.like, like, bookmark',
+      expand: 'writer, like, bookmark',
     });
 
   const feedItems = feeds.items.map((feed) => {

@@ -1,9 +1,11 @@
 import { ReactComponent as Indicator } from '@/assets/common/comment-indicator.svg';
 import { ReactComponent as Close } from '@/assets/common/close.svg';
 import useFeedStore from '@/store/useFeedStore';
+import { useNavigate } from 'react-router-dom';
 
 const CommentWindowHeader = () => {
   const setCommentView = useFeedStore((state) => state.setCommentView);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -13,7 +15,7 @@ const CommentWindowHeader = () => {
       <Indicator />
       <h3 className="noto mt-4 select-none text-label">댓글</h3>
       <button
-        onClick={() => setCommentView('')}
+        onClick={() => navigate('/feed', { replace: true })}
         className="absolute right-0 top-8"
       >
         <Close />

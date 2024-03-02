@@ -1,10 +1,13 @@
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import useFeedStore from '@/store/useFeedStore';
+import { useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
   const { expandFeed, setExpandFeed, commentView, setCommentView } =
     useFeedStore((state) => state);
+  const navigate = useNavigate();
+
   const handleFeedClose = (e) => {
     if (
       expandFeed &&
@@ -21,6 +24,7 @@ const Layout = () => {
       (e.target.nodeName === 'SECTION' || e.target.nodeName === 'MAIN')
     ) {
       setCommentView('');
+      navigate('/feed', { replace: true });
     }
   };
 
