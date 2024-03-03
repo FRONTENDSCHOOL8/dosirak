@@ -6,8 +6,8 @@ const Tag = ({ children, tagType, position = '' }) => {
   const typeClasses = {
     delete:
       'flex max-w-fit items-center gap-1 border border-gray500 text-primary-color',
-    recruit: `bg-${children === '모집 중' ? 'content-color' : 'content-transparent'} py-1 text-white`,
-    follow: `bg-${children === '팔로잉' ? 'gray600' : 'primary-color'} py-[6px] text-white`,
+    recruit: `${children === '모집 중' ? 'bg-content-color' : 'bg-content-transparent'} py-1 text-white`,
+    follow: `${children === '팔로잉' ? 'bg-gray600' : 'bg-primary-color'} py-[6px] text-white`,
   };
 
   const className =
