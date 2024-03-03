@@ -2,6 +2,7 @@ import MainNavBar from '@/components/molecule/common/MainNavBar';
 import useFeedStore from '@/store/useFeedStore';
 import { useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
+import QrCode from '@/pages/QrCode';
 
 const Layout = () => {
   const { expandFeed, setExpandFeed, commentView, setCommentView } =
@@ -34,8 +35,8 @@ const Layout = () => {
       onClick={handleFeedClose}
     >
       <div className="lg:max-w-screen-lg flex">
-        <section className="w-[594px] bg-slate-600 tablet:hidden">
-          <h2 className="sr-only">한 끼 도시락</h2>
+        <section className="flex w-[594px] bg-white tablet:hidden">
+          <QrCode />
         </section>
         <div className=" w-[430px] min-w-[372px] bg-white pb-[95px] mobile:w-screen">
           <Outlet />
