@@ -4,7 +4,7 @@ import PhoneSection from '@/components/molecule/register/Sections/PhoneSection';
 import TermSection from '@/components/molecule/register/Sections/TermSection';
 import ButtonSection from '@/components/molecule/register/Sections/ButtonSection';
 import useRegisterStore from '@/store/useRegisterStore';
-import { pb } from '@/util';
+import { pb, randomNickName } from '@/util';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useCommonStore from '@/store/useCommonStore';
@@ -41,6 +41,7 @@ const RegisterForm = () => {
     for (let key of formData.keys()) {
       registerData[key] = formData.get(key);
     }
+    registerData['nickname'] = randomNickName();
 
     setIsPending(true);
     fetchRegister(registerData)
@@ -48,7 +49,13 @@ const RegisterForm = () => {
       .then((data) => {
         sessionStorage.setItem('token', data.token);
         setTimeout(() => {
-          setLoginUser(registerData.name);
+          const model = JSON.parse(localStorage.getItem('pocketbase_auth'));
+
+          setLoginUser({
+            id: model.id,
+            nickname: model.nickname,
+            thumbnail: `${window.location.origin}/assets/common/guest.svg`,
+          });
           navigate('/');
           clearRegisterState();
           setTimeout(() => setIsPending(false), 500);
