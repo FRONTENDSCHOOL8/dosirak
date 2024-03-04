@@ -36,7 +36,7 @@ const CommentWrite = ({ feed }) => {
           className={`ms-auto text-nowrap ${commentValue.length > 0 ? 'text-primary-color' : 'text-gray300'}`}
           disabled={commentValue.length === 0}
         >
-          <span className="w-8">등록</span>
+          <span className="noto w-8 text-paragraph-lg">등록</span>
         </button>
       </form>
     </section>
