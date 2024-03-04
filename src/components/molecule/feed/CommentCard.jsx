@@ -1,4 +1,5 @@
 import HeartButton from '@/components/atom/common/HeartButton';
+import ToggleButton from '@/components/atom/common/ToggleButton';
 import { getDateHangul } from '@/util/getDate';
 
 const CommentCard = ({ data }) => {
@@ -27,7 +28,12 @@ const CommentCard = ({ data }) => {
           </p>
         </figcaption>
       </figure>
-      <HeartButton />
+      <ToggleButton
+        type="heart"
+        alt="좋아요"
+        colorType="black"
+        isClicked={false}
+      />
     </li>
   );
 };
