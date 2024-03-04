@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom';
 import { useLoaderData } from 'react-router-dom';
 
 const INITIAL_PAGE = 1;
-const PER_PAGE = 2;
+const PER_PAGE = 10;
 
 const feedPath = [
   { path: '/feed/popular', children: '인기' },
@@ -41,7 +41,7 @@ export const Component = () => {
       <section className="relative flex h-fit min-h-screen flex-col">
         <h2 className="sr-only">피드</h2>
         <header>
-          <NavBar path={feedPath} />
+          <NavBar path={feedPath}>피드</NavBar>
         </header>
         <section className="h-fit pt-[132px]">
           <ul className="flex flex-col gap-8 px-9 pb-[125px]">

@@ -22,7 +22,7 @@ const navigationItems = [
   },
   {
     id: 'group',
-    path: '/group',
+    path: '/group/:groupType',
     text: '모임 화면',
     lazy: () => import('@/pages/Group'),
   },

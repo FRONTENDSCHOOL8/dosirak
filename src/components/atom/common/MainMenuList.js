@@ -6,7 +6,7 @@ export const MENU_LIST = [
   },
   {
     name: '모임',
-    path: '/group',
+    path: '/group/popular',
     icon: { default: 'group.svg', select: 'group-select.svg' },
   },
   {
