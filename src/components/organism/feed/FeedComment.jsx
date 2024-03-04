@@ -1,12 +1,12 @@
 import CommentWindowHeader from '@/components/molecule/feed/CommentWindowHeader';
 import useFeedStore from '@/store/useFeedStore';
-import { getDate, getPbImage, pb } from '@/util';
+import { getPbImage, pb } from '@/util';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLoaderData } from 'react-router-dom';
-import HeartButton from '@/components/atom/common/HeartButton';
 import Comments from '@/components/molecule/feed/Comments';
 import NotFoundComment from '@/components/atom/feed/NotFoundComment';
+import CommentWrite from '@/components/molecule/feed/CommentWrite';
 
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
@@ -73,7 +73,9 @@ export const Component = () => {
         ) : (
           <NotFoundComment />
         )}
-        <div className="h-[124px]">댓글입력창</div>
+        <div className="h-[124px] border-t-2 pt-5">
+          <CommentWrite feed={feedId} />
+        </div>
       </div>
     </section>
   );

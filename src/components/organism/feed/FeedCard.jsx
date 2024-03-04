@@ -34,7 +34,7 @@ const FeedCard = ({ feed }) => {
         <FeedText feed={feed} />
       </div>
       <div>
-        <CommentWrite feed={feed} />
+        <CommentWrite feed={feed.id} />
         <CommentShowButton feed={feed} />
       </div>
     </li>

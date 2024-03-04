@@ -21,7 +21,7 @@ const CommentWrite = ({ feed }) => {
         onSubmit={handleCommentSubmit}
         className="mt-2 flex h-12 items-center gap-3 rounded-[15px] bg-white py-2 pe-4 ps-3 shadow-[0_1px_4px_2px_rgba(171,171,171,0.25)]"
       >
-        <label className="size-9" htmlFor={`_${feed.id}_comment_input`}>
+        <label className="size-9" htmlFor={`_${feed}_comment_input`}>
           <LoginUserThumbnail thumbnailCaption="댓글 입력 창 작성자 썸네일" />
         </label>
         <input
@@ -33,7 +33,7 @@ const CommentWrite = ({ feed }) => {
         />
         <button
           type="submit"
-          className={`ms-auto text-nowrap ${commentValue.length > 0 ? 'text-content' : 'text-gray300'}`}
+          className={`ms-auto text-nowrap ${commentValue.length > 0 ? 'text-primary-color' : 'text-gray300'}`}
           disabled={commentValue.length === 0}
         >
           <span className="w-8">등록</span>
