@@ -1,3 +1,4 @@
+import Tag from '@/components/atom/group/Tag';
 import { getDate } from '@/util';
 
 const FeedWriter = ({ feed }) => {
@@ -16,7 +17,7 @@ const FeedWriter = ({ feed }) => {
           </p>
         </figcaption>
       </figure>
-      <div>팔로우버튼</div>
+      <Tag tagType="follow">팔로우</Tag>
     </div>
   );
 };

@@ -60,7 +60,7 @@ export const Component = () => {
   return (
     <section
       onClick={handleCommentClose}
-      className="absolute top-0 z-30 flex size-full max-w-[430px] flex-shrink-0 items-end bg-[rgba(0,0,0,0.45)] px-3"
+      className="fixed top-0 z-30 flex size-full max-w-[430px] flex-shrink-0 items-end bg-[rgba(0,0,0,0.45)] px-3"
     >
       <h2 className="sr-only">피드 댓글</h2>
       <div
