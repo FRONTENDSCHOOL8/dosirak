@@ -13,21 +13,21 @@ const QrCode = () => {
             <Dot bgColor="bg-tertiary-color" />락 커뮤니티
           </figcaption>
           <img
-            src="/src/assets/common/logo.svg"
+            src="/assets/common/logo.svg"
             alt="한끼도시락 로고"
             className="mt-3 w-[106px]"
           />
         </figure>
         <figure className="absolute bottom-0 w-[142px]">
-          <figcaption className="noto mb-1 h-[49px] bg-[url('/src/assets/desktop/qrBubble.png')] bg-cover pl-8 pt-[10px] text-paragraph-sm">
+          <figcaption className="noto mb-1 h-[49px] bg-[url('/assets/desktop/qrBubble.png')] bg-cover pl-8 pt-[10px] text-paragraph-sm">
             한끼도시락을
             <br />
             <span className="font-semibold">핸드폰</span>에서 만나보세요!
           </figcaption>
-          <img src="/src/assets/desktop/qr.svg" alt="한끼도시락 qr" />
+          <img src="/assets/desktop/qr.svg" alt="한끼도시락 qr" />
         </figure>
         <img
-          src="/src/assets/desktop/mockup.png"
+          src="/assets/desktop/mockup.png"
           alt="피드페이지 내 피드 목업 이미지"
           className="absolute bottom-0 right-0 w-[301px]"
         />
