@@ -25,15 +25,13 @@ const navigationItems = [
     path: '/group',
     text: '모임 화면',
     lazy: () => import('@/pages/Group'),
-    // 원래 코드는  '@/pages/GroupTest', 네비게이션 바 테스트 용도로 Group으로 바꿈
   },
   {
     id: 'feed',
     path: '/feed',
     text: '피드 화면',
-    // lazy: () => import('@/pages/FeedTest'),
     async lazy() {
-      const { Component, loader } = await import('@/pages/FeedTest');
+      const { Component, loader } = await import('@/pages/Feed');
 
       return {
         loader: loader(queryClient),

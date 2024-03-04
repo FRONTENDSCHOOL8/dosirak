@@ -1,3 +1,4 @@
+import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import { NavLink, Outlet } from 'react-router-dom';
 
@@ -9,16 +10,17 @@ const groupPath = [
 
 export const Component = () => {
   return (
-    <div className="GroupLayout">
-      <header>
-        [header]
-        <NavBar path={groupPath} />
-      </header>
-      <main>
-        <Outlet />
-      </main>
-      <footer>[footer]</footer>
-    </div>
+    <>
+      <section className="relative flex h-fit min-h-screen flex-col">
+        <header>
+          <NavBar path={groupPath} />
+        </header>
+        <main>
+          <Outlet />
+        </main>
+      </section>
+      <MainNavBar />
+    </>
   );
 };
 

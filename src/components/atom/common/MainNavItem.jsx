@@ -16,7 +16,7 @@ const MainNavItem = ({ item }) => {
           alt=""
         />
         <figcaption
-          className={`w-15 text-nowrap font-Gong-Gothic-l ${currentPage === item.path ? 'text-primary-color' : 'text-gray500'}`}
+          className={`w-32 text-nowrap text-center font-Gong-Gothic-l ${currentPage === item.path ? 'text-primary-color' : 'text-gray500'}`}
         >
           {item.name}
         </figcaption>

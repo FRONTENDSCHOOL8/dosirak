@@ -11,7 +11,7 @@ export const Component = () => {
   const { isPending } = useCommonStore((state) => state);
 
   return (
-    <section className="relative flex h-full flex-col items-stretch gap-4 overflow-hidden">
+    <section className="relative flex h-screen flex-col items-stretch gap-4 overflow-hidden overflow-y-scroll scrollbar-hide">
       <section className="absolute z-10 flex h-[55px] w-full items-end px-9 pb-2">
         <Link
           to="/login"

@@ -5,6 +5,8 @@ export default {
     screens: {
       mobile: { max: '430px' },
       tablet: { max: '1024px' },
+      lg: { min: '1024px' },
+      'min-mobile': { min: '430px' },
     },
     extend: {
       colors: {
