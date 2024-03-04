@@ -25,7 +25,7 @@ const Layout = () => {
       (e.target.nodeName === 'SECTION' || e.target.nodeName === 'MAIN')
     ) {
       setCommentView('');
-      navigate('/feed', { replace: true });
+      navigate(-1);
     }
   };
 

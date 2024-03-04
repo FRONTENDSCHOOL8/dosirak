@@ -9,7 +9,7 @@ const CommentWindowHeader = () => {
 
   const handleCloseCommentWindow = () => {
     setCommentView('');
-    navigate('/feed', { replace: true });
+    navigate(-1);
   };
 
   return (

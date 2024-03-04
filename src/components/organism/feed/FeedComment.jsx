@@ -53,7 +53,7 @@ export const Component = () => {
   const handleCommentClose = (e) => {
     if (e.target.closest('.comment-window')) return;
 
-    navigate('/feed', { replace: true });
+    navigate(-1);
     setCommentView('');
   };
 
