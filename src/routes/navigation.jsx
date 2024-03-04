@@ -24,7 +24,8 @@ const navigationItems = [
     id: 'group',
     path: '/group',
     text: '모임 화면',
-    lazy: () => import('@/pages/GroupTest'),
+    lazy: () => import('@/pages/Group'),
+    // 원래 코드는  '@/pages/GroupTest', 네비게이션 바 테스트 용도로 Group으로 바꿈
   },
   {
     id: 'feed',
