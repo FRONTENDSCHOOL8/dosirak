@@ -11,7 +11,7 @@ export const MENU_LIST = [
   },
   {
     name: '피드',
-    path: '/feed',
+    path: '/feed/popular',
     icon: { default: 'feed.svg', select: 'feed-select.svg' },
   },
   {

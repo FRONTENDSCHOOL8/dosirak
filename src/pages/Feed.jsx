@@ -1,7 +1,6 @@
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import FeedCard from '@/components/organism/feed/FeedCard';
-import useFeedStore from '@/store/useFeedStore';
 import { getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -12,8 +11,8 @@ const INITIAL_PAGE = 1;
 const PER_PAGE = 2;
 
 const feedPath = [
-  { path: '/feed/recommend', children: '추천' },
   { path: '/feed/popular', children: '인기' },
+  { path: '/feed/recommend', children: '추천' },
   { path: '/feed/following', children: '팔로잉' },
   { path: '/feed/myfeed', children: '내 피드' },
 ];

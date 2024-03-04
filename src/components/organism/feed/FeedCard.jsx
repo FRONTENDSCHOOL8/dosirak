@@ -17,7 +17,7 @@ const FeedCard = ({ feed }) => {
   };
 
   return (
-    <li className="noto pointer flex flex-col gap-3">
+    <li className="feed-text noto pointer flex flex-col gap-3">
       <FeedWriter feed={feed} />
       <SwiperCard
         onClick={handleFeedExpand}

@@ -2,14 +2,16 @@ import { ReactComponent as Indicator } from '@/assets/common/comment-indicator.s
 import { ReactComponent as Close } from '@/assets/common/close.svg';
 import useFeedStore from '@/store/useFeedStore';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const CommentWindowHeader = () => {
   const setCommentView = useFeedStore((state) => state.setCommentView);
   const navigate = useNavigate();
+  const { feedType } = useParams();
 
   const handleCloseCommentWindow = () => {
     setCommentView('');
-    navigate(-1);
+    navigate(`/feed/${feedType}`, { replace: true });
   };
 
   return (
