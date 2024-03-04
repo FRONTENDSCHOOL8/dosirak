@@ -31,16 +31,15 @@ const Layout = () => {
 
   return (
     <main
-      className="flex h-screen justify-center bg-tertiary-color "
+      className="flex justify-center bg-primary-color"
       onClick={handleFeedClose}
     >
-      <div className="lg:max-w-screen-lg flex">
-        <section className="flex w-[594px] bg-white tablet:hidden">
+      <div className="relative flex w-[1024px] justify-center">
+        <section className="fixed left-[calc(50%-512px)] flex h-screen w-[594px] bg-gray-100 tablet:hidden">
           <QrCode />
         </section>
-        <div className=" w-[430px] min-w-[372px] bg-white pb-[95px] mobile:w-screen">
+        <div className="lg:ms-auto relative h-fit w-[430px] min-w-[372px] bg-white mobile:w-screen">
           <Outlet />
-          <MainNavBar />
         </div>
       </div>
     </main>

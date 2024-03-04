@@ -1,5 +1,15 @@
+import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
-import { NavLink, Outlet } from 'react-router-dom';
+import FeedCard from '@/components/organism/feed/FeedCard';
+import useFeedStore from '@/store/useFeedStore';
+import { getPbImage, pb } from '@/util';
+import { getPbImageArray } from '@/util/getPbImage';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { Outlet } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
+
+const INITIAL_PAGE = 1;
+const PER_PAGE = 2;
 
 const feedPath = [
   { path: '/feed/recommend', children: '추천' },
@@ -9,35 +19,91 @@ const feedPath = [
 ];
 
 export const Component = () => {
+  const loadedFeedsData = useLoaderData();
+
+  const {
+    data: cachedFeedsData,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery({
+    ...queryOptions,
+    initialData: loadedFeedsData,
+    // staleTime: 1000 * 5,
+  });
+
+  const feedsData = cachedFeedsData ? cachedFeedsData.pages : [];
+
+  const feedItems = feedsData
+    .map((feedsData) => feedsData.items)
+    .flatMap((feedItems) => feedItems);
+
   return (
-    <div className="FeedLayout">
-      <header>[header]</header>
-      <NavBar path={feedPath} />
-      <main>
+    <>
+      <section className="relative flex h-fit min-h-screen flex-col">
+        <h2 className="sr-only">피드</h2>
+        <header>
+          <NavBar path={feedPath} />
+        </header>
+        <section className="h-fit pt-[132px]">
+          <ul className="flex flex-col gap-8 px-9 pb-[125px]">
+            {feedItems.map((feed) => (
+              <FeedCard feed={feed} key={feed.id} />
+            ))}
+          </ul>
+        </section>
         <Outlet />
-      </main>
-      <footer>[footer]</footer>
-    </div>
+      </section>
+      <MainNavBar />
+    </>
   );
 };
 
-Component.displayName = 'Feed';
+const fetchFeeds = async (pageInfo) => {
+  const feeds = await pb
+    .collection('feed')
+    .getList(pageInfo.pageParam, PER_PAGE, {
+      sort: '-created',
+      expand: 'writer, like, bookmark',
+    });
 
-{
-  /* <nav>
-<ul className="flex gap-2 bg-slate-100">
-  <li>
-    <NavLink to="/feed/recommend">추천</NavLink>
-  </li>
-  <li>
-    <NavLink to="/feed/popular">인기</NavLink>
-  </li>
-  <li>
-    <NavLink to="/feed/following">팔로잉</NavLink>
-  </li>
-  <li>
-    <NavLink to="/feed/myfeed">내 피드</NavLink>
-  </li>
-</ul>
-</nav> */
-}
+  const feedItems = feeds.items.map((feed) => {
+    const imageURLArray = getPbImageArray(feed);
+    const writerThumbnail = getPbImage(feed.expand.writer);
+    feed.images = imageURLArray;
+    feed.expand.writer.thumbnail = writerThumbnail;
+
+    return feed;
+  });
+
+  return {
+    ...feeds,
+    items: feedItems,
+  };
+};
+
+const queryOptions = {
+  queryKey: ['feed'],
+  queryFn: fetchFeeds,
+  initialPageParam: INITIAL_PAGE,
+  getNextPageParam: (lastPage, allPages) => {
+    return lastPage.page < lastPage.totalPages ? allPages.length + 1 : null;
+  },
+};
+
+export const loader = (queryClient) => async () => {
+  let feedsData = null;
+  const cachedFeedsData = queryClient.getQueryData(['feed']);
+
+  // 캐싱된 피드 데이터가 있을 경우
+  if (cachedFeedsData) {
+    feedsData = cachedFeedsData;
+  }
+  // 캐싱된 피드 데이터가 없을 경우
+  else {
+    feedsData = await queryClient.fetchInfiniteQuery(queryOptions);
+  }
+
+  return feedsData;
+};
+
+Component.displayName = 'feed';

@@ -1,3 +1,4 @@
+import MainNavBar from '@/components/molecule/common/MainNavBar';
 import { useLoginUserInfo } from '@/hook';
 import useCommonStore from '@/store/useCommonStore';
 import { useNavigate } from 'react-router-dom';
@@ -16,10 +17,13 @@ export const Component = () => {
   });
 
   return (
-    <section>
-      <h2>홈</h2>
-      <span>{loginUser.nickname}님 안녕하세요!</span>
-    </section>
+    <>
+      <section className="relative flex h-fit min-h-screen flex-col">
+        <h2>홈</h2>
+        <span>{loginUser.nickname}님 안녕하세요!</span>
+      </section>
+      <MainNavBar />
+    </>
   );
 };
 
