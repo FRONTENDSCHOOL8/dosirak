@@ -35,8 +35,6 @@ export const Component = () => {
     .map((commentsData) => commentsData.items)
     .flatMap((commentItems) => commentItems);
 
-  console.log(commentItems);
-
   useEffect(() => {
     const timer = setTimeout(
       setCommentBoxStyle({
@@ -85,7 +83,7 @@ const fetchFeedComments = (feedId) => async (pageInfo) => {
   const comments = await pb
     .collection('feed_comments')
     .getList(pageInfo.pageParam, PER_PAGE, {
-      sort: 'created, like',
+      sort: 'like, created',
       expand: 'commenter',
       filter: `parent_feed="${feedId}"`,
     });

@@ -118,7 +118,7 @@ export const loader =
   async ({ params }) => {
     const { feedType } = params;
     let feedsData = null;
-    const cachedFeedsData = queryClient.getQueryData(['feed']);
+    const cachedFeedsData = queryClient.getQueryData(['feed', feedType]);
 
     const queryOptions = setQueryOptions(feedType);
 
