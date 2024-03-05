@@ -13,7 +13,7 @@ export const Component = () => {
     <>
       <section className="relative flex h-fit min-h-screen flex-col">
         <header>
-          <NavBar path={groupPath} />
+          <NavBar path={groupPath}>모임</NavBar>
         </header>
         <main>
           <Outlet />

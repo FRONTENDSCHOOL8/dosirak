@@ -4,7 +4,7 @@ const QrCode = () => {
   return (
     <>
       <h2 className="sr-only">한 끼 도시락</h2>
-      <div className="relative ml-[77px] mr-[52px] h-[449px] w-[465px] self-center">
+      <div className="relative ml-[77px] mr-[52px] h-[449px] w-[465px] select-none self-center">
         <figure>
           <figcaption className="noto text-label">
             즐거운 <span className="text-primary-color">한 끼</span>를 나누는{' '}

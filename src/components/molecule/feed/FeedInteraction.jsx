@@ -1,12 +1,12 @@
 import { ReactComponent as Comment } from '@/assets/common/comment.svg';
-import { ReactComponent as Scrap } from '@/assets/common/scrap-uncheck.svg';
-import HeartButton from '@/components/atom/common/HeartButton';
 import ToggleButton from '@/components/atom/common/ToggleButton';
 import useFeedStore from '@/store/useFeedStore';
+import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const FeedInteraction = ({ feed }) => {
   const { setCommentView } = useFeedStore((state) => state);
+  const { feedType } = useParams();
 
   const handleOpenCommentWindow = () => {
     setCommentView(feed.id);
@@ -16,7 +16,10 @@ const FeedInteraction = ({ feed }) => {
     <section className="flex justify-between border-b-[0.8px] border-gray300 pb-4">
       <h2 className="sr-only">인터렉션 영역</h2>
       <div className="flex items-center gap-3">
-        <Link to={`/feed/comment/${feed.id}`} onClick={handleOpenCommentWindow}>
+        <Link
+          to={`/feed/${feedType}/comment/${feed.id}`}
+          onClick={handleOpenCommentWindow}
+        >
           <Comment />
         </Link>
         <ToggleButton

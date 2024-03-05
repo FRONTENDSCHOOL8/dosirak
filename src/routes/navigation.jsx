@@ -22,13 +22,13 @@ const navigationItems = [
   },
   {
     id: 'group',
-    path: '/group',
+    path: '/group/:groupType',
     text: '모임 화면',
     lazy: () => import('@/pages/Group'),
   },
   {
     id: 'feed',
-    path: '/feed',
+    path: '/feed/:feedType',
     text: '피드 화면',
     async lazy() {
       const { Component, loader } = await import('@/pages/Feed');
@@ -41,7 +41,7 @@ const navigationItems = [
     children: [
       {
         id: 'feed-comment',
-        path: '/feed/comment/:feedId',
+        path: '/feed/:feedType/comment/:feedId',
         text: '피드 댓글',
         async lazy() {
           const { Component, loader } = await import(

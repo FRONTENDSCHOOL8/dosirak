@@ -1,31 +1,28 @@
-import MainNavBar from '@/components/molecule/common/MainNavBar';
 import useFeedStore from '@/store/useFeedStore';
-import { useNavigate } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useParams, useNavigate } from 'react-router-dom';
 import QrCode from '@/pages/QrCode';
 
 const Layout = () => {
   const { expandFeed, setExpandFeed, commentView, setCommentView } =
     useFeedStore((state) => state);
   const navigate = useNavigate();
+  const { feedType } = useParams();
 
   const handleFeedClose = (e) => {
-    if (
-      expandFeed &&
-      !commentView &&
-      (e.target.nodeName === 'SECTION' ||
-        e.target.nodeName === 'MAIN' ||
-        e.target.nodeName === 'UL')
-    ) {
+    handleFeedContract(e);
+    handleFeedCommentClose(e);
+  };
+
+  const handleFeedContract = (e) => {
+    if (expandFeed && !commentView && !e.target.closest('.feed-text')) {
       setExpandFeed('');
     }
+  };
 
-    if (
-      commentView &&
-      (e.target.nodeName === 'SECTION' || e.target.nodeName === 'MAIN')
-    ) {
+  const handleFeedCommentClose = (e) => {
+    if (commentView && feedType && !e.target.closest('.comment-window')) {
       setCommentView('');
-      navigate('/feed', { replace: true });
+      navigate(`/feed/${feedType}`);
     }
   };
 
