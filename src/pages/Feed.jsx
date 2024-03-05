@@ -35,10 +35,7 @@ export const Component = () => {
     staleTime: 1000 * 5,
   });
 
-  console.log(loadedFeedsData);
-
   const feedsData = cachedFeedsData ? cachedFeedsData.pages : [];
-  console.log(feedsData);
   const feedItems = feedsData
     .map((feedsData) => feedsData.items)
     .flatMap((feedItems) => feedItems);

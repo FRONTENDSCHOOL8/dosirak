@@ -1,6 +1,8 @@
-import HeartButton from '@/components/atom/common/HeartButton';
 import ToggleButton from '@/components/atom/common/ToggleButton';
 import { getDateHangul } from '@/util/getDate';
+
+const currentUserId = JSON.parse(localStorage.getItem('pocketbase_auth'))?.model
+  .id;
 
 const CommentCard = ({ data }) => {
   return (
@@ -32,7 +34,7 @@ const CommentCard = ({ data }) => {
         type="heart"
         alt="좋아요"
         colorType="black"
-        isClicked={false}
+        isClicked={data.like.includes(currentUserId)}
       />
     </li>
   );

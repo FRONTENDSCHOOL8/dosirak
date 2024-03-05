@@ -14,7 +14,7 @@ const ViewMore = ({ feedId }) => {
         background:
           'linear-gradient(90deg, rgba(2, 0, 36, 1) 0%,rgba(255, 255, 255, 0) 0%,rgba(255, 255, 255, 1) 18%)',
       }}
-      className={`absolute right-0 z-20 ps-2 ${!isExpand ? '-bottom-0.5' : '-bottom-3'}`}
+      className={`absolute right-0 z-[5] ps-2 ${!isExpand ? '-bottom-0.5' : '-bottom-3'}`}
     >
       {!isExpand && <span>... </span>}
       <button

@@ -1,12 +1,12 @@
 import CommentWindowHeader from '@/components/molecule/feed/CommentWindowHeader';
+import Comments from '@/components/molecule/feed/Comments';
+import NotFoundComment from '@/components/atom/feed/NotFoundComment';
+import CommentWrite from '@/components/molecule/feed/CommentWrite';
 import useFeedStore from '@/store/useFeedStore';
 import { getPbImage, pb } from '@/util';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLoaderData } from 'react-router-dom';
-import Comments from '@/components/molecule/feed/Comments';
-import NotFoundComment from '@/components/atom/feed/NotFoundComment';
-import CommentWrite from '@/components/molecule/feed/CommentWrite';
 
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
@@ -15,7 +15,7 @@ export const Component = () => {
   const loadedCommentsData = useLoaderData();
   const { setCommentView } = useFeedStore((state) => state);
   const [commentBoxStyle, setCommentBoxStyle] = useState({
-    height: '0px',
+    height: '400px',
     overflow: 'hidden',
   });
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ export const Component = () => {
     data: cachedCommentsData,
     hasNextPage,
     fetchNextPage,
+    refetch,
   } = useInfiniteQuery({
     ...queryOptions(feedId),
     initialData: loadedCommentsData,
@@ -67,12 +68,20 @@ export const Component = () => {
       >
         <CommentWindowHeader />
         {commentItems.length ? (
-          <Comments comments={commentItems} />
+          <Comments
+            comments={commentItems}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+          />
         ) : (
           <NotFoundComment />
         )}
         <div className="h-[124px] border-t-2 pt-5">
-          <CommentWrite feed={feedId} />
+          <CommentWrite
+            comments={commentItems}
+            feed={feedId}
+            onComment={refetch}
+          />
         </div>
       </div>
     </section>
@@ -124,8 +133,6 @@ export const loader =
     let commentsData = null;
     const { feedId } = params;
     const cachedCommentsData = queryClient.getQueryData(['feed', feedId]);
-
-    console.log(queryOptions(feedId));
 
     if (cachedCommentsData) {
       commentsData = cachedCommentsData;

@@ -15,10 +15,9 @@ const fetchWriteComment = async (feed, comment) => {
   const commentResult = await pb
     .collection('feed_comments')
     .create(commentData);
-  console.log(commentResult);
 
   const feedData = await pb.collection('feed').getOne(feed);
-  console.log(feedData.comments);
+
   const newCommentsArray = [...feedData.comments, commentResult.id];
   const newCommentResult = await pb.collection('feed').update(feed, {
     ...feedData,
@@ -28,10 +27,9 @@ const fetchWriteComment = async (feed, comment) => {
   return newCommentResult;
 };
 
-const CommentWrite = ({ feed }) => {
+const CommentWrite = ({ feed, onComment }) => {
   const [commentValue, setCommentValue] = useState('');
   const commentInput = useRef(null);
-
   const handleCommentInput = (e) => {
     setCommentValue(e.target.value);
   };
@@ -43,7 +41,9 @@ const CommentWrite = ({ feed }) => {
       alert('로그인 후 입력 가능합니다.');
       return;
     }
+
     fetchWriteComment(feed, commentValue).then(() => {
+      onComment();
       setCommentValue('');
       commentInput.current.value = '';
     });
