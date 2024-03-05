@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom';
 const MainNavItem = ({ item }) => {
   const location = useLocation();
   const currentPage = '/' + location.pathname.split('/')[1];
+  const itemPath = '/' + item.path.split('/')[1];
+
   const { setExpandFeed } = useFeedStore((state) => state);
 
   return (
@@ -12,11 +14,11 @@ const MainNavItem = ({ item }) => {
       <figure className="flex w-10 flex-col items-center">
         <img
           className="size-6"
-          src={`/assets/common/menubar/${currentPage === item.path ? item.icon.select : item.icon.default}`}
+          src={`/assets/common/menubar/${currentPage === itemPath ? item.icon.select : item.icon.default}`}
           alt=""
         />
         <figcaption
-          className={`w-32 text-nowrap text-center font-Gong-Gothic-l ${currentPage === item.path ? 'text-primary-color' : 'text-gray500'}`}
+          className={`w-32 text-nowrap text-center font-Gong-Gothic-l ${currentPage === itemPath ? 'text-primary-color' : 'text-gray500'}`}
         >
           {item.name}
         </figcaption>

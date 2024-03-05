@@ -27,7 +27,7 @@ export const Component = () => {
   } = useInfiniteQuery({
     ...queryOptions,
     initialData: loadedFeedsData,
-    // staleTime: 1000 * 5,
+    staleTime: 1000 * 5,
   });
 
   const feedsData = cachedFeedsData ? cachedFeedsData.pages : [];
@@ -58,6 +58,7 @@ export const Component = () => {
 };
 
 const fetchFeeds = async (pageInfo) => {
+  console.log(pageInfo);
   const feeds = await pb
     .collection('feed')
     .getList(pageInfo.pageParam, PER_PAGE, {
@@ -89,20 +90,23 @@ const queryOptions = {
   },
 };
 
-export const loader = (queryClient) => async () => {
-  let feedsData = null;
-  const cachedFeedsData = queryClient.getQueryData(['feed']);
+export const loader =
+  (queryClient) =>
+  async ({ params }) => {
+    const { feedType } = params;
+    let feedsData = null;
+    const cachedFeedsData = queryClient.getQueryData(['feed']);
 
-  // 캐싱된 피드 데이터가 있을 경우
-  if (cachedFeedsData) {
-    feedsData = cachedFeedsData;
-  }
-  // 캐싱된 피드 데이터가 없을 경우
-  else {
-    feedsData = await queryClient.fetchInfiniteQuery(queryOptions);
-  }
+    // 캐싱된 피드 데이터가 있을 경우
+    if (cachedFeedsData) {
+      feedsData = cachedFeedsData;
+    }
+    // 캐싱된 피드 데이터가 없을 경우
+    else {
+      feedsData = await queryClient.fetchInfiniteQuery(queryOptions);
+    }
 
-  return feedsData;
-};
+    return feedsData;
+  };
 
 Component.displayName = 'feed';
