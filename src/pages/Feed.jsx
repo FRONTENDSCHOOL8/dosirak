@@ -35,10 +35,7 @@ export const Component = () => {
     staleTime: 1000 * 5,
   });
 
-  console.log(loadedFeedsData);
-
   const feedsData = cachedFeedsData ? cachedFeedsData.pages : [];
-  console.log(feedsData);
   const feedItems = feedsData
     .map((feedsData) => feedsData.items)
     .flatMap((feedItems) => feedItems);
@@ -118,7 +115,7 @@ export const loader =
   async ({ params }) => {
     const { feedType } = params;
     let feedsData = null;
-    const cachedFeedsData = queryClient.getQueryData(['feed']);
+    const cachedFeedsData = queryClient.getQueryData(['feed', feedType]);
 
     const queryOptions = setQueryOptions(feedType);
 
