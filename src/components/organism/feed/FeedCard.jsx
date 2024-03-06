@@ -8,7 +8,7 @@ import useFeedStore from '@/store/useFeedStore';
 import CommentWrite from '@/components/molecule/feed/CommentWrite';
 import CommentShowButton from '@/components/molecule/feed/CommentShowButton';
 
-const FeedCard = ({ feed, refetch }) => {
+const FeedCard = ({ feed }) => {
   const { expandFeed, setExpandFeed } = useFeedStore((state) => state);
   const handleFeedExpand = () => setExpandFeed(feed.id);
 
@@ -25,7 +25,7 @@ const FeedCard = ({ feed, refetch }) => {
         imgStyle="rounded-2xl"
         imageArray={feed.images}
       />
-      <FeedInteraction feed={feed} refetch={refetch} />
+      <FeedInteraction feed={feed} />
       <div
         onClick={handleMainTextClick}
         className={`flex flex-col gap-3 ${expandFeed === feed.id ? '' : 'cursor-pointer'}`}

@@ -13,7 +13,7 @@ const fetchInteraction = async (feedId, data) => {
   return result;
 };
 
-const FeedInteraction = ({ feed, refetch }) => {
+const FeedInteraction = ({ feed }) => {
   const { setCommentView } = useFeedStore((state) => state);
   const { feedType } = useParams();
   const [currentBookmark, setCurrentBookmark] = useState(feed.bookmark);
@@ -35,7 +35,6 @@ const FeedInteraction = ({ feed, refetch }) => {
     };
 
     fetchInteraction(feed.id, data);
-    refetch();
   };
 
   const handleLikeIt = () => {
@@ -50,7 +49,6 @@ const FeedInteraction = ({ feed, refetch }) => {
     };
 
     fetchInteraction(feed.id, data);
-    refetch();
   };
 
   return (

@@ -25,6 +25,7 @@ export const Component = () => {
     data: cachedCommentsData,
     hasNextPage,
     fetchNextPage,
+    isRefetching,
     refetch,
   } = useInfiniteQuery({
     ...queryOptions(feedId),
@@ -72,6 +73,7 @@ export const Component = () => {
             comments={commentItems}
             fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
+            isRefetching={isRefetching}
           />
         ) : (
           <NotFoundComment />
