@@ -12,11 +12,11 @@ const Comments = ({ comments, fetchNextPage, hasNextPage }) => {
   }, [comments.length]);
 
   return (
-    <ul className="relative mt-6 flex max-h-[405px] flex-grow flex-col gap-8 overflow-y-scroll scrollbar-hide">
+    <ul className="theme-scroll relative mt-6 flex max-h-[405px] flex-grow flex-col gap-6 overflow-y-scroll">
       {comments.map((comment) => (
         <CommentCard key={comment.id} data={comment} />
       ))}
-      <li ref={observeTarget}></li>
+      <li ref={observeTarget}>&nbsp;</li>
     </ul>
   );
 };

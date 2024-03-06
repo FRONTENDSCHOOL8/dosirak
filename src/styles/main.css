@@ -24,6 +24,18 @@
   font-style: normal;
 }
 
+.theme-scroll {
+  &::-webkit-scrollbar {
+    width: 5px;
+    position: absolute;
+    right: -20px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 9999px;
+  }
+}
+
 @font-face {
   font-family: 'GongGothicMedium';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');

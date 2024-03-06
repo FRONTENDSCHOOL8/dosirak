@@ -6,14 +6,14 @@ const currentUserId = JSON.parse(localStorage.getItem('pocketbase_auth'))?.model
 
 const CommentCard = ({ data }) => {
   return (
-    <li className="noto flex justify-between">
+    <li className="noto flex justify-between gap-5 pe-2">
       <figure className="flex gap-[10px]">
         <img
           className="size-[38px] rounded-full "
           src={data.expand.commenter.thumbnail}
           alt=""
         />
-        <figcaption>
+        <figcaption className="max-w-64">
           <p className="flex items-end gap-2">
             <strong className="font-semibold leading-normal tracking-tight">
               {data.expand.commenter.nickname}
