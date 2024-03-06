@@ -5,7 +5,7 @@ import CommentWrite from '@/components/molecule/feed/CommentWrite';
 import useFeedStore from '@/store/useFeedStore';
 import { getPbImage, pb } from '@/util';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { useParams, useNavigate, useLoaderData } from 'react-router-dom';
 
 const INITIAL_PAGE = 1;
@@ -13,9 +13,9 @@ const PER_PAGE = 10;
 
 export const Component = () => {
   const loadedCommentsData = useLoaderData();
-  const { setCommentView } = useFeedStore((state) => state);
+  const setCommentView = useFeedStore((state) => state.setCommentView);
   const [commentBoxStyle, setCommentBoxStyle] = useState({
-    height: '400px',
+    height: '300px',
     overflow: 'hidden',
   });
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ export const Component = () => {
     data: cachedCommentsData,
     hasNextPage,
     fetchNextPage,
+    isRefetching,
     refetch,
   } = useInfiniteQuery({
     ...queryOptions(feedId),
@@ -36,7 +37,7 @@ export const Component = () => {
     .map((commentsData) => commentsData.items)
     .flatMap((commentItems) => commentItems);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const timer = setTimeout(
       setCommentBoxStyle({
         maxHeight: '70vh',
@@ -72,6 +73,7 @@ export const Component = () => {
             comments={commentItems}
             fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
+            isRefetching={isRefetching}
           />
         ) : (
           <NotFoundComment />
@@ -123,7 +125,21 @@ const queryOptions = (feedId) => ({
   queryFn: fetchFeedComments(feedId),
   initialPageParam: INITIAL_PAGE,
   getNextPageParam: (lastPage, allPages) => {
-    return lastPage.page < lastPage.totalPages ? allPages.length + 1 : null;
+    const hasNextPage = lastPage.page < lastPage.totalPages;
+    const nextPageIndex = allPages.length + 1;
+
+    if (hasNextPage) {
+      return nextPageIndex;
+    } else {
+      const prevLastPage = allPages[allPages.length - 1];
+      const prevItemsCount = prevLastPage.items.length;
+      const nextItemsCount = lastPage.items.length;
+
+      if (prevItemsCount !== nextItemsCount) {
+        return true;
+      }
+      return null;
+    }
   },
 });
 

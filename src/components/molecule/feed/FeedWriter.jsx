@@ -1,7 +1,38 @@
-import Tag from '@/components/atom/group/Tag';
-import { getDate } from '@/util';
+import ToggleButton from '@/components/atom/common/ToggleButton';
+import { getDate, pb } from '@/util';
+import { useState } from 'react';
 
-const FeedWriter = ({ feed }) => {
+const currentUserId = JSON.parse(localStorage.getItem('pocketbase_auth'))?.model
+  .id;
+
+const fetchInteraction = async (userId, data) => {
+  console.log(userId, data);
+  const result = await pb.collection('users').update(userId, data);
+  return result;
+};
+
+const FeedWriter = ({ feed, refetch }) => {
+  const [currentFollower, setCurrentFollower] = useState(
+    feed.expand.writer.follower
+  );
+
+  const handleFollow = () => {
+    const nextFollower = currentFollower.includes(currentUserId)
+      ? currentFollower.filter((v) => v != currentUserId)
+      : [...currentFollower, currentUserId];
+
+    console.log(nextFollower);
+
+    setCurrentFollower(nextFollower);
+
+    const data = {
+      follower: nextFollower,
+    };
+
+    fetchInteraction(feed.expand.writer.id, data);
+    refetch();
+  };
+
   return (
     <div className="flex items-center justify-between">
       <figure className="flex items-center gap-2.5">
@@ -17,7 +48,14 @@ const FeedWriter = ({ feed }) => {
           </p>
         </figcaption>
       </figure>
-      <Tag tagType="follow">팔로우</Tag>
+      <ToggleButton
+        onClickButton={handleFollow}
+        type="follow"
+        alt={currentFollower.includes(currentUserId) ? '팔로잉' : '팔로우'}
+        isClicked={currentFollower.includes(currentUserId)}
+      >
+        {currentFollower.includes(currentUserId) ? '팔로잉' : '팔로우'}
+      </ToggleButton>
     </div>
   );
 };
