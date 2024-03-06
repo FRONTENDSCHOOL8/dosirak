@@ -1,14 +1,13 @@
+import { useLayoutEffect, useEffect, useRef } from 'react';
 import { useInterSectionObserver } from '@/hook';
 import CommentCard from './CommentCard';
-import { useEffect, useRef } from 'react';
-import { useLayoutEffect } from 'react';
 
 const Comments = ({ comments, fetchNextPage, hasNextPage, isRefetching }) => {
   const [observe, unobserve] = useInterSectionObserver(fetchNextPage);
   const observeTarget = useRef(null);
 
   useLayoutEffect(() => {
-    if (comments.length === 10) return;
+    if (comments.length <= 10) return;
     if (isRefetching) {
       setTimeout(() => {
         observeTarget.current.scrollIntoView({ behavior: 'smooth' });

@@ -6,8 +6,8 @@ import { useState } from 'react';
 const currentUserId = JSON.parse(localStorage.getItem('pocketbase_auth'))?.model
   .id;
 
-const fetchInteraction = async (feedId, data) => {
-  const result = await pb.collection('feed_comments').update(feedId, data);
+const fetchInteraction = async (commentId, data) => {
+  const result = await pb.collection('feed_comments').update(commentId, data);
   return result;
 };
 
