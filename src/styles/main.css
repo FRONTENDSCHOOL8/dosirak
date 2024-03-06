@@ -31,7 +31,7 @@
     right: -20px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: var(--primary);
+    background-color: var(--gray-500);
     border-radius: 9999px;
   }
 }

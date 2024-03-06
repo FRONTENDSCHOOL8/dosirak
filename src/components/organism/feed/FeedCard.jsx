@@ -8,7 +8,7 @@ import useFeedStore from '@/store/useFeedStore';
 import CommentWrite from '@/components/molecule/feed/CommentWrite';
 import CommentShowButton from '@/components/molecule/feed/CommentShowButton';
 
-const FeedCard = ({ feed }) => {
+const FeedCard = ({ feed, refetch }) => {
   const { expandFeed, setExpandFeed } = useFeedStore((state) => state);
   const handleFeedExpand = () => setExpandFeed(feed.id);
 
@@ -18,7 +18,7 @@ const FeedCard = ({ feed }) => {
 
   return (
     <li className="feed-text noto pointer flex flex-col gap-3">
-      <FeedWriter feed={feed} />
+      <FeedWriter feed={feed} refetch={refetch} />
       <SwiperCard
         onClick={handleFeedExpand}
         slideStyle="h-[200px] select-none cursor-pointer"
