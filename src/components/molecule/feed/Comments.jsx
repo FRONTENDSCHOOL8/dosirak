@@ -12,7 +12,7 @@ const Comments = ({ comments, fetchNextPage, hasNextPage }) => {
   }, [comments.length]);
 
   return (
-    <ul className="theme-scroll relative mt-6 flex max-h-[405px] flex-grow flex-col gap-6 overflow-y-scroll">
+    <ul className="theme-scroll relative mt-6 flex max-h-[405px] flex-grow flex-col gap-6 overflow-y-scroll overscroll-contain">
       {comments.map((comment) => (
         <CommentCard key={comment.id} data={comment} />
       ))}
