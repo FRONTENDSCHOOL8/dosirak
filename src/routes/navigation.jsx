@@ -24,7 +24,14 @@ const navigationItems = [
     id: 'group',
     path: '/group/:groupType',
     text: '모임 화면',
-    lazy: () => import('@/pages/Group'),
+    async lazy() {
+      const { Component, loader } = await import('@/pages/Group');
+
+      return {
+        loader: loader(queryClient),
+        Component,
+      };
+    },
   },
   {
     id: 'feed',
