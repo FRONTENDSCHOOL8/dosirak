@@ -3,9 +3,11 @@ import NoFollowing from '@/components/atom/feed/NoFollowing';
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import FeedCard from '@/components/organism/feed/FeedCard';
+import { useInterSectionObserver } from '@/hook';
 import { getLoginUserId, getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useRef, useEffect } from 'react';
 import { useParams, Outlet, useLoaderData } from 'react-router-dom';
 
 const currentUserId = getLoginUserId();
@@ -41,6 +43,14 @@ export const Component = () => {
     .map((feedsData) => feedsData.items)
     .flatMap((feedItems) => feedItems);
 
+  const [observe, unobserve] = useInterSectionObserver(fetchNextPage);
+  const observeTarget = useRef(null);
+
+  useEffect(() => {
+    if (hasNextPage) observe(observeTarget.current);
+    else unobserve(observeTarget.current);
+  }, [feedItems.length]);
+
   return status === 'loading' ? (
     <Spinner textArray={['탕수육 만드는중...', '레시피 찾는중...']} />
   ) : (
@@ -61,6 +71,7 @@ export const Component = () => {
             ) : (
               <NoFollowing />
             )}
+            <li ref={observeTarget}>&nbsp;</li>
           </ul>
         </section>
         <Outlet />

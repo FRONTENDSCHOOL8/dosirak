@@ -25,7 +25,6 @@ export const Component = () => {
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
-    console.log(title);
   };
 
   const handleUploadImage = (e) => {
