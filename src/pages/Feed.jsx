@@ -2,6 +2,7 @@ import Spinner from '@/components/atom/common/Spinner';
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import FeedCard from '@/components/organism/feed/FeedCard';
+import MyFeed from '@/components/organism/feed/myfeed/MyFeed';
 import { getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -45,7 +46,7 @@ export const Component = () => {
 
   return status === 'loading' ? (
     <Spinner textArray={['탕수육 만드는중...', '레시피 찾는중...']} />
-  ) : (
+  ) : feedType != 'myfeed' ? (
     <>
       <section className="relative flex h-fit min-h-screen flex-col">
         <h2 className="sr-only">피드</h2>
@@ -63,6 +64,8 @@ export const Component = () => {
       </section>
       <MainNavBar />
     </>
+  ) : (
+    <MyFeed feed={feedItems} />
   );
 };
 
