@@ -64,6 +64,12 @@ const navigationItems = [
     ],
   },
   {
+    id: 'feed-write',
+    path: '/feed/write',
+    text: '피드 글쓰기',
+    lazy: () => import('@/pages/FeedWrite'),
+  },
+  {
     id: 'mypage',
     path: '/mypage',
     text: '마이페이지 화면',

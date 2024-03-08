@@ -1,18 +1,20 @@
 import Spinner from '@/components/atom/common/Spinner';
+import NoFollowing from '@/components/atom/feed/NoFollowing';
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import FeedCard from '@/components/organism/feed/FeedCard';
-import { getPbImage, pb } from '@/util';
+import { useInterSectionObserver } from '@/hook';
+import { getLoginUserId, getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
-import { useLoaderData } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
+import { useParams, Outlet, useLoaderData } from 'react-router-dom';
 
+const currentUserId = getLoginUserId();
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
 
-const feedPath = [
+export const feedPath = [
   { path: '/feed/popular', children: '인기' },
   { path: '/feed/recommend', children: '추천' },
   { path: '/feed/following', children: '팔로잉' },
@@ -41,6 +43,14 @@ export const Component = () => {
     .map((feedsData) => feedsData.items)
     .flatMap((feedItems) => feedItems);
 
+  const [observe, unobserve] = useInterSectionObserver(fetchNextPage);
+  const observeTarget = useRef(null);
+
+  useEffect(() => {
+    if (hasNextPage) observe(observeTarget.current);
+    else unobserve(observeTarget.current);
+  }, [feedItems.length]);
+
   return status === 'loading' ? (
     <Spinner textArray={['탕수육 만드는중...', '레시피 찾는중...']} />
   ) : (
@@ -48,13 +58,20 @@ export const Component = () => {
       <section className="relative flex h-fit min-h-screen flex-col">
         <h2 className="sr-only">피드</h2>
         <header>
-          <NavBar path={feedPath}>피드</NavBar>
+          <NavBar type="feed" path={feedPath}>
+            피드
+          </NavBar>
         </header>
         <section className="h-fit pt-[132px]">
           <ul className="flex flex-col gap-8 px-9 pb-[125px]">
-            {feedItems.map((feed) => (
-              <FeedCard feed={feed} key={feed.id} refetch={refetch} />
-            ))}
+            {feedItems.length ? (
+              feedItems.map((feed) => (
+                <FeedCard feed={feed} key={feed.id} refetch={refetch} />
+              ))
+            ) : (
+              <NoFollowing />
+            )}
+            <li ref={observeTarget}>&nbsp;</li>
           </ul>
         </section>
         <Outlet />
@@ -65,9 +82,6 @@ export const Component = () => {
 };
 
 const fetchFeeds = (feedType) => async (pageInfo) => {
-  const currentUserId = JSON.parse(localStorage.getItem('pocketbase_auth'))
-    ?.model.id;
-
   const collection = {
     popular: { collection: 'feed_popular', sortField: 'i_like_it', filter: '' },
     recommend: { collection: 'feed', sortField: 'id', filter: '' },
