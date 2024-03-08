@@ -1,10 +1,9 @@
 import ToggleButton from '@/components/atom/common/ToggleButton';
-import { pb } from '@/util';
+import { getLoginUserId, pb } from '@/util';
 import { getDateHangul } from '@/util/getDate';
 import { useState } from 'react';
 
-const currentUserId = JSON.parse(localStorage.getItem('pocketbase_auth'))?.model
-  .id;
+const currentUserId = getLoginUserId();
 
 const fetchInteraction = async (commentId, data) => {
   const result = await pb.collection('feed_comments').update(commentId, data);

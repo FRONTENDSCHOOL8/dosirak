@@ -1,9 +1,8 @@
 import LoginUserThumbnail from '@/components/atom/common/LoginUserThumbnail';
-import { debounce, pb } from '@/util';
+import { debounce, getLoginUserId, pb } from '@/util';
 import { useState, useRef } from 'react';
 
-const currentUserId = JSON.parse(localStorage.getItem('pocketbase_auth'))?.model
-  .id;
+const currentUserId = getLoginUserId();
 
 const fetchWriteComment = async (feed, comment) => {
   const commentData = {

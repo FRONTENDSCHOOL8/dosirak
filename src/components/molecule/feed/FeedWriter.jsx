@@ -1,12 +1,10 @@
 import ToggleButton from '@/components/atom/common/ToggleButton';
-import { getDate, pb } from '@/util';
+import { getDate, getLoginUserId, pb } from '@/util';
 import { useState } from 'react';
 
-const currentUserId = JSON.parse(localStorage.getItem('pocketbase_auth'))?.model
-  .id;
+const currentUserId = getLoginUserId();
 
 const fetchInteraction = async (userId, data) => {
-  console.log(userId, data);
   const result = await pb.collection('users').update(userId, data);
   return result;
 };
@@ -20,8 +18,6 @@ const FeedWriter = ({ feed, refetch }) => {
     const nextFollower = currentFollower.includes(currentUserId)
       ? currentFollower.filter((v) => v != currentUserId)
       : [...currentFollower, currentUserId];
-
-    console.log(nextFollower);
 
     setCurrentFollower(nextFollower);
 

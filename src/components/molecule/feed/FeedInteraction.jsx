@@ -1,12 +1,11 @@
 import { ReactComponent as Comment } from '@/assets/common/comment.svg';
 import ToggleButton from '@/components/atom/common/ToggleButton';
 import useFeedStore from '@/store/useFeedStore';
-import { pb } from '@/util';
+import { getLoginUserId, pb } from '@/util';
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-const currentUserId = JSON.parse(localStorage.getItem('pocketbase_auth'))?.model
-  .id;
+const currentUserId = getLoginUserId();
 
 const fetchInteraction = async (feedId, data) => {
   const result = await pb.collection('feed').update(feedId, data);
