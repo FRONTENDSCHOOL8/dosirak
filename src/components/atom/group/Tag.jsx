@@ -10,17 +10,8 @@ const Tag = ({ children, tagType, isActive, position = '' }) => {
     follow: `${isActive ? 'bg-gray600' : 'bg-primary-color'} py-[6px] text-white`,
   };
 
-  const typeContent = {
-    recruit: `${isActive ? '모집 중' : '모집 완료'}`,
-    follow: isActive
-      ? { text: '팔로잉', icon: 'check', alt: '체크', label: '해제' }
-      : { text: '팔로우', icon: 'plus', alt: '추가', label: '추가' },
-  };
-
   const className =
     `${baseClass} ${typeClasses[tagType] || defaultClass} ${position}`.trim();
-
-  const content = typeContent[tagType];
 
   switch (tagType) {
     case 'delete':
@@ -40,30 +31,9 @@ const Tag = ({ children, tagType, isActive, position = '' }) => {
     case 'recruit':
       return (
         <span className={className} isActive={isActive}>
-          {content}
+          {isActive ? '모집 중' : '모집 완료'}
         </span>
       );
-
-    case 'follow': {
-      const { text, icon, alt, label } = content;
-
-      return (
-        <button
-          type="button"
-          aria-label={`팔로우 ${label}`}
-          className={className}
-        >
-          <figure className="flex max-w-fit items-center gap-1">
-            <img
-              src={`/src/assets/common/${icon}-white.svg`}
-              alt={`팔로우 ${alt} 아이콘`}
-              className="h-3 w-3"
-            />
-            <figcaption>{text}</figcaption>
-          </figure>
-        </button>
-      );
-    }
 
     default:
       return (
