@@ -8,7 +8,6 @@ import GroupCardGradient from '@/components/atom/group/GroupCardGradient';
 import ToggleButton from '@/components/atom/common/ToggleButton';
 
 const GroupPopularCard = ({ group }) => {
-  console.log(group);
   const { title, thumbnail, participant, like, hashTag, isRecruiting } = group;
   const uploadTime = 3;
 
@@ -32,7 +31,7 @@ const GroupPopularCard = ({ group }) => {
             colorType="white"
             alt="좋아요"
             isClicked={false}
-            position="absolute right-5 z-10"
+            className="absolute right-5 z-10"
           />
           <HashTagList
             hashTagArr={hashTag.hashTag}

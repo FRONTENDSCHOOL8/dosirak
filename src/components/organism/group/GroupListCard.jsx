@@ -4,7 +4,6 @@ import GroupTitle from '@/components/atom/group/GroupTitle';
 import Tag from '@/components/atom/group/Tag';
 import GroupInfo from '@/components/molecule/group/GroupInfo';
 import HashTagList from '@/components/molecule/group/HashTagList';
-import { useId } from 'react';
 import { Link } from 'react-router-dom';
 
 const GroupListCard = ({ group }) => {
