@@ -9,6 +9,7 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useCommonStore from '@/store/useCommonStore';
 import useUserSessionStore from '@/store/useUserSessionStore';
+import { THUMBNAIL_IMAGE_EXT } from '@/util/constant';
 
 const fetchRegister = async (data) => {
   const result = await pb.collection('users').create(data);
@@ -26,15 +27,19 @@ const fetchLogin = async (data) => {
 };
 
 const setThumbnail = (data) => {
+  const thumbnailExt = data.record.thumbnail.split('.')?.pop();
+
   const userData = {
     collectionId: data.record.collectionId,
     id: data.record.id,
     thumbnail: data.record.thumbnail,
   };
 
-  const thumbnailUrl = getPbImage(userData);
-
-  return thumbnailUrl;
+  if (THUMBNAIL_IMAGE_EXT.includes(thumbnailExt.toLowerCase())) {
+    return getPbImage(userData);
+  } else {
+    return `${window.location.origin}/assets/common/guest.svg`;
+  }
 };
 
 const RegisterForm = () => {

@@ -6,6 +6,7 @@ import useCommonStore from '@/store/useCommonStore';
 import useUserPersistStore from '@/store/useUserPersistStore';
 import useUserSessionStore from '@/store/useUserSessionStore';
 import { getPbImage, pb } from '@/util';
+import { THUMBNAIL_IMAGE_EXT } from '@/util/constant';
 import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,15 +20,19 @@ const fetchLogin = async (data) => {
 };
 
 const setThumbnail = (data) => {
+  const thumbnailExt = data.record.thumbnail.split('.')?.pop();
+
   const userData = {
     collectionId: data.record.collectionId,
     id: data.record.id,
     thumbnail: data.record.thumbnail,
   };
 
-  const thumbnailUrl = getPbImage(userData);
-
-  return thumbnailUrl;
+  if (THUMBNAIL_IMAGE_EXT.includes(thumbnailExt.toLowerCase())) {
+    return getPbImage(userData);
+  } else {
+    return `${window.location.origin}/assets/common/guest.svg`;
+  }
 };
 
 const LOGIN_INFO = {

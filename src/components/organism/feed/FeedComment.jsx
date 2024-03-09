@@ -5,8 +5,9 @@ import CommentWrite from '@/components/molecule/feed/CommentWrite';
 import useFeedStore from '@/store/useFeedStore';
 import { getPbImage, pb } from '@/util';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState, useEffect, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { useParams, useNavigate, useLoaderData } from 'react-router-dom';
+import { THUMBNAIL_IMAGE_EXT } from '@/util/constant';
 
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
@@ -99,8 +100,6 @@ const fetchFeedComments = (feedId) => async (pageInfo) => {
       expand: 'commenter',
       filter: `parent_feed="${feedId}"`,
     });
-
-  const THUMBNAIL_IMAGE_EXT = ['svg', 'png', 'jpg', 'jpeg', 'webp', 'gif'];
 
   const commentItems = comments.items.map((comment) => {
     const commenterThumbnail = getPbImage(comment.expand.commenter);
