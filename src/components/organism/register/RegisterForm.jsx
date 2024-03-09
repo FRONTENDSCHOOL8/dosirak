@@ -73,6 +73,7 @@ const RegisterForm = () => {
             nickname: data.record.nickname,
             thumbnail: setThumbnail(data),
             follow: data.record.follow,
+            storage: 'session',
           });
 
           navigate('/');

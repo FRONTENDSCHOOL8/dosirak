@@ -86,6 +86,7 @@ const LoginForm = () => {
             nickname: data.record.nickname,
             thumbnail: setThumbnail(data),
             follow: data.record.follow,
+            storage: 'local',
           });
         } else {
           setSessionUser({
@@ -93,6 +94,7 @@ const LoginForm = () => {
             nickname: data.record.nickname,
             thumbnail: setThumbnail(data),
             follow: data.record.follow,
+            storage: 'session',
           });
         }
 
