@@ -1,24 +1,23 @@
-import useCommonStore from '@/store/useCommonStore';
-import { getPbImage } from '@/util';
-import { useEffect } from 'react';
+import useUserPersistStore from '@/store/useUserPersistStore';
+import useUserSessionStore from '@/store/useUserSessionStore';
+import { useLayoutEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const useLoginUserInfo = (callbackFn) => {
-  const { loginUser, setLoginUser } = useCommonStore((state) => state);
+const useLoginUserInfo = () => {
+  const { loginUser: sessionUser } = useUserSessionStore((state) => state);
+  const { loginUser: rememberUser } = useUserPersistStore((state) => state);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const auth = JSON.parse(localStorage.getItem('pocketbase_auth'));
-    if (!loginUser.nickname && auth?.model.nickname) {
-      setLoginUser({
-        id: auth.model.id,
-        nickname: auth.model.nickname,
-        thumbnail: auth.model.thumbnail
-          ? getPbImage(auth.model)
-          : `${window.location.origin}/assets/common/guest.svg`,
-      });
+  const userInfo = Object.keys(sessionUser).length ? sessionUser : rememberUser;
+
+  useLayoutEffect(() => {
+    if (!Object.keys(userInfo).length) {
+      alert('로그인 후 이용 가능합니다.');
+      navigate('/login');
     }
-
-    callbackFn?.();
   }, []);
+
+  return userInfo;
 };
 
 export default useLoginUserInfo;

@@ -3,16 +3,14 @@ import LoginButton from '@/components/atom/login/LoginButton';
 import LoginInput from '@/components/molecule/login/LoginInput';
 import FormCheckBox from '@/components/molecule/register/Form/FormCheckBox';
 import useCommonStore from '@/store/useCommonStore';
-import useLoginStore from '@/store/useLoginStore';
-import { pb } from '@/util';
-import { useEffect } from 'react';
-import { useRef } from 'react';
+import useUserPersistStore from '@/store/useUserPersistStore';
+import useUserSessionStore from '@/store/useUserSessionStore';
+import { getPbImage, pb } from '@/util';
+import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const fetchLogin = async (data) => {
   pb.authStore.clear();
-  localStorage.removeItem('token');
-  sessionStorage.removeItem('token');
   const result = await pb
     .collection('users')
     .authWithPassword(data.username, data.password);
@@ -20,20 +18,51 @@ const fetchLogin = async (data) => {
   return result;
 };
 
+const setThumbnail = (data) => {
+  const userData = {
+    collectionId: data.record.collectionId,
+    id: data.record.id,
+    thumbnail: data.record.thumbnail,
+  };
+
+  const thumbnailUrl = getPbImage(userData);
+
+  return thumbnailUrl;
+};
+
+const LOGIN_INFO = {
+  idValue: '',
+  passwordValue: '',
+  isLoginError: false,
+};
+
 const LoginForm = () => {
-  const {
-    isLoginError,
-    idValue,
-    passwordValue,
-    setIdValue,
-    setPasswordValue,
-    setIsLoginError,
-    clearLoginState,
-  } = useLoginStore((state) => state);
+  const [loginInfo, setLoginInfo] = useState(LOGIN_INFO);
   const { setIsPending } = useCommonStore((state) => state);
+  const { setLoginUser: setRememberUser } = useUserPersistStore(
+    (state) => state
+  );
+  const { setLoginUser: setSessionUser } = useUserSessionStore(
+    (state) => state
+  );
+
   const navigate = useNavigate();
   const formRef = useRef(null);
   const rememberRef = useRef(null);
+
+  const handleIdValue = (e) => {
+    setLoginInfo({
+      ...loginInfo,
+      IdValue: e.target.value,
+    });
+  };
+
+  const handlePasswordValue = (e) => {
+    setLoginInfo({
+      ...loginInfo,
+      passwordValue: e.target.value,
+    });
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -46,27 +75,42 @@ const LoginForm = () => {
     setIsPending(true);
     fetchLogin(loginData)
       .then((data) => {
-        console.log(data);
         if (rememberRef.current.checked) {
-          localStorage.setItem('token', data.token);
+          setRememberUser({
+            id: data.record.id,
+            nickname: data.record.nickname,
+            thumbnail: setThumbnail(data),
+            follow: data.record.follow,
+          });
         } else {
-          sessionStorage.setItem('token', data.token);
+          setSessionUser({
+            id: data.record.id,
+            nickname: data.record.nickname,
+            thumbnail: setThumbnail(data),
+            follow: data.record.follow,
+          });
         }
-        navigate('/');
-        clearLoginState();
-        setTimeout(() => setIsPending(false), 1000);
+
+        setTimeout(() => {
+          navigate('/');
+          setIsPending(false);
+        }, 1000);
       })
       .catch((error) => {
-        setIsLoginError(true);
+        console.error(error);
+        setLoginInfo({ ...loginInfo, isLoginError: true });
         setIsPending(false);
       });
   };
 
   useEffect(() => {
-    if (isLoginError) {
-      setIsLoginError(false);
+    if (loginInfo.isLoginError) {
+      setLoginInfo({
+        ...loginInfo,
+        isLoginError: false,
+      });
     }
-  }, [idValue, passwordValue]);
+  }, [loginInfo.idValue, loginInfo.passwordValue]);
 
   return (
     <section className="w-full">
@@ -78,8 +122,8 @@ const LoginForm = () => {
             name="username"
             placeholder="아이디를 입력해 주세요"
             autoComplete="off"
-            updater={setIdValue}
-            value={idValue}
+            updater={handleIdValue}
+            value={loginInfo.idValue}
           >
             아이디
           </LoginInput>
@@ -88,14 +132,14 @@ const LoginForm = () => {
             name="password"
             placeholder="비밀번호를 입력해 주세요"
             autoComplete="off"
-            updater={setPasswordValue}
-            value={passwordValue}
+            updater={handlePasswordValue}
+            value={loginInfo.passwordValue}
           >
             비밀번호
           </LoginInput>
         </div>
         <div className="relative mb-6">
-          {isLoginError && (
+          {loginInfo.isLoginError && (
             <Notice type="error">아이디나 비밀번호가 틀렸습니다.</Notice>
           )}
         </div>
