@@ -1,8 +1,8 @@
 import ToggleButton from '@/components/atom/common/ToggleButton';
-import { getDate, getLoginUserId, pb } from '@/util';
+import { useLoginUserInfo } from '@/hook';
+import useCommonStore from '@/store/useCommonStore';
+import { getDate, pb } from '@/util';
 import { useState } from 'react';
-
-const currentUserId = getLoginUserId();
 
 const fetchInteraction = async (userId, data) => {
   const result = await pb.collection('users').update(userId, data);
@@ -14,18 +14,21 @@ const FeedWriter = ({ feed, refetch }) => {
     feed.expand.writer.follower
   );
 
+  const userInfo = useLoginUserInfo();
+  const writerId = feed.expand.writer.id;
+
   const handleFollow = () => {
-    const nextFollower = currentFollower.includes(currentUserId)
-      ? currentFollower.filter((v) => v != currentUserId)
-      : [...currentFollower, currentUserId];
+    const nextFollower = currentFollower.includes(userInfo.id)
+      ? currentFollower.filter((v) => v != userInfo.id)
+      : [...currentFollower, userInfo.id];
 
     setCurrentFollower(nextFollower);
 
-    const data = {
+    const followerData = {
       follower: nextFollower,
     };
 
-    fetchInteraction(feed.expand.writer.id, data);
+    fetchInteraction(writerId, followerData);
     refetch();
   };
 
@@ -47,10 +50,10 @@ const FeedWriter = ({ feed, refetch }) => {
       <ToggleButton
         onClickButton={handleFollow}
         type="follow"
-        alt={currentFollower.includes(currentUserId) ? '팔로잉' : '팔로우'}
-        isClicked={currentFollower.includes(currentUserId)}
+        alt={userInfo.follow.includes(writerId) ? '팔로잉' : '팔로우'}
+        isClicked={userInfo.follow.includes(writerId)}
       >
-        {currentFollower.includes(currentUserId) ? '팔로잉' : '팔로우'}
+        {userInfo.follow.includes(writerId) ? '팔로잉' : '팔로우'}
       </ToggleButton>
     </div>
   );

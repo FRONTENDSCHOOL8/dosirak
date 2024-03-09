@@ -3,14 +3,13 @@ import NoFollowing from '@/components/atom/feed/NoFollowing';
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import FeedCard from '@/components/organism/feed/FeedCard';
-import { useInterSectionObserver } from '@/hook';
-import { getLoginUserId, getPbImage, pb } from '@/util';
+import { useInterSectionObserver, useLoginUserInfo } from '@/hook';
+import { getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useRef, useEffect } from 'react';
 import { useParams, Outlet, useLoaderData } from 'react-router-dom';
 
-const currentUserId = getLoginUserId();
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
 
@@ -22,9 +21,10 @@ export const feedPath = [
 ];
 
 export const Component = () => {
+  const userInfo = useLoginUserInfo();
   const loadedFeedsData = useLoaderData();
   const { feedType } = useParams();
-  const queryOptions = setQueryOptions(feedType);
+  const queryOptions = setQueryOptions(feedType, userInfo.id);
 
   const {
     data: cachedFeedsData,
@@ -81,14 +81,14 @@ export const Component = () => {
   );
 };
 
-const fetchFeeds = (feedType) => async (pageInfo) => {
+const fetchFeeds = (feedType, userId) => async (pageInfo) => {
   const collection = {
     popular: { collection: 'feed_popular', sortField: 'i_like_it', filter: '' },
     recommend: { collection: 'feed', sortField: 'id', filter: '' },
     following: {
       collection: 'feed',
       sortField: 'created',
-      filter: `writer.follower.id ?= "${currentUserId}"`,
+      filter: `writer.follower.id ?= "${userId}"`,
     },
     myfeed: { collection: 'feed', sortField: 'created', filter: '' },
   };
@@ -97,7 +97,7 @@ const fetchFeeds = (feedType) => async (pageInfo) => {
     .collection(collection[feedType].collection)
     .getList(pageInfo.pageParam, PER_PAGE, {
       sort: `-${collection[feedType].sortField}`,
-      expand: 'writer, like, bookmark',
+      expand: 'writer, writer.follower, like, bookmark',
       filter: collection[feedType].filter,
     });
 
@@ -116,9 +116,9 @@ const fetchFeeds = (feedType) => async (pageInfo) => {
   };
 };
 
-const setQueryOptions = (feedType) => ({
+const setQueryOptions = (feedType, userId) => ({
   queryKey: ['feed', feedType],
-  queryFn: fetchFeeds(feedType),
+  queryFn: fetchFeeds(feedType, userId),
   initialPageParam: INITIAL_PAGE,
   getNextPageParam: (lastPage, allPages) => {
     return lastPage.page < lastPage.totalPages ? allPages.length + 1 : null;
@@ -129,10 +129,22 @@ export const loader =
   (queryClient) =>
   async ({ params }) => {
     const { feedType } = params;
+
+    const sessionUser = JSON.parse(sessionStorage.getItem('loginUserInfo'))
+      .state.loginUser;
+    const rememberUser = JSON.parse(localStorage.getItem('loginUserInfo')).state
+      .loginUser;
+
+    let currentUserId;
+    if (sessionUser.length) {
+      currentUserId = sessionUser.id;
+    } else {
+      currentUserId = rememberUser.id;
+    }
+
     let feedsData = null;
     const cachedFeedsData = queryClient.getQueryData(['feed', feedType]);
-
-    const queryOptions = setQueryOptions(feedType);
+    const queryOptions = setQueryOptions(feedType, currentUserId);
 
     // 캐싱된 피드 데이터가 있을 경우
     if (cachedFeedsData) {
