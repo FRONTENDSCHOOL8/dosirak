@@ -21,6 +21,7 @@ export const Component = () => {
       <section className="relative flex h-fit min-h-screen flex-col">
         <h2>홈</h2>
         <span>{loginUser.nickname}님 안녕하세요!</span>
+        <img src={loginUser.thumbnail} alt="" />
       </section>
       <MainNavBar />
     </>
