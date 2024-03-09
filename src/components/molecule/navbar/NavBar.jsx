@@ -10,7 +10,7 @@ const styleClass = ({ isActive }) => {
 
 const NavBar = ({ children, path, type }) => {
   return (
-    <nav className="noto fixed top-0 z-10 flex h-[112px] w-[430px] select-none flex-col bg-white pt-[22px]">
+    <nav className="noto fixed top-0 z-20 flex h-[112px] w-[430px] select-none flex-col bg-white pt-[22px]">
       <div className="flex flex-grow justify-between px-9">
         <h3 className="text-heading-lg font-extrabold">{children}</h3>
         <div className="flex h-6 gap-2 pt-2">

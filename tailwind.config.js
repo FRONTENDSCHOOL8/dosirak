@@ -77,7 +77,7 @@ export default {
     },
     backgroundImage: {
       'card-group-gradient':
-        'linear-gradient(180deg, rgba(0, 0, 0, 0.00) 18.21%, rgba(0, 0, 0, 0.04) 41.52%, rgba(0, 0, 0, 0.53) 84.87%)',
+        'linear-gradient(180deg, rgba(0, 0, 0, 0.00) 5.71%, rgba(0, 0, 0, 0.13) 43.29%, rgba(0, 0, 0, 0.62) 85.86%)',
       'card-feed-gradient':
         'linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.00) 49%)',
     },
