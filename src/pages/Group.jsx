@@ -3,12 +3,14 @@ import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import PopularGroup from '@/pages/PopularGroup';
 import RecentGroup from '@/pages/RecentGroup';
+import { useInterSectionObserver } from '@/hook';
 import { getPbImage, pb } from '@/util';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useRef, useEffect } from 'react';
 import { useParams, Outlet, useLoaderData } from 'react-router-dom';
 
 const INITIAL_PAGE = 1;
-const PER_PAGE = 10;
+const PER_PAGE = 15;
 
 const groupPath = [
   { path: '/group/popular', children: '인기' }, // => item
@@ -41,10 +43,16 @@ export const Component = () => {
     staleTime: 1000 * 5,
   });
 
-  const likeItems = cachedLikeData.items;
+  const likeItems = cachedLikeData ? cachedLikeData.items : [];
 
   // Popular, Recent, My Group
-  const { data: cachedGroupsData, status } = useInfiniteQuery({
+  const {
+    data: cachedGroupsData,
+    hasNextPage,
+    fetchNextPage,
+    refetch,
+    status,
+  } = useInfiniteQuery({
     ...queryOptions,
     initialData: loadedGroupsData.infiniteInfoData,
     staleTime: 1000 * 5,
@@ -54,6 +62,17 @@ export const Component = () => {
   const groupItems = groupsData
     .map((groupsData) => groupsData.items)
     .flatMap((groupItems) => groupItems);
+
+  const [observe, unobserve] = useInterSectionObserver(fetchNextPage);
+  const observeTarget = useRef(null);
+
+  useEffect(() => {
+    if (observeTarget.current && hasNextPage) {
+      observe(observeTarget.current);
+    } else if (observeTarget.current) {
+      unobserve(observeTarget.current);
+    }
+  }, [observe, unobserve, hasNextPage, observeTarget.current]);
 
   return status === 'loading' ? (
     <Spinner textArray={['도시락 포장 중...', '도시락 동료 찾는 중...']} />
@@ -65,6 +84,9 @@ export const Component = () => {
         </header>
         <main className="mx-9">
           {getGroupComponent(groupType, groupItems, likeItems)}
+          <div ref={observeTarget} aria-hidden="true">
+            &nbsp;
+          </div>
           <Outlet />
         </main>
       </section>

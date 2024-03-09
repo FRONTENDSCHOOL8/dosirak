@@ -3,7 +3,7 @@ import Tag from '@/components/atom/group/Tag';
 import ImgBox from '@/components/atom/common/ImgBox';
 import HashTagList from '@/components/molecule/group/HashTagList';
 import GroupTitle from '@/components/atom/group/GroupTitle';
-import GroupInfo from '../../molecule/group/GroupInfo';
+import GroupInfo from '@/components/molecule/group/GroupInfo';
 import GroupCardGradient from '@/components/atom/group/GroupCardGradient';
 import ToggleButton from '@/components/atom/common/ToggleButton';
 
