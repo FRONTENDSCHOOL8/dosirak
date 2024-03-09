@@ -1,11 +1,11 @@
 import TinyMceEditor from '@/components/atom/common/TinyMceEditor';
 import FeedWriteHeader from '@/components/molecule/feed/FeedWriteHeader';
 import ImageUpload from '@/components/molecule/feed/ImageUpload';
-import { getLoginUserId, pb } from '@/util';
+import { useLoginUserInfo } from '@/hook';
+import { pb } from '@/util';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const currentUserId = getLoginUserId();
 const fetchFeedText = async (data) => {
   const result = await pb.collection('feed').create(data);
 
@@ -16,6 +16,7 @@ export const Component = () => {
   const [editorText, setEditorText] = useState('');
   const [imageList, setImageList] = useState([]);
   const [title, setTitle] = useState('');
+  const userInfo = useLoginUserInfo();
   const navigate = useNavigate();
   const writeFormRef = useRef(null);
 
@@ -36,7 +37,7 @@ export const Component = () => {
     if (!confirm('글을 업로드 하시겠어요?')) return;
     const writeFormData = new FormData();
     writeFormData.append('title', title);
-    writeFormData.append('writer', currentUserId);
+    writeFormData.append('writer', userInfo.id);
     writeFormData.append('maintext', editorText);
 
     imageList.forEach((image) => {

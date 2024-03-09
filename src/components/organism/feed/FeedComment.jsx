@@ -74,6 +74,7 @@ export const Component = () => {
             fetchNextPage={fetchNextPage}
             hasNextPage={hasNextPage}
             isRefetching={isRefetching}
+            refetch={refetch}
           />
         ) : (
           <NotFoundComment />

@@ -1,13 +1,12 @@
 import LoginUserThumbnail from '@/components/atom/common/LoginUserThumbnail';
-import { debounce, getLoginUserId, pb } from '@/util';
+import { useLoginUserInfo } from '@/hook';
+import { debounce, pb } from '@/util';
 import { useState, useRef } from 'react';
 
-const currentUserId = getLoginUserId();
-
-const fetchWriteComment = async (feed, comment) => {
+const fetchWriteComment = async (feed, comment, userId) => {
   const commentData = {
     comment: comment,
-    commenter: currentUserId,
+    commenter: userId,
     parent_feed: feed,
   };
 
@@ -29,6 +28,8 @@ const fetchWriteComment = async (feed, comment) => {
 const CommentWrite = ({ feed, onComment }) => {
   const [commentValue, setCommentValue] = useState('');
   const commentInput = useRef(null);
+  const userInfo = useLoginUserInfo();
+
   const handleCommentInput = (e) => {
     setCommentValue(e.target.value);
   };
@@ -36,13 +37,9 @@ const CommentWrite = ({ feed, onComment }) => {
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     if (commentValue.length === 0) return;
-    if (!currentUserId) {
-      alert('로그인 후 입력 가능합니다.');
-      return;
-    }
 
-    fetchWriteComment(feed, commentValue).then(() => {
-      onComment();
+    fetchWriteComment(feed, commentValue, userInfo.id).then(() => {
+      onComment?.();
       setCommentValue('');
       commentInput.current.value = '';
     });

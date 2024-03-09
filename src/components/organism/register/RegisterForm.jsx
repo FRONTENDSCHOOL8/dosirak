@@ -4,10 +4,11 @@ import PhoneSection from '@/components/molecule/register/Sections/PhoneSection';
 import TermSection from '@/components/molecule/register/Sections/TermSection';
 import ButtonSection from '@/components/molecule/register/Sections/ButtonSection';
 import useRegisterStore from '@/store/useRegisterStore';
-import { pb, randomNickName } from '@/util';
+import { getPbImage, pb, randomNickName } from '@/util';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useCommonStore from '@/store/useCommonStore';
+import useUserSessionStore from '@/store/useUserSessionStore';
 
 const fetchRegister = async (data) => {
   const result = await pb.collection('users').create(data);
@@ -17,8 +18,6 @@ const fetchRegister = async (data) => {
 
 const fetchLogin = async (data) => {
   pb.authStore.clear();
-  localStorage.removeItem('token');
-  sessionStorage.removeItem('token');
   const result = await pb
     .collection('users')
     .authWithPassword(data.username, data.password);
@@ -26,9 +25,25 @@ const fetchLogin = async (data) => {
   return result;
 };
 
+const setThumbnail = (data) => {
+  const userData = {
+    collectionId: data.record.collectionId,
+    id: data.record.id,
+    thumbnail: data.record.thumbnail,
+  };
+
+  const thumbnailUrl = getPbImage(userData);
+
+  return thumbnailUrl;
+};
+
 const RegisterForm = () => {
   const { clearRegisterState } = useRegisterStore((state) => state);
-  const { setIsPending, setLoginUser } = useCommonStore((state) => state);
+  const { setIsPending } = useCommonStore((state) => state);
+  const { setLoginUser: setSessionUser } = useUserSessionStore(
+    (state) => state
+  );
+
   const navigate = useNavigate();
   const formRef = useRef(null);
 
@@ -47,15 +62,14 @@ const RegisterForm = () => {
     fetchRegister(registerData)
       .then(() => fetchLogin(registerData))
       .then((data) => {
-        sessionStorage.setItem('token', data.token);
         setTimeout(() => {
-          const model = JSON.parse(localStorage.getItem('pocketbase_auth'));
-
-          setLoginUser({
-            id: model.id,
-            nickname: model.nickname,
-            thumbnail: `${window.location.origin}/assets/common/guest.svg`,
+          setSessionUser({
+            id: data.record.id,
+            nickname: data.record.nickname,
+            thumbnail: setThumbnail(data),
+            follow: data.record.follow,
           });
+
           navigate('/');
           clearRegisterState();
           setTimeout(() => setIsPending(false), 500);
