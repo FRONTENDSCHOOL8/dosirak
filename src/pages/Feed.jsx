@@ -49,7 +49,7 @@ export const Component = () => {
 
   useEffect(() => {
     if (hasNextPage) observe(observeTarget.current);
-    else unobserve(observeTarget.current);
+    // else unobserve(observeTarget.current);
   }, [feedItems.length]);
 
   useEffect(() => {
@@ -97,7 +97,11 @@ const fetchFeeds = (feedType, userId) => async (pageInfo) => {
       sortField: 'created',
       filter: `writer.follower.id ?= "${userId}"`,
     },
-    myfeed: { collection: 'feed', sortField: 'created', filter: '' },
+    myfeed: {
+      collection: 'feed',
+      sortField: 'created',
+      filter: `writer.id ?= "${userId}"`,
+    },
   };
 
   const feeds = await pb
