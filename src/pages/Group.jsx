@@ -78,7 +78,7 @@ export const Component = () => {
     <Spinner textArray={['도시락 포장 중...', '도시락 동료 찾는 중...']} />
   ) : (
     <>
-      <section className="relative flex h-fit min-h-screen flex-col">
+      <section className="relative flex h-fit min-h-screen flex-col overflow-x-hidden">
         <header>
           <NavBar path={groupPath}>모임</NavBar>
         </header>
