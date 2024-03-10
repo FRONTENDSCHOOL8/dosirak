@@ -1,9 +1,34 @@
 import LoginUserThumbnail from '@/components/atom/common/LoginUserThumbnail';
-import { debounce } from '@/util';
-import { useState } from 'react';
+import { useLoginUserInfo } from '@/hook';
+import { debounce, pb } from '@/util';
+import { useState, useRef } from 'react';
 
-const CommentWrite = ({ feed }) => {
+const fetchWriteComment = async (feed, comment, userId) => {
+  const commentData = {
+    comment: comment,
+    commenter: userId,
+    parent_feed: feed,
+  };
+
+  const commentResult = await pb
+    .collection('feed_comments')
+    .create(commentData);
+
+  const feedData = await pb.collection('feed').getOne(feed);
+
+  const newCommentsArray = [...feedData.comments, commentResult.id];
+  const newCommentResult = await pb.collection('feed').update(feed, {
+    ...feedData,
+    comments: newCommentsArray,
+  });
+
+  return newCommentResult;
+};
+
+const CommentWrite = ({ feed, onComment }) => {
   const [commentValue, setCommentValue] = useState('');
+  const commentInput = useRef(null);
+  const userInfo = useLoginUserInfo();
 
   const handleCommentInput = (e) => {
     setCommentValue(e.target.value);
@@ -12,6 +37,12 @@ const CommentWrite = ({ feed }) => {
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     if (commentValue.length === 0) return;
+
+    fetchWriteComment(feed, commentValue, userInfo.id).then(() => {
+      onComment?.();
+      setCommentValue('');
+      commentInput.current.value = '';
+    });
   };
 
   return (
@@ -25,9 +56,10 @@ const CommentWrite = ({ feed }) => {
           <LoginUserThumbnail thumbnailCaption="댓글 입력 창 작성자 썸네일" />
         </label>
         <input
+          ref={commentInput}
           className="w-60 text-paragraph-lg focus:outline-none"
           type="text"
-          onChange={debounce(handleCommentInput, 200)}
+          onChange={debounce(handleCommentInput, 50)}
           defaultValue={commentValue}
           placeholder="댓글을 입력하세요"
         />
