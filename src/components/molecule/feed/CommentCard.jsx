@@ -1,22 +1,22 @@
 import ToggleButton from '@/components/atom/common/ToggleButton';
-import { getLoginUserId, pb } from '@/util';
+import { useLoginUserInfo } from '@/hook';
+import { pb } from '@/util';
 import { getDateHangul } from '@/util/getDate';
 import { useState } from 'react';
-
-const currentUserId = getLoginUserId();
 
 const fetchInteraction = async (commentId, data) => {
   const result = await pb.collection('feed_comments').update(commentId, data);
   return result;
 };
 
-const CommentCard = ({ comment }) => {
+const CommentCard = ({ comment, refetch }) => {
   const [currentLikeIt, setCurrentLikeIt] = useState(comment.like);
+  const userInfo = useLoginUserInfo();
 
   const handleLikeIt = () => {
-    const nextLikeIt = currentLikeIt.includes(currentUserId)
-      ? currentLikeIt.filter((v) => v != currentUserId)
-      : [...currentLikeIt, currentUserId];
+    const nextLikeIt = currentLikeIt.includes(userInfo.id)
+      ? currentLikeIt.filter((v) => v != userInfo.id)
+      : [...currentLikeIt, userInfo.id];
 
     setCurrentLikeIt(nextLikeIt);
 
@@ -25,6 +25,7 @@ const CommentCard = ({ comment }) => {
     };
 
     fetchInteraction(comment.id, data);
+    // refetch();
   };
 
   return (
@@ -57,7 +58,7 @@ const CommentCard = ({ comment }) => {
         type="heart"
         alt="좋아요"
         colorType="black"
-        isClicked={currentLikeIt.includes(currentUserId)}
+        isClicked={currentLikeIt.includes(userInfo.id)}
       />
     </li>
   );

@@ -51,6 +51,10 @@ export const Component = () => {
     else unobserve(observeTarget.current);
   }, [feedItems.length]);
 
+  useEffect(() => {
+    refetch();
+  }, [userInfo.follow.length]);
+
   return status === 'loading' ? (
     <Spinner textArray={['탕수육 만드는중...', '레시피 찾는중...']} />
   ) : (

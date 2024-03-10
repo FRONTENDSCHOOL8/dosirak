@@ -1,34 +1,82 @@
 import ToggleButton from '@/components/atom/common/ToggleButton';
 import { useLoginUserInfo } from '@/hook';
-import useCommonStore from '@/store/useCommonStore';
 import { getDate, pb } from '@/util';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import useUserSessionStore from '@/store/useUserSessionStore';
+import useUserPersistStore from '@/store/useUserPersistStore';
 
-const fetchInteraction = async (userId, data) => {
+const fetchFollower = async (userId, data) => {
   const result = await pb.collection('users').update(userId, data);
   return result;
 };
 
 const FeedWriter = ({ feed, refetch }) => {
-  const [currentFollower, setCurrentFollower] = useState(
-    feed.expand.writer.follower
-  );
+  const { loginUser: sessionUser, setLoginUser: setSessionUser } =
+    useUserSessionStore((state) => state);
+  const { loginUser: rememberUser, setLoginUser: setRememberUser } =
+    useUserPersistStore((state) => state);
 
   const userInfo = useLoginUserInfo();
   const writerId = feed.expand.writer.id;
 
-  const handleFollow = () => {
+  const [currentFollower, setCurrentFollower] = useState(
+    feed.expand.writer.follower
+  );
+
+  const isFollow =
+    userInfo.storage === 'session'
+      ? sessionUser.follow.includes(writerId)
+      : rememberUser.follow.includes(writerId);
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    refetch();
+  }, [rememberUser.follow, sessionUser.follow]);
+
+  const handleFollow = async () => {
     const nextFollower = currentFollower.includes(userInfo.id)
       ? currentFollower.filter((v) => v != userInfo.id)
       : [...currentFollower, userInfo.id];
 
-    setCurrentFollower(nextFollower);
-
     const followerData = {
       follower: nextFollower,
     };
+    await fetchFollower(writerId, followerData);
 
-    fetchInteraction(writerId, followerData);
+    const nextFollow = userInfo.follow.includes(writerId)
+      ? userInfo.follow.filter((v) => v != writerId)
+      : [...userInfo.follow, writerId];
+
+    const followData = {
+      follow: nextFollow,
+    };
+
+    await fetchFollower(userInfo.id, followData);
+
+    setCurrentFollower(nextFollower);
+    if (userInfo.storage === 'session') {
+      setSessionUser({
+        ...sessionUser,
+        follow: nextFollow,
+      });
+    } else {
+      setRememberUser({
+        ...rememberUser,
+        follow: nextFollow,
+      });
+    }
+
+    queryClient.invalidateQueries({
+      queryKey: ['feed', 'following'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['feed', 'popular'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['feed', 'recommend'],
+    });
     refetch();
   };
 
@@ -50,10 +98,10 @@ const FeedWriter = ({ feed, refetch }) => {
       <ToggleButton
         onClickButton={handleFollow}
         type="follow"
-        alt={userInfo.follow.includes(writerId) ? '팔로잉' : '팔로우'}
-        isClicked={userInfo.follow.includes(writerId)}
+        alt={isFollow ? '팔로잉' : '팔로우'}
+        isClicked={isFollow}
       >
-        {userInfo.follow.includes(writerId) ? '팔로잉' : '팔로우'}
+        {isFollow ? '팔로잉' : '팔로우'}
       </ToggleButton>
     </div>
   );
