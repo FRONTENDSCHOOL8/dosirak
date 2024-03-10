@@ -1,7 +1,7 @@
 import ToggleButton from '@/components/atom/common/ToggleButton';
 import { useLoginUserInfo } from '@/hook';
 import { getDate, pb } from '@/util';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import useUserSessionStore from '@/store/useUserSessionStore';
 import useUserPersistStore from '@/store/useUserPersistStore';
@@ -30,6 +30,10 @@ const FeedWriter = ({ feed, refetch }) => {
       : rememberUser.follow.includes(writerId);
 
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    refetch();
+  }, [rememberUser.follow, sessionUser.follow]);
 
   const handleFollow = async () => {
     const nextFollower = currentFollower.includes(userInfo.id)
