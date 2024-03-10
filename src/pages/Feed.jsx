@@ -3,6 +3,7 @@ import NoFollowing from '@/components/atom/feed/NoFollowing';
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import FeedCard from '@/components/organism/feed/FeedCard';
+import MyFeed from '@/components/organism/feed/myfeed/MyFeed';
 import { useInterSectionObserver, useLoginUserInfo } from '@/hook';
 import { getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
@@ -48,7 +49,7 @@ export const Component = () => {
 
   useEffect(() => {
     if (hasNextPage) observe(observeTarget.current);
-    else unobserve(observeTarget.current);
+    // else unobserve(observeTarget.current);
   }, [feedItems.length]);
 
   useEffect(() => {
@@ -57,7 +58,7 @@ export const Component = () => {
 
   return status === 'loading' ? (
     <Spinner textArray={['탕수육 만드는중...', '레시피 찾는중...']} />
-  ) : (
+  ) : feedType != 'myfeed' ? (
     <>
       <section className="relative flex h-fit min-h-screen flex-col">
         <h2 className="sr-only">피드</h2>
@@ -82,6 +83,8 @@ export const Component = () => {
       </section>
       <MainNavBar />
     </>
+  ) : (
+    <MyFeed feed={feedItems} />
   );
 };
 
@@ -94,7 +97,11 @@ const fetchFeeds = (feedType, userId) => async (pageInfo) => {
       sortField: 'created',
       filter: `writer.follower.id ?= "${userId}"`,
     },
-    myfeed: { collection: 'feed', sortField: 'created', filter: '' },
+    myfeed: {
+      collection: 'feed',
+      sortField: 'created',
+      filter: `writer.id ?= "${userId}"`,
+    },
   };
 
   const feeds = await pb
