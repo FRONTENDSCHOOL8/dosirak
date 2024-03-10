@@ -23,7 +23,7 @@ const FeedCard = ({ feed, refetch }) => {
         onClick={handleFeedExpand}
         slideStyle="h-[200px] select-none cursor-pointer"
         imgStyle="rounded-2xl"
-        imageArray={feed.images}
+        componentArray={feed.images}
       />
       <FeedInteraction feed={feed} />
       <div

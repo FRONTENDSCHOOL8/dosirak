@@ -1,7 +1,18 @@
 import { useRef, useEffect } from 'react';
 import { register } from 'swiper/element/bundle';
 
-const SwiperCard = ({ imageArray, slideStyle, imgStyle, onClick }) => {
+const SwiperCard = ({
+  componentArray,
+  slideStyle,
+  imgStyle,
+  onClick,
+  containerStyle,
+  cardStyle,
+  viewNum = '1',
+  loop = 'true',
+  pagination = 'true',
+  autoplay = 'false',
+}) => {
   const swiperRef = useRef(null);
 
   useEffect(() => {
@@ -42,20 +53,25 @@ const SwiperCard = ({ imageArray, slideStyle, imgStyle, onClick }) => {
       <swiper-container
         ref={swiperRef}
         init="false"
-        className="size-full"
-        slides-per-view="1"
-        loop="true"
-        pagination="true"
+        style={containerStyle}
+        slides-per-view={viewNum}
+        loop={loop}
+        pagination={pagination}
+        autoplay={autoplay}
       >
-        {imageArray.map((imageSrc, index) => (
-          <swiper-slide key={index} loading="lazy">
-            <figure
-              onClick={onClick}
-              className={`${slideStyle} flex w-full justify-center`}
-            >
-              <img className={imgStyle} src={imageSrc} alt="" />
-              <figcaption className="sr-only">{`${index + 1}번 째 슬라이드`}</figcaption>
-            </figure>
+        {componentArray.map((component, index) => (
+          <swiper-slide key={index} style={cardStyle} loading="lazy">
+            {typeof component === 'string' ? (
+              <figure
+                onClick={onClick}
+                className={`${slideStyle} flex w-full justify-center`}
+              >
+                <img className={imgStyle} src={component} alt="" />
+                <figcaption className="sr-only">{`${index + 1}번 째 슬라이드`}</figcaption>
+              </figure>
+            ) : (
+              component
+            )}
           </swiper-slide>
         ))}
       </swiper-container>
