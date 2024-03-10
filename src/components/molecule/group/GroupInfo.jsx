@@ -7,7 +7,7 @@ const GroupInfo = ({ uploadTime, peopleNum, likeNum, position }) => {
         <SubInfo svg="group/person" svgAlt="모임 참여인원">
           {peopleNum}
         </SubInfo>
-        <SubInfo svg="common/heart-true" svgAlt="좋아요 수">
+        <SubInfo svg="common/whiteheart-true" svgAlt="좋아요 수">
           {likeNum}
         </SubInfo>
       </div>

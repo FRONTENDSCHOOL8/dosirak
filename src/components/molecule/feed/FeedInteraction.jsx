@@ -1,15 +1,53 @@
 import { ReactComponent as Comment } from '@/assets/common/comment.svg';
 import ToggleButton from '@/components/atom/common/ToggleButton';
+import { useLoginUserInfo } from '@/hook';
 import useFeedStore from '@/store/useFeedStore';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { pb } from '@/util';
+import { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
+
+const fetchInteraction = async (feedId, data) => {
+  const result = await pb.collection('feed').update(feedId, data);
+  return result;
+};
 
 const FeedInteraction = ({ feed }) => {
   const { setCommentView } = useFeedStore((state) => state);
   const { feedType } = useParams();
+  const [currentBookmark, setCurrentBookmark] = useState(feed.bookmark);
+  const [currentLikeIt, setCurrentLikeIt] = useState(feed.like);
+  const userInfo = useLoginUserInfo();
 
   const handleOpenCommentWindow = () => {
     setCommentView(feed.id);
+  };
+
+  const handleBookmark = () => {
+    const nextBookmark = currentBookmark.includes(userInfo.id)
+      ? currentBookmark.filter((v) => v != userInfo.id)
+      : [...currentBookmark, userInfo.id];
+
+    setCurrentBookmark(nextBookmark);
+
+    const data = {
+      bookmark: nextBookmark,
+    };
+
+    fetchInteraction(feed.id, data);
+  };
+
+  const handleLikeIt = () => {
+    const nextLikeIt = currentLikeIt.includes(userInfo.id)
+      ? currentLikeIt.filter((v) => v != userInfo.id)
+      : [...currentLikeIt, userInfo.id];
+
+    setCurrentLikeIt(nextLikeIt);
+
+    const data = {
+      like: nextLikeIt,
+    };
+
+    fetchInteraction(feed.id, data);
   };
 
   return (
@@ -23,16 +61,22 @@ const FeedInteraction = ({ feed }) => {
           <Comment />
         </Link>
         <ToggleButton
+          onClickButton={handleLikeIt}
           type="heart"
           alt="좋아요"
           colorType="black"
-          isClicked={false}
+          isClicked={currentLikeIt.includes(userInfo.id)}
         />
         <span className='select-none rounded-lg bg-[url("@/assets/common/likeinfo.svg")] bg-cover bg-no-repeat py-1.5 pe-3 ps-5 text-paragraph-base'>
-          {feed.like.length}명이 좋아합니다.
+          {currentLikeIt.length}명이 좋아합니다.
         </span>
       </div>
-      <ToggleButton type="bookmark" alt="북마크" isClicked={false} />
+      <ToggleButton
+        onClickButton={handleBookmark}
+        type="bookmark"
+        alt="북마크"
+        isClicked={currentBookmark.includes(userInfo.id)}
+      />
     </section>
   );
 };

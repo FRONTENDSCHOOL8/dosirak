@@ -1,7 +1,85 @@
-import Tag from '@/components/atom/group/Tag';
-import { getDate } from '@/util';
+import ToggleButton from '@/components/atom/common/ToggleButton';
+import { useLoginUserInfo } from '@/hook';
+import { getDate, pb } from '@/util';
+import { useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import useUserSessionStore from '@/store/useUserSessionStore';
+import useUserPersistStore from '@/store/useUserPersistStore';
 
-const FeedWriter = ({ feed }) => {
+const fetchFollower = async (userId, data) => {
+  const result = await pb.collection('users').update(userId, data);
+  return result;
+};
+
+const FeedWriter = ({ feed, refetch }) => {
+  const { loginUser: sessionUser, setLoginUser: setSessionUser } =
+    useUserSessionStore((state) => state);
+  const { loginUser: rememberUser, setLoginUser: setRememberUser } =
+    useUserPersistStore((state) => state);
+
+  const userInfo = useLoginUserInfo();
+  const writerId = feed.expand.writer.id;
+
+  const [currentFollower, setCurrentFollower] = useState(
+    feed.expand.writer.follower
+  );
+
+  const isFollow =
+    userInfo.storage === 'session'
+      ? sessionUser.follow.includes(writerId)
+      : rememberUser.follow.includes(writerId);
+
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    refetch();
+  }, [rememberUser.follow, sessionUser.follow]);
+
+  const handleFollow = async () => {
+    const nextFollower = currentFollower.includes(userInfo.id)
+      ? currentFollower.filter((v) => v != userInfo.id)
+      : [...currentFollower, userInfo.id];
+
+    const followerData = {
+      follower: nextFollower,
+    };
+    await fetchFollower(writerId, followerData);
+
+    const nextFollow = userInfo.follow.includes(writerId)
+      ? userInfo.follow.filter((v) => v != writerId)
+      : [...userInfo.follow, writerId];
+
+    const followData = {
+      follow: nextFollow,
+    };
+
+    await fetchFollower(userInfo.id, followData);
+
+    setCurrentFollower(nextFollower);
+    if (userInfo.storage === 'session') {
+      setSessionUser({
+        ...sessionUser,
+        follow: nextFollow,
+      });
+    } else {
+      setRememberUser({
+        ...rememberUser,
+        follow: nextFollow,
+      });
+    }
+
+    queryClient.invalidateQueries({
+      queryKey: ['feed', 'following'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['feed', 'popular'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['feed', 'recommend'],
+    });
+    refetch();
+  };
+
   return (
     <div className="flex items-center justify-between">
       <figure className="flex items-center gap-2.5">
@@ -17,7 +95,14 @@ const FeedWriter = ({ feed }) => {
           </p>
         </figcaption>
       </figure>
-      <Tag tagType="follow">팔로우</Tag>
+      <ToggleButton
+        onClickButton={handleFollow}
+        type="follow"
+        alt={isFollow ? '팔로잉' : '팔로우'}
+        isClicked={isFollow}
+      >
+        {isFollow ? '팔로잉' : '팔로우'}
+      </ToggleButton>
     </div>
   );
 };

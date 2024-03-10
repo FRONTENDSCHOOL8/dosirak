@@ -1,21 +1,22 @@
 import CommentWindowHeader from '@/components/molecule/feed/CommentWindowHeader';
-import useFeedStore from '@/store/useFeedStore';
-import { getPbImage, pb } from '@/util';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLoaderData } from 'react-router-dom';
 import Comments from '@/components/molecule/feed/Comments';
 import NotFoundComment from '@/components/atom/feed/NotFoundComment';
 import CommentWrite from '@/components/molecule/feed/CommentWrite';
+import useFeedStore from '@/store/useFeedStore';
+import { getPbImage, pb } from '@/util';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useState, useLayoutEffect } from 'react';
+import { useParams, useNavigate, useLoaderData } from 'react-router-dom';
+import { THUMBNAIL_IMAGE_EXT } from '@/util/constant';
 
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
 
 export const Component = () => {
   const loadedCommentsData = useLoaderData();
-  const { setCommentView } = useFeedStore((state) => state);
+  const setCommentView = useFeedStore((state) => state.setCommentView);
   const [commentBoxStyle, setCommentBoxStyle] = useState({
-    height: '0px',
+    height: '300px',
     overflow: 'hidden',
   });
   const navigate = useNavigate();
@@ -25,6 +26,8 @@ export const Component = () => {
     data: cachedCommentsData,
     hasNextPage,
     fetchNextPage,
+    isRefetching,
+    refetch,
   } = useInfiniteQuery({
     ...queryOptions(feedId),
     initialData: loadedCommentsData,
@@ -35,9 +38,7 @@ export const Component = () => {
     .map((commentsData) => commentsData.items)
     .flatMap((commentItems) => commentItems);
 
-  console.log(commentItems);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const timer = setTimeout(
       setCommentBoxStyle({
         maxHeight: '70vh',
@@ -69,12 +70,22 @@ export const Component = () => {
       >
         <CommentWindowHeader />
         {commentItems.length ? (
-          <Comments comments={commentItems} />
+          <Comments
+            comments={commentItems}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isRefetching={isRefetching}
+            refetch={refetch}
+          />
         ) : (
           <NotFoundComment />
         )}
         <div className="h-[124px] border-t-2 pt-5">
-          <CommentWrite feed={feedId} />
+          <CommentWrite
+            comments={commentItems}
+            feed={feedId}
+            onComment={refetch}
+          />
         </div>
       </div>
     </section>
@@ -85,12 +96,10 @@ const fetchFeedComments = (feedId) => async (pageInfo) => {
   const comments = await pb
     .collection('feed_comments')
     .getList(pageInfo.pageParam, PER_PAGE, {
-      sort: 'created, like',
+      sort: 'like, created',
       expand: 'commenter',
       filter: `parent_feed="${feedId}"`,
     });
-
-  const THUMBNAIL_IMAGE_EXT = ['svg', 'png', 'jpg', 'jpeg', 'webp', 'gif'];
 
   const commentItems = comments.items.map((comment) => {
     const commenterThumbnail = getPbImage(comment.expand.commenter);
@@ -116,7 +125,21 @@ const queryOptions = (feedId) => ({
   queryFn: fetchFeedComments(feedId),
   initialPageParam: INITIAL_PAGE,
   getNextPageParam: (lastPage, allPages) => {
-    return lastPage.page < lastPage.totalPages ? allPages.length + 1 : null;
+    const hasNextPage = lastPage.page < lastPage.totalPages;
+    const nextPageIndex = allPages.length + 1;
+
+    if (hasNextPage) {
+      return nextPageIndex;
+    } else {
+      const prevLastPage = allPages[allPages.length - 1];
+      const prevItemsCount = prevLastPage.items.length;
+      const nextItemsCount = lastPage.items.length;
+
+      if (prevItemsCount !== nextItemsCount) {
+        return true;
+      }
+      return null;
+    }
   },
 });
 
@@ -126,8 +149,6 @@ export const loader =
     let commentsData = null;
     const { feedId } = params;
     const cachedCommentsData = queryClient.getQueryData(['feed', feedId]);
-
-    console.log(queryOptions(feedId));
 
     if (cachedCommentsData) {
       commentsData = cachedCommentsData;

@@ -1,60 +1,51 @@
 import { Link } from 'react-router-dom';
-import { useId } from 'react';
 import Tag from '@/components/atom/group/Tag';
 import ImgBox from '@/components/atom/common/ImgBox';
 import HashTagList from '@/components/molecule/group/HashTagList';
 import GroupTitle from '@/components/atom/group/GroupTitle';
-import HeartButton from '@/components/atom/common/HeartButton';
-import GroupInfo from '../../molecule/group/GroupInfo';
+import GroupInfo from '@/components/molecule/group/GroupInfo';
 import GroupCardGradient from '@/components/atom/group/GroupCardGradient';
+import ToggleButton from '@/components/atom/common/ToggleButton';
 
-const GroupPopularCard = () => {
-  const postData = {
-    recruitStatus: '모집 중',
-    groupName: '매일매일 도시락',
-    hashTagArr: ['밀프렙', '소통해요'],
-    uploadTime: 3,
-    peopleNum: 118,
-    likeNum: 42,
-    postId: useId(),
-  };
-
-  const {
-    recruitStatus,
-    groupName,
-    hashTagArr,
-    uploadTime,
-    peopleNum,
-    likeNum,
-    postId,
-  } = postData;
+const GroupPopularCard = ({ group }) => {
+  const { title, thumbnail, participant, like, hashTag, isRecruiting } = group;
+  const uploadTime = 3;
 
   return (
     <li className="relative h-[280px] w-[280px] shrink-0 overflow-hidden rounded-2xl shadow-card">
       <Link>
-        <ImgBox className="absolute" />
+        <ImgBox
+          size="h-[200px] w-[280px]"
+          className="absolute"
+          url={thumbnail}
+          alt=""
+        />
         <div className="relative px-5 pt-[22px]">
-          <Tag position="absolute z-10" tagType="recruit">
-            {recruitStatus}
-          </Tag>
-          <HeartButton
-            id={postId}
-            heartColor="white"
+          <Tag
+            position="absolute z-10"
+            tagType="recruit"
+            isActive={isRecruiting}
+          />
+          <ToggleButton
+            type="heart"
+            colorType="white"
+            alt="좋아요"
+            isClicked={false}
             className="absolute right-5 z-10"
           />
           <HashTagList
-            hashTagArr={hashTagArr}
+            hashTagArr={hashTag.hashTag}
             round={true}
             position="top-[140px]"
             gap="gap-[6px]"
           />
         </div>
         <div className="absolute bottom-0 left-0 z-10 h-[80px] w-[280px] bg-white px-5 pb-5 pt-[18px]">
-          <GroupTitle>{groupName}</GroupTitle>
+          <GroupTitle>{title}</GroupTitle>
           <GroupInfo
             uploadTime={uploadTime}
-            peopleNum={peopleNum}
-            likeNum={likeNum}
+            peopleNum={participant.length}
+            likeNum={like.length}
             position="mt-[6px]"
           />
         </div>
