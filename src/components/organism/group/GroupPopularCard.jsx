@@ -5,7 +5,7 @@ import HashTagList from '@/components/molecule/group/HashTagList';
 import GroupTitle from '@/components/atom/group/GroupTitle';
 import GroupInfo from '@/components/molecule/group/GroupInfo';
 import GroupCardGradient from '@/components/atom/group/GroupCardGradient';
-import ToggleButton from '@/components/atom/common/ToggleButton';
+import GroupInteraction from '@/components/atom/group/GroupInteraction';
 
 const GroupPopularCard = ({ group }) => {
   const { title, thumbnail, participant, like, hashTag, isRecruiting } = group;
@@ -26,11 +26,9 @@ const GroupPopularCard = ({ group }) => {
             tagType="recruit"
             isActive={isRecruiting}
           />
-          <ToggleButton
-            type="heart"
+          <GroupInteraction
+            group={group}
             colorType="white"
-            alt="좋아요"
-            isClicked={false}
             className="absolute right-5 z-10"
           />
           <HashTagList

@@ -1,5 +1,5 @@
 import ImgBox from '@/components/atom/common/ImgBox';
-import ToggleButton from '@/components/atom/common/ToggleButton';
+import GroupInteraction from '@/components/atom/group/GroupInteraction';
 import GroupTitle from '@/components/atom/group/GroupTitle';
 import Tag from '@/components/atom/group/Tag';
 import GroupInfo from '@/components/molecule/group/GroupInfo';
@@ -23,12 +23,7 @@ const GroupListCard = ({ group }) => {
           <div className="mb-3 ml-4 mr-[22px] mt-[14px] w-full">
             <div className="flex justify-between">
               <Tag tagType="recruit" isActive={isRecruiting} />
-              <ToggleButton
-                type="heart"
-                colorType="black"
-                alt="좋아요"
-                isClicked={false}
-              />
+              <GroupInteraction group={group} colorType="black" />
             </div>
             <GroupTitle position="mt-[6px] mb-[10px]">{title}</GroupTitle>
             <HashTagList
