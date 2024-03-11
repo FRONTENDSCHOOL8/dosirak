@@ -3,7 +3,7 @@ import Dot from '@/components/atom/common/Dot';
 const QrCode = () => {
   return (
     <>
-      <h2 className="sr-only">한 끼 도시락</h2>
+      <h2 className="sr-only">한끼도시락 QR코드</h2>
       <div className="relative ml-[77px] mr-[52px] h-[449px] w-[465px] select-none self-center">
         <figure>
           <figcaption className="noto text-label">
@@ -28,7 +28,7 @@ const QrCode = () => {
         </figure>
         <img
           src="/assets/desktop/mockup.png"
-          alt="피드페이지 내 피드 목업 이미지"
+          alt="피드페이지 내 피드 목업"
           className="absolute bottom-0 right-0 w-[301px]"
         />
       </div>
