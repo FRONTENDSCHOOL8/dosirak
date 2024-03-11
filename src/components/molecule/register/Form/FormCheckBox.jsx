@@ -10,6 +10,7 @@ const FormCheckBox = (
     children,
     updater,
     checked,
+    size = 'h-6 w-6',
   },
   ref
 ) => {
@@ -20,7 +21,7 @@ const FormCheckBox = (
         type="checkbox"
         name={name}
         id={name}
-        className={`${styleClass} h-[30px] w-[30px] appearance-none bg-center bg-no-repeat`}
+        className={`${styleClass} ${size} me-1 appearance-none bg-cover bg-no-repeat`}
         onChange={updater}
         checked={checked}
       />

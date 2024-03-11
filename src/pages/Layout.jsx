@@ -32,10 +32,10 @@ const Layout = () => {
       onClick={handleFeedClose}
     >
       <div className="relative flex w-[1024px] justify-center">
-        <section className="fixed left-[calc(50%-512px)] flex h-screen w-[594px] bg-gray-100 tablet:hidden">
+        <section className="fixed left-[calc(50%-512px)] flex h-screen w-[594px] bg-gray100 tablet:hidden">
           <QrCode />
         </section>
-        <div className="lg:ms-auto relative h-fit w-[430px] min-w-[372px] bg-white mobile:w-screen">
+        <div className="relative h-fit w-[430px] min-w-[372px] bg-white mobile:w-screen lg:ms-auto">
           <Outlet />
         </div>
       </div>
