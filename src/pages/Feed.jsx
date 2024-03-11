@@ -8,8 +8,14 @@ import { useInterSectionObserver, useLoginUserInfo } from '@/hook';
 import { getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { useLayoutEffect } from 'react';
 import { useRef, useEffect } from 'react';
-import { useParams, Outlet, useLoaderData } from 'react-router-dom';
+import {
+  useParams,
+  Outlet,
+  useLoaderData,
+  useNavigation,
+} from 'react-router-dom';
 
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
@@ -23,9 +29,17 @@ export const feedPath = [
 
 export const Component = () => {
   const userInfo = useLoginUserInfo();
+  const navigate = useNavigation();
   const loadedFeedsData = useLoaderData();
   const { feedType } = useParams();
   const queryOptions = setQueryOptions(feedType, userInfo.id);
+
+  useLayoutEffect(() => {
+    if (!Object.keys(userInfo).length) {
+      alert('로그인 후 이용 가능합니다.');
+      navigate('/login');
+    }
+  }, []);
 
   const {
     data: cachedFeedsData,
