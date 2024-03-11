@@ -1,4 +1,6 @@
 import { queryClient } from '@/App';
+import ProfileModify from '@/components/organism/mypage/ProfileModify';
+// import PasswordModify from '@/components/organism/mypage/PasswordModify';
 
 const navigationItems = [
   {
@@ -74,6 +76,20 @@ const navigationItems = [
     path: '/mypage',
     text: '마이페이지 화면',
     lazy: () => import('@/pages/MyPage'),
+    children: [
+      {
+        id: 'profile-modify',
+        path: 'profile',
+        text: '프로필 변경 화면',
+        element: <ProfileModify />,
+      },
+      // {
+      //   id: 'password-modify',
+      //   path: '/mypage/password',
+      //   text: '비밀번호 변경 화면',
+      //   element: <PasswordModify />,
+      // },
+    ],
   },
 ];
 
