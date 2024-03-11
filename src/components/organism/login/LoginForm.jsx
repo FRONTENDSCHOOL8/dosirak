@@ -1,5 +1,5 @@
 import Notice from '@/components/atom/common/Notice';
-import LoginButton from '@/components/atom/login/LoginButton';
+import SquareButton from '@/components/atom/common/SquareButton';
 import LoginInput from '@/components/molecule/login/LoginInput';
 import FormCheckBox from '@/components/molecule/register/Form/FormCheckBox';
 import useCommonStore from '@/store/useCommonStore';
@@ -150,17 +150,18 @@ const LoginForm = () => {
             <Notice type="error">아이디나 비밀번호가 틀렸습니다.</Notice>
           )}
         </div>
-        <div className="mt-4 flex items-center">
+        <div className="mb-2 mt-4 flex items-center text-gray700">
           <FormCheckBox
             styleClass="checked:bg-square-check bg-square-uncheck"
-            labelStyle="text-paragraph-lg"
+            size="h-[18px] w-[18px]"
+            labelStyle="text-paragraph-base"
             name="rememberMe"
             ref={rememberRef}
           >
             로그인 유지
           </FormCheckBox>
         </div>
-        <LoginButton />
+        <SquareButton>로그인 하기</SquareButton>
       </form>
     </section>
   );
