@@ -1,4 +1,4 @@
-const Tag = ({ children, tagType, isActive, position = '' }) => {
+const Tag = ({ children, tagType, recruiting, position = '' }) => {
   const baseClass = 'rounded-2xl px-3 text-paragraph-base';
 
   const defaultClass = `border border-gray500 py-[6px] text-gray600 ${children === '전체보기' ? 'bg-content-color text-white' : ''}`;
@@ -6,8 +6,7 @@ const Tag = ({ children, tagType, isActive, position = '' }) => {
   const typeClasses = {
     delete:
       'flex max-w-fit items-center gap-1 border border-gray500 text-primary-color',
-    recruit: `${isActive ? 'bg-content-color' : 'bg-content-transparent'} py-1 text-white`,
-    follow: `${isActive ? 'bg-gray600' : 'bg-primary-color'} py-[6px] text-white`,
+    recruit: `${recruiting ? 'bg-content-color' : 'bg-content-transparent'} py-1 text-white`,
   };
 
   const className =
@@ -30,8 +29,8 @@ const Tag = ({ children, tagType, isActive, position = '' }) => {
 
     case 'recruit':
       return (
-        <span className={className} isActive={isActive}>
-          {isActive ? '모집 중' : '모집 완료'}
+        <span className={className} recruiting={recruiting}>
+          {recruiting ? '모집 중' : '모집 완료'}
         </span>
       );
 

@@ -1,5 +1,5 @@
 import ImgBox from '@/components/atom/common/ImgBox';
-import ToggleButton from '@/components/atom/common/ToggleButton';
+import GroupInteraction from '@/components/atom/group/GroupInteraction';
 import GroupTitle from '@/components/atom/group/GroupTitle';
 import Tag from '@/components/atom/group/Tag';
 import GroupInfo from '@/components/molecule/group/GroupInfo';
@@ -7,7 +7,7 @@ import HashTagList from '@/components/molecule/group/HashTagList';
 import { Link } from 'react-router-dom';
 
 const GroupListCard = ({ group }) => {
-  const { title, thumbnail, participant, like, hashTag, isRecruiting } = group;
+  const { title, thumbnail, participant, like, hashTag, recruiting } = group;
   const uploadTime = 3;
 
   return (
@@ -18,17 +18,12 @@ const GroupListCard = ({ group }) => {
             size="h-[124px] w-[124px]"
             className="shrink-0 rounded-r-xl"
             url={thumbnail}
-            alt=""
+            alt="모임 썸네일"
           />
           <div className="mb-3 ml-4 mr-[22px] mt-[14px] w-full">
             <div className="flex justify-between">
-              <Tag tagType="recruit" isActive={isRecruiting} />
-              <ToggleButton
-                type="heart"
-                colorType="black"
-                alt="좋아요"
-                isClicked={false}
-              />
+              <Tag tagType="recruit" recruiting={recruiting} />
+              <GroupInteraction group={group} colorType="black" />
             </div>
             <GroupTitle position="mt-[6px] mb-[10px]">{title}</GroupTitle>
             <HashTagList
