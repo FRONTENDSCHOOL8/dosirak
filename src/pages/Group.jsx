@@ -3,7 +3,8 @@ import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import PopularGroup from '@/pages/PopularGroup';
 import RecentGroup from '@/pages/RecentGroup';
-import { useInterSectionObserver } from '@/hook';
+import MyGroup from '@/pages/MyGroup';
+import { useInterSectionObserver, useLoginUserInfo } from '@/hook';
 import { getPbImage, pb } from '@/util';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useRef, useEffect } from 'react';
@@ -25,15 +26,18 @@ const getGroupComponent = (groupType, groupItems, likeItems) => {
       return <PopularGroup likeData={likeItems} participateData={groupItems} />;
     case 'recent':
       return <RecentGroup groupItems={groupItems} />;
+    case 'mygroup':
+      return <MyGroup groupItems={groupItems} />;
     default:
       return null;
   }
 };
 
 export const Component = () => {
+  const userInfo = useLoginUserInfo();
   const loadedGroupsData = useLoaderData();
   const { groupType } = useParams();
-  const queryOptions = setQueryOptions(groupType);
+  const queryOptions = setQueryOptions(groupType, userInfo.id);
 
   // Like
   const { data: cachedLikeData } = useQuery({
@@ -95,32 +99,27 @@ export const Component = () => {
   );
 };
 
-const COLLECTION = {
-  popular: {
-    collection: 'groups_popular',
-    sortField: 'i_participate_it',
-    filter: '',
-  },
-  recent: { collection: 'groups', sortField: 'created', filter: '' },
-  mygroup: { collection: 'groups', sortField: 'created', filter: '' },
-};
-
-const setQueryOptions = (groupType) => ({
-  queryKey: ['group', groupType],
-  queryFn: fetchGroups(groupType),
-  initialPageParam: INITIAL_PAGE,
-  getNextPageParam: (lastPage, allPages) => {
-    return lastPage.page < lastPage.totalPages ? allPages.length + 1 : null;
-  },
-});
-
-const fetchGroups = (groupType) => async (groupInfo) => {
-  const collectionType = COLLECTION[groupType];
+const fetchGroups = (groupType, userId) => async (groupInfo) => {
+  const collection = {
+    popular: {
+      collection: 'groups_popular',
+      sortField: 'i_participate_it',
+      filter: '',
+    },
+    recent: { collection: 'groups', sortField: 'created', filter: '' },
+    mygroup: {
+      collection: 'groups',
+      sortField: 'created',
+      filter: `participant.id ?= "${userId}"`,
+    },
+  };
+  const collectionType = collection[groupType];
 
   const groups = await pb
     .collection(collectionType.collection)
     .getList(groupInfo.pageParam, PER_PAGE, {
       sort: `-${collectionType.sortField}`,
+      expand: 'participant',
       filter: collectionType.filter,
     });
 
@@ -168,12 +167,12 @@ const fetchLikes = async () => {
   };
 };
 
-const fetchInfiniteQuery = async (groupType, queryClient) => {
+const fetchInfiniteQuery = async (groupType, queryClient, userId) => {
   let groupsData = null;
 
   const cachedGroupsData = queryClient.getQueryData(['group']);
 
-  const queryOptions = setQueryOptions(groupType);
+  const queryOptions = setQueryOptions(groupType, userId);
 
   // 캐싱된 모임 데이터가 있을 경우
   if (cachedGroupsData) {
@@ -209,10 +208,26 @@ const fetchLikeQuery = async (queryClient) => {
   return likesData;
 };
 
+const setQueryOptions = (groupType, userId) => ({
+  queryKey: ['group', groupType],
+  queryFn: fetchGroups(groupType, userId),
+  initialPageParam: INITIAL_PAGE,
+  getNextPageParam: (lastPage, allPages) => {
+    return lastPage.page < lastPage.totalPages ? allPages.length + 1 : null;
+  },
+});
+
 export const loader =
   (queryClient) =>
   async ({ params }) => {
     const { groupType } = params;
+
+    const sessionUser = JSON.parse(sessionStorage.getItem('loginUserInfo'));
+    const rememberUser = JSON.parse(localStorage.getItem('loginUserInfo'));
+
+    const currentUserId = sessionUser.state.loginUser.id
+      ? sessionUser.state.loginUser.id
+      : rememberUser.state.loginUser.id;
 
     let likeInfoData = null;
 
@@ -222,7 +237,11 @@ export const loader =
     }
 
     // [인기, 최신, 내 모임] 공통 인피니트 쿼리
-    const infiniteInfoData = await fetchInfiniteQuery(groupType, queryClient);
+    const infiniteInfoData = await fetchInfiniteQuery(
+      groupType,
+      queryClient,
+      currentUserId
+    );
 
     return {
       likeInfoData,
