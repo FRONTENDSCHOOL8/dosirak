@@ -8,7 +8,7 @@ import GroupCardGradient from '@/components/atom/group/GroupCardGradient';
 import GroupInteraction from '@/components/atom/group/GroupInteraction';
 
 const GroupPopularCard = ({ group }) => {
-  const { title, thumbnail, participant, like, hashTag, recruiting } = group;
+  const { title, thumbnail, participant, like, hashTag, isRecruiting } = group;
   const uploadTime = 3;
 
   return (
@@ -24,7 +24,7 @@ const GroupPopularCard = ({ group }) => {
           <Tag
             position="absolute z-10"
             tagType="recruit"
-            recruiting={recruiting}
+            recruiting={isRecruiting.toString()}
           />
           <GroupInteraction
             group={group}
