@@ -7,14 +7,14 @@ const MyPageSummary = () => {
   return (
     <section className="h-fit pt-20">
       <section className="flex h-[350px] flex-col items-center gap-4 bg-white pt-16">
-        <figure className="flex h-40 w-28 flex-col gap-4">
+        <figure className="flex h-40 flex-col items-center justify-center gap-4">
           <img
             src={userInfo.thumbnail}
-            className="size-full rounded-full "
+            className="size-32 rounded-full "
             alt=""
           />
           <figcaption>
-            <strong className="font-Gong-Gothic-l text-heading-sm">
+            <strong className="w-60 text-nowrap text-center font-Gong-Gothic-l text-heading-sm">
               {userInfo.nickname}
             </strong>
           </figcaption>
