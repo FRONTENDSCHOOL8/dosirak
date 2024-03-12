@@ -1,38 +1,41 @@
 import ModifyPasswordArea from '@/components/molecule/mypage/ModifyPasswordArea';
-import { useLoginUserInfo } from '@/hook';
 import { pb } from '@/util';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const fetchModifyPassword = async (password, passwordConfirm) => {
-  const token = pb.authStore.token;
-
-  console.log(token, password, passwordConfirm);
-  const result = await pb
-    .collection('users')
-    .confirmPasswordReset(token, password, passwordConfirm);
-
-  console.log(result);
+const fetchModifyPassword = async (
+  currentPassword,
+  newPassword,
+  newPasswordConfirm
+) => {
+  const result = await pb.collection('users').update(pb.authStore.model?.id, {
+    oldPassword: currentPassword,
+    password: newPassword,
+    passwordConfirm: newPasswordConfirm,
+  });
 
   return result;
 };
 
-const PasswordModifyForm = () => {
-  const userInfo = useLoginUserInfo();
+const PasswordModifyForm = ({ currentPassword }) => {
   const navigate = useNavigate();
   const modifyPasswordRef = useRef(null);
 
-  const handleModifyPassword = (e) => {
+  const handleModifyPassword = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(modifyPasswordRef.current);
 
-    fetchModifyPassword(
-      formData.get('password'),
-      formData.get('passwordConfirm')
-    );
+    if (confirm('비밀번호를 변경하시겠어요?')) {
+      await fetchModifyPassword(
+        currentPassword,
+        formData.get('password'),
+        formData.get('passwordConfirm')
+      );
 
-    // navigate('/mypage', { replace: true });
+      alert('변경이 완료되었어요!');
+      navigate('/mypage', { replace: true });
+    }
   };
   return (
     <section className="noto flex h-[calc(100vh-270px)] flex-col items-center gap-4 bg-white pt-8">

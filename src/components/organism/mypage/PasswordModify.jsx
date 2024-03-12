@@ -6,6 +6,7 @@ import PasswordVerify from '@/components/organism/mypage/PasswordVerify';
 const PasswordModify = () => {
   const navigate = useNavigate();
   const [verified, setVerified] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
 
   const handlePrev = () => {
     navigate(-1);
@@ -20,9 +21,13 @@ const PasswordModify = () => {
         <h2>비밀번호 변경</h2>
       </header>
       {verified ? (
-        <PasswordModifyForm />
+        <PasswordModifyForm currentPassword={currentPassword} />
       ) : (
-        <PasswordVerify setVerified={setVerified} />
+        <PasswordVerify
+          setVerified={setVerified}
+          password={currentPassword}
+          setPassword={setCurrentPassword}
+        />
       )}
     </section>
   );

@@ -20,8 +20,7 @@ const checkPassword = async (userId, password, handleVerify) => {
     });
 };
 
-const PasswordVerify = ({ setVerified }) => {
-  const [passwordValue, setPasswordValue] = useState('');
+const PasswordVerify = ({ setVerified, password, setPassword }) => {
   const [isVisible, changeVisible] = useState(false);
   const userInfo = useLoginUserInfo();
 
@@ -30,14 +29,12 @@ const PasswordVerify = ({ setVerified }) => {
   };
 
   const handlePassword = (e) => {
-    setPasswordValue(e.target.value);
-    console.log(e.target.value);
+    setPassword(e.target.value);
   };
 
   const handleVerify = (e) => {
     e.preventDefault();
-    console.log(passwordValue);
-    checkPassword(userInfo.id, passwordValue, setVerified);
+    checkPassword(userInfo.id, password, setVerified);
   };
 
   return (
@@ -52,7 +49,7 @@ const PasswordVerify = ({ setVerified }) => {
             category="password"
             hasButton
             buttonType="password"
-            value={passwordValue}
+            value={password}
             updater={handlePassword}
             buttonEvent={handleVisible}
             isPwVisible={isVisible}
