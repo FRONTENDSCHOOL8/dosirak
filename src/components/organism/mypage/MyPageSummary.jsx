@@ -7,21 +7,18 @@ const MyPageSummary = () => {
   return (
     <section className="h-fit pt-20">
       <section className="flex h-[350px] flex-col items-center gap-4 bg-white pt-16">
-        <figure className="relative size-28">
+        <figure className="flex h-40 flex-col items-center justify-center gap-4">
           <img
             src={userInfo.thumbnail}
-            className="size-full rounded-full "
+            className="size-32 rounded-full "
             alt=""
           />
-          <figcaption className="absolute bottom-0 right-0 size-8">
-            <button type="button" className="size-full">
-              <img src="/assets/common/modify.svg" alt="" />
-            </button>
+          <figcaption>
+            <strong className="w-60 text-nowrap text-center font-Gong-Gothic-l text-heading-sm">
+              {userInfo.nickname}
+            </strong>
           </figcaption>
         </figure>
-        <strong className="font-Gong-Gothic-l text-heading-sm">
-          {userInfo.nickname}
-        </strong>
         <div className="noto flex rounded-lg bg-primary-color text-label text-gray50">
           <Link className="relative px-9 py-5 after:absolute after:right-0 after:top-1/2 after:h-2/3 after:-translate-y-1/2 after:border-r-[1px] after:border-gray600 after:content-['']">
             <figure className="flex gap-2">
