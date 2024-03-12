@@ -1,5 +1,5 @@
 import Spinner from '@/components/atom/common/Spinner';
-import NoFollowing from '@/components/atom/feed/NoFollowing';
+import NoContents from '@/components/atom/common/NoContents';
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import FeedCard from '@/components/organism/feed/FeedCard';
@@ -88,7 +88,7 @@ export const Component = () => {
                 <FeedCard feed={feed} key={feed.id} refetch={refetch} />
               ))
             ) : (
-              <NoFollowing />
+              <NoContents type="following" />
             )}
             <li ref={observeTarget}>&nbsp;</li>
           </ul>
