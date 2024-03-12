@@ -6,7 +6,7 @@ const Tag = ({ children, tagType, recruiting, position = '' }) => {
   const typeClasses = {
     delete:
       'flex max-w-fit items-center gap-1 border border-gray500 text-primary-color',
-    recruit: `${recruiting === 'true' ? 'bg-content-color' : 'bg-content-transparent'} py-1 text-white`,
+    recruit: `${recruiting ? 'bg-content-color' : 'bg-content-transparent'} py-1 text-white`,
   };
 
   const className =
@@ -29,7 +29,7 @@ const Tag = ({ children, tagType, recruiting, position = '' }) => {
 
     case 'recruit':
       return (
-        <span className={className} recruiting={recruiting}>
+        <span className={`${className} inline-block`}>
           {recruiting ? '모집 중' : '모집 완료'}
         </span>
       );
