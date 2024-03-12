@@ -1,17 +1,16 @@
 import MainNavBar from '@/components/molecule/common/MainNavBar';
-import { useLoginUserInfo } from '@/hook';
+import HomeHeader from '@/components/organism/home/HomeHeader';
+import HomeInfo from '@/components/organism/home/HomeInfo';
+import HomeMain from '@/components/organism/home/HomeMain';
 
 export const Component = () => {
-  const userInfo = useLoginUserInfo();
-
   return (
-    <>
-      <section className="relative flex h-fit min-h-screen flex-col">
-        <h2>홈</h2>
-        <span>{userInfo.nickname}님 안녕하세요!</span>
-      </section>
+    <section className="h-fit min-h-screen">
+      <HomeHeader />
+      <HomeMain />
+      <HomeInfo />
       <MainNavBar />
-    </>
+    </section>
   );
 };
 
