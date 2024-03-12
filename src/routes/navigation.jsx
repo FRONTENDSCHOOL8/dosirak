@@ -1,6 +1,6 @@
 import { queryClient } from '@/App';
 import ProfileModify from '@/components/organism/mypage/ProfileModify';
-// import PasswordModify from '@/components/organism/mypage/PasswordModify';
+import PasswordModify from '@/components/organism/mypage/PasswordModify';
 
 const navigationItems = [
   {
@@ -83,12 +83,12 @@ const navigationItems = [
         text: '프로필 변경 화면',
         element: <ProfileModify />,
       },
-      // {
-      //   id: 'password-modify',
-      //   path: '/mypage/password',
-      //   text: '비밀번호 변경 화면',
-      //   element: <PasswordModify />,
-      // },
+      {
+        id: 'password-modify',
+        path: '/mypage/password',
+        text: '비밀번호 변경 화면',
+        element: <PasswordModify />,
+      },
     ],
   },
 ];

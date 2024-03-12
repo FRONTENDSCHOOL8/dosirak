@@ -7,7 +7,6 @@ import { useLocation } from 'react-router-dom';
 export const Component = () => {
   const location = useLocation();
   const { pathname } = location;
-  console.log(location);
 
   return (
     <>
