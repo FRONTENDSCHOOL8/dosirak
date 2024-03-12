@@ -13,6 +13,10 @@ const buttonName = {
     true: 'follow-true.svg',
     false: 'follow-false.svg',
   },
+  eye: {
+    true: 'eye-true.svg',
+    false: 'eye-false.svg',
+  },
 };
 
 const buttonTheme = {
@@ -28,6 +32,10 @@ const buttonTheme = {
     true: 'flex items-center justify-center gap-1 rounded-3xl bg-gray-500 px-3 py-1',
     false:
       'flex items-center justify-center gap-1 rounded-3xl bg-primary-color px-3 py-1',
+  },
+  eye: {
+    true: 'absolute bottom-1 right-0',
+    false: 'absolute bottom-1 right-0',
   },
 };
 
