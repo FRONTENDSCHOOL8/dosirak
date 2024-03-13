@@ -1,26 +1,23 @@
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import FeedCommonHeader from '@/components/molecule/feed/FeedCommonHeader';
-import { useLoginUserInfo } from '@/hook';
-import { pb } from '@/util';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Tag from '@/components/atom/group/Tag';
 import FeedSearchArea from '@/components/molecule/feed/FeedSearchArea';
 import FeedRecentSearchArea from '@/components/molecule/feed/FeedRecentSearchArea';
 import FeedRecommendSearchArea from '@/components/molecule/feed/FeedRecommendSearchArea';
 
 export const Component = () => {
-  const userInfo = useLoginUserInfo();
   const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState('');
   const searchFormRef = useRef(null);
 
   const handleBack = () => {
-    navigate(-1);
+    navigate('/feed/popular', { replace: true });
   };
 
   const handleFeedSearch = (e) => {
     e.preventDefault();
-    console.log('search');
+    navigate(`/feed/search/${searchValue}`);
   };
 
   return (
@@ -37,7 +34,10 @@ export const Component = () => {
               검색
             </strong>
           </FeedCommonHeader>
-          <FeedSearchArea />
+          <FeedSearchArea
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
           <FeedRecentSearchArea />
           <FeedRecommendSearchArea />
         </form>

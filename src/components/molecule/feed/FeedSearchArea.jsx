@@ -1,4 +1,8 @@
-const FeedSearchArea = () => {
+const FeedSearchArea = ({ searchValue, setSearchValue }) => {
+  const handleSearchValue = (e) => {
+    setSearchValue(e.target.value);
+  };
+
   return (
     <section className="flex flex-col items-center px-8">
       <h2 className="sr-only">검색 영역</h2>
@@ -7,7 +11,7 @@ const FeedSearchArea = () => {
           htmlFor="search"
           className="select-none font-Gong-Gothic-m text-heading-lg"
         >
-          어떤 레시피를 찾아볼까요?
+          어떤 도시락을 찾아볼까요?
         </label>
         <input
           type="search"
@@ -15,6 +19,8 @@ const FeedSearchArea = () => {
           placeholder="검색어를 입력해주세요"
           id="search"
           name="search"
+          defaultValue={searchValue}
+          onChange={handleSearchValue}
         />
         <button type="submit" className="absolute bottom-2 right-1 select-none">
           <img src="/assets/feed/search.svg" alt="검색" />

@@ -112,6 +112,36 @@ const navigationItems = [
     lazy: () => import('@/pages/FeedSearch'),
   },
   {
+    id: 'feed-search-result',
+    path: '/feed/search/:keyword',
+    text: '피드 검색 결과',
+    async lazy() {
+      const { Component, loader } = await import('@/pages/FeedSearchResult');
+
+      return {
+        loader: loader(queryClient),
+        Component,
+      };
+    },
+    children: [
+      {
+        id: 'feed-search-comment',
+        path: '/feed/search/:keyword/comment/:feedId',
+        text: '검색된 피드의 댓글',
+        async lazy() {
+          const { Component, loader } = await import(
+            '@/components/organism/feed/FeedComment'
+          );
+
+          return {
+            loader: loader(queryClient),
+            Component,
+          };
+        },
+      },
+    ],
+  },
+  {
     id: 'mypage',
     path: '/mypage',
     text: '마이페이지 화면',
