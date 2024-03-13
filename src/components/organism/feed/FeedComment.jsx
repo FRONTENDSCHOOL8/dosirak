@@ -20,7 +20,7 @@ export const Component = () => {
     overflow: 'hidden',
   });
   const navigate = useNavigate();
-  const { feedId, feedType } = useParams();
+  const { feedId, feedType, keyword } = useParams();
 
   const {
     data: cachedCommentsData,
@@ -54,7 +54,9 @@ export const Component = () => {
   const handleCommentClose = (e) => {
     if (e.target.closest('.comment-window')) return;
 
-    navigate(`/feed/${feedType}`);
+    navigate(`/feed/${feedType ? feedType : `search/${keyword}`}`, {
+      replace: true,
+    });
     setCommentView('');
   };
 

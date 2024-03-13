@@ -1,5 +1,5 @@
 import TinyMceEditor from '@/components/atom/common/TinyMceEditor';
-import FeedWriteHeader from '@/components/molecule/feed/FeedWriteHeader';
+import FeedCommonHeader from '@/components/molecule/feed/FeedCommonHeader';
 import ImageUpload from '@/components/molecule/feed/ImageUpload';
 import { useLoginUserInfo } from '@/hook';
 import { pb } from '@/util';
@@ -57,7 +57,17 @@ export const Component = () => {
           ref={writeFormRef}
           className="h-full pb-8"
         >
-          <FeedWriteHeader handleBack={handleBack} />
+          <FeedCommonHeader handleBack={handleBack}>
+            <span className="noto flex-grow text-center text-heading-sm font-semibold">
+              피드 쓰기
+            </span>
+            <button
+              type="submit"
+              className="noto absolute right-4 rounded-full bg-black px-3 py-[5px] text-paragraph-lg text-white"
+            >
+              업로드
+            </button>
+          </FeedCommonHeader>
           <section className="flex h-full flex-col justify-between gap-8 p-2">
             <h3 className="sr-only">작성 영역</h3>
             <ImageUpload

@@ -10,7 +10,7 @@ export const Component = () => {
 
   return (
     <>
-      <section className="relative flex h-fit min-h-screen flex-col gap-3 bg-gray100 pb-16">
+      <section className="relative flex h-fit min-h-screen flex-col gap-3 bg-gray100 pb-[95px]">
         <MyPageHeader />
         {pathname === '/mypage' ? <MyPageMain /> : <Outlet />}
       </section>

@@ -13,7 +13,7 @@ const fetchInteraction = async (feedId, data) => {
 
 const FeedInteraction = ({ feed }) => {
   const { setCommentView } = useFeedStore((state) => state);
-  const { feedType } = useParams();
+  const { feedType, keyword } = useParams();
   const [currentBookmark, setCurrentBookmark] = useState(feed.bookmark);
   const [currentLikeIt, setCurrentLikeIt] = useState(feed.like);
   const userInfo = useLoginUserInfo();
@@ -55,7 +55,7 @@ const FeedInteraction = ({ feed }) => {
       <h2 className="sr-only">인터렉션 영역</h2>
       <div className="flex items-center gap-3">
         <Link
-          to={`/feed/${feedType}/comment/${feed.id}`}
+          to={`/feed/${feedType ? feedType : `search/${keyword}`}/comment/${feed.id}`}
           onClick={handleOpenCommentWindow}
         >
           <Comment />

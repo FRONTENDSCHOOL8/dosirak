@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 
 const CommentShowButton = ({ feed }) => {
   const { commentView, setCommentView } = useFeedStore((state) => state);
-  const { feedType } = useParams();
+  const { feedType, keyword } = useParams();
 
   const handleOpenCommentWindow = () => {
     setCommentView(feed.id);
@@ -13,7 +13,7 @@ const CommentShowButton = ({ feed }) => {
   return (
     <div className="flex pt-2">
       <Link
-        to={`/feed/${feedType}/comment/${feed.id}`}
+        to={`/feed/${feedType ? feedType : `search/${keyword}`}/comment/${feed.id}`}
         className="ms-auto flex h-4 items-center justify-center py-0.5 text-paragraph-base"
         type="button"
         onClick={handleOpenCommentWindow}

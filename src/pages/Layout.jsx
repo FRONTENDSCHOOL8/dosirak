@@ -6,7 +6,7 @@ const Layout = () => {
   const { expandFeed, setExpandFeed, commentView, setCommentView } =
     useFeedStore((state) => state);
   const navigate = useNavigate();
-  const { feedType } = useParams();
+  const { feedType, keyword } = useParams();
 
   const handleFeedClose = (e) => {
     handleFeedContract(e);
@@ -21,8 +21,9 @@ const Layout = () => {
 
   const handleFeedCommentClose = (e) => {
     if (commentView && feedType && !e.target.closest('.comment-window')) {
+      console.log(1);
       setCommentView('');
-      navigate(`/feed/${feedType}`);
+      navigate(`/feed/${feedType ? feedType : `search/${keyword}`}`);
     }
   };
 
