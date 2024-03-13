@@ -1,5 +1,6 @@
 import { ReactComponent as Eye } from '@/assets/register/eye.svg';
 import Notice from '@/components/atom/common/Notice';
+import ToggleButton from '@/components/atom/common/ToggleButton';
 import CheckButton from '@/components/atom/register/CheckButton';
 import { debounce } from '@/util';
 import { memo } from 'react';
@@ -14,13 +15,11 @@ const displayButton = (buttonType, validation, buttonEvent) => {
       );
     case 'password':
       return (
-        <button
-          type="button"
-          className="absolute bottom-1 right-0"
-          onClick={buttonEvent}
-        >
-          <Eye />
-        </button>
+        <ToggleButton
+          onClickButton={buttonEvent}
+          type="eye"
+          isClicked={false}
+        />
       );
     case 'requestAuth':
       return (
