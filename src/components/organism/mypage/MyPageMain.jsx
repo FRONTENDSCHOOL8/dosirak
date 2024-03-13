@@ -58,7 +58,7 @@ const MyPageMain = () => {
           <button
             onClick={handleLogout}
             type="button"
-            className="flex w-full items-center justify-between"
+            className="flex w-full items-center justify-between text-secondary-color"
           >
             로그아웃
             <img src="/assets/mypage/arrow.svg" alt="링크 이동" />
