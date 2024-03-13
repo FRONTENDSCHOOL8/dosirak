@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 const GroupListCard = ({ group }) => {
   const { id, title, thumbnail, participant, like, hashTag, isRecruiting } =
     group;
-  const uploadTime = 3;
+  const uploadTime = 1;
 
   return (
     <li className="relative">

@@ -86,7 +86,7 @@ export const Component = () => {
         <header>
           <NavBar path={groupPath}>모임</NavBar>
         </header>
-        <main className="mx-9">
+        <main className="mx-9 mb-12">
           {getGroupComponent(groupType, groupItems, likeItems)}
           <div ref={observeTarget} aria-hidden="true">
             &nbsp;
