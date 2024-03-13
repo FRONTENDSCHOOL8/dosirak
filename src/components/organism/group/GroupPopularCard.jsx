@@ -10,7 +10,7 @@ import GroupInteraction from '@/components/atom/group/GroupInteraction';
 const GroupPopularCard = ({ group }) => {
   const { id, title, thumbnail, participant, like, hashTag, isRecruiting } =
     group;
-  const uploadTime = 3;
+  const uploadTime = 1;
 
   return (
     <li className="relative m-1 h-[280px] w-[280px]">
