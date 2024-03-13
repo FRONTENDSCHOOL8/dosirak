@@ -4,7 +4,7 @@ import ImageUpload from '@/components/molecule/feed/ImageUpload';
 import { useLoginUserInfo } from '@/hook';
 import { pb } from '@/util';
 import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const fetchFeedText = async (data) => {
   const result = await pb.collection('feed').create(data);
@@ -19,6 +19,7 @@ export const Component = () => {
   const userInfo = useLoginUserInfo();
   const navigate = useNavigate();
   const writeFormRef = useRef(null);
+  const { groupId } = useParams();
 
   const handleBack = () => {
     navigate(-1);
@@ -39,13 +40,14 @@ export const Component = () => {
     writeFormData.append('title', title);
     writeFormData.append('writer', userInfo.id);
     writeFormData.append('maintext', editorText);
+    writeFormData.append('member', groupId);
 
     imageList.forEach((image) => {
       writeFormData.append('images', image);
     });
 
     fetchFeedText(writeFormData);
-    navigate('/feed/popular', { replace: true });
+    navigate(`/group/detail/${groupId}/feed`, { replace: true });
   };
 
   return (
@@ -98,4 +100,4 @@ export const Component = () => {
   );
 };
 
-Component.displayName = 'FeedWrite';
+Component.displayName = 'GroupFeedWrite';

@@ -1,7 +1,13 @@
 import NotUploadedImage from '@/components/atom/common/NotUploadedImage';
 import UploadImage from '@/components/atom/common/UploadImage';
 
-const ImageUpload = ({ imageList, handleUploadImage, setImageList }) => {
+const ImageUpload = ({
+  imageList,
+  handleUploadImage,
+  setImageList,
+  children,
+  multiple = true,
+}) => {
   const imageUrlList = imageList.map((image, index) => ({
     id: `image_${index}`,
     src: URL.createObjectURL(image),
@@ -16,8 +22,7 @@ const ImageUpload = ({ imageList, handleUploadImage, setImageList }) => {
   return (
     <section className="h-40">
       <h4 className="noto text-label">
-        <strong className="text-red-600">*</strong> 피드 메인에 보일 이미지를
-        업로드해 주세요!
+        <strong className="text-red-600">*</strong> {children}
       </h4>
       <label
         htmlFor="swiperImages"
@@ -39,7 +44,7 @@ const ImageUpload = ({ imageList, handleUploadImage, setImageList }) => {
         onChange={handleUploadImage}
         className="hidden"
         type="file"
-        multiple
+        multiple={multiple}
         name="swiperImages"
         id="swiperImages"
         accept="image/*"

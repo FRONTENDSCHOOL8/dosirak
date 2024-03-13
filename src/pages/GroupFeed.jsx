@@ -8,7 +8,7 @@ import { useInterSectionObserver, useLoginUserInfo } from '@/hook';
 import { getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useRef, useEffect } from 'react';
 import {
   useParams,
@@ -18,8 +18,20 @@ import {
   Link,
 } from 'react-router-dom';
 
+const fetchGroupInfo = async (groupId) => {
+  const result = await pb.collection('groups').getOne(groupId);
+
+  return result.title;
+};
+
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
+
+export const groupFeedPath = (groupId) => [
+  { path: `/group/detail/${groupId}/feed`, children: '우리 한 끼' },
+  // { path: `/group/detail/${groupId}/chat`, children: '채팅' },
+  { path: `/group/detail/${groupId}/info`, children: '정보' },
+];
 
 export const Component = () => {
   const userInfo = useLoginUserInfo();
@@ -27,16 +39,12 @@ export const Component = () => {
   const loadedFeedsData = useLoaderData();
   const { groupId } = useParams();
   const queryOptions = setQueryOptions(groupId);
+  const [groupTitle, setGroupTitle] = useState('');
 
-  const groupFeedPath = [
-    { path: `/group/detail/${groupId}/feed`, children: '우리 한 끼' },
-    { path: `/group/detail/${groupId}/chat`, children: '채팅' },
-  ];
   useLayoutEffect(() => {
-    if (!Object.keys(userInfo).length) {
-      alert('로그인 후 이용 가능합니다.');
-      navigate('/login');
-    }
+    fetchGroupInfo(groupId).then((title) => {
+      setGroupTitle(title);
+    });
   }, []);
 
   const {
@@ -72,14 +80,14 @@ export const Component = () => {
   ) : (
     <>
       <section className="relative flex h-fit min-h-screen flex-col">
-        <h2 className="sr-only">모임</h2>
+        <h1 className="sr-only">모임</h1>
         <header>
-          <NavBar type="feed" path={groupFeedPath}>
+          <NavBar type="feed" group={groupId} path={groupFeedPath(groupId)}>
             <div className="relative -left-[6px] flex items-center gap-3">
-              <Link to={-1}>
+              <Link to={'/group/popular'}>
                 <img src="/assets/common/prev.svg" alt="뒤로가기" />
               </Link>
-              모임
+              {groupTitle}
             </div>
           </NavBar>
         </header>

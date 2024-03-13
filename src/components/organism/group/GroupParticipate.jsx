@@ -21,7 +21,7 @@ const GroupParticipate = ({ groupId }) => {
 
       if (!data.participant.includes(userId)) {
         setShowDialog(true);
-        dialogRef.current.showModal();
+        dialogRef.current?.showModal();
       }
     };
 
@@ -55,17 +55,17 @@ const GroupParticipate = ({ groupId }) => {
   };
 
   return (
-    <section className="">
+    <section className="absolute bottom-0 left-0">
       <h3 className="sr-only">모임 참여하기</h3>
       {showDialog && (
         <dialog
           ref={dialogRef}
-          className="fixed z-10 h-[138px] w-[410px] rounded-xl bg-primary-color px-9 pb-6 pt-6"
+          className="absolute top-0 z-10 h-[138px] w-[410px] rounded-xl bg-primary-color px-9 pb-6 pt-6"
         >
           <p className="font-Gong-Gothic-l text-heading-sm text-gray50">
             모임이 마음에 드시나요?
           </p>
-          <div className="mt-[18px] flex justify-between gap-4">
+          <div className="noto mt-[18px] flex justify-between gap-4">
             <button
               className={`${baseButtonClass} bg-gray600 text-white`}
               onClick={closePopup}
