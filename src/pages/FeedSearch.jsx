@@ -37,6 +37,11 @@ export const Component = () => {
     navigate(`/feed/search/${searchValue}`);
   };
 
+  const handleSearchRecentKeyword = (e) => {
+    const target = e.target.innerText;
+    navigate(`/feed/search/${target}`);
+  };
+
   return (
     <>
       <section className="relative flex min-h-screen flex-col pb-[95px] pt-20">
@@ -55,7 +60,9 @@ export const Component = () => {
             searchValue={searchValue}
             setSearchValue={setSearchValue}
           />
-          <FeedRecentSearchArea />
+          <FeedRecentSearchArea
+            handleSearchRecentKeyword={handleSearchRecentKeyword}
+          />
           <FeedRecommendSearchArea />
         </form>
       </section>

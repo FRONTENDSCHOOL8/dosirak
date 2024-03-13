@@ -30,7 +30,7 @@ const fetchDeleteRecentKeyword = async (userId, target, setRecentKeywords) => {
 
 const fetchDeleteAllRecentKeyword = async (userId, setRecentKeywords) => {
   const result = await pb.collection('users').update(userId, {
-    recent_keyword: '',
+    recent_keyword: null,
   });
 
   setRecentKeywords([]);
@@ -38,7 +38,7 @@ const fetchDeleteAllRecentKeyword = async (userId, setRecentKeywords) => {
   return result;
 };
 
-const FeedRecentSearchArea = () => {
+const FeedRecentSearchArea = ({ handleSearchRecentKeyword }) => {
   const userInfo = useLoginUserInfo();
   const [recentKeywords, setRecentKeywords] = useState([]);
 
@@ -77,6 +77,7 @@ const FeedRecentSearchArea = () => {
             key={index}
             tagType="delete"
             deleteEvent={handleDeleteKeyword}
+            clickEvent={handleSearchRecentKeyword}
             customStyle="!text-paragraph-lg"
           >
             {item}

@@ -5,6 +5,7 @@ const Tag = ({
   position = '',
   customStyle,
   deleteEvent,
+  clickEvent,
 }) => {
   const baseClass = 'noto rounded-full px-3 text-paragraph-base';
 
@@ -23,7 +24,12 @@ const Tag = ({
     case 'delete':
       return (
         <li className={className}>
-          <button type="button" aria-label="태그 선택" className="py-[6px]">
+          <button
+            onClick={clickEvent}
+            type="button"
+            aria-label="태그 선택"
+            className="py-[6px]"
+          >
             {children}
           </button>
           <button
