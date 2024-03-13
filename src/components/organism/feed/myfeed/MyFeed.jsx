@@ -21,7 +21,6 @@ const myfeedPath = [
 
 const MyFeed = ({ feed }) => {
   const userInfo = useLoginUserInfo();
-  console.log(feed);
 
   return (
     <>

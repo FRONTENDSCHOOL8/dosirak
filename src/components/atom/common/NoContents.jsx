@@ -6,7 +6,6 @@ const NoContents = ({ type }) => {
     text = '팔로우 중인 유저가 없어요!';
   }
 
-  console.log(type);
   return (
     <li className="noto absolute left-1/2 top-1/2 -translate-x-1/2 font-semibold text-content-color">
       {text}

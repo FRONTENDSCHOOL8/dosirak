@@ -16,7 +16,6 @@ const getNewThumbnail = async (userId) => {
   const userData = await pb.collection('users').getOne(userId);
   const newThumbnailURL = getPbImage(userData);
 
-  console.log(newThumbnailURL);
   return newThumbnailURL;
 };
 

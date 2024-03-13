@@ -3,9 +3,20 @@ import LoginForm from '@/components/organism/login/LoginForm';
 import EtcSection from '@/components/organism/login/EtcSection';
 import useCommonStore from '@/store/useCommonStore';
 import Spinner from '@/components/atom/common/Spinner';
+import { useLoginUserInfo } from '@/hook';
+import { useLayoutEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Component = () => {
   const { isPending } = useCommonStore((state) => state);
+  const userInfo = useLoginUserInfo();
+  const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    if (userInfo.id) {
+      navigate('/home');
+    }
+  }, []);
 
   return (
     <section className="relative flex h-screen items-center">

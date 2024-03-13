@@ -4,9 +4,16 @@ import PasswordModify from '@/components/organism/mypage/PasswordModify';
 
 const navigationItems = [
   {
-    id: 'main',
+    id: 'cover',
     index: true,
     path: '',
+    text: 'cover',
+    lazy: () => import('@/components/atom/common/Splash'),
+  },
+  {
+    id: 'home',
+    index: true,
+    path: '/home',
     text: '홈',
     lazy: () => import('@/pages/Home'),
   },
