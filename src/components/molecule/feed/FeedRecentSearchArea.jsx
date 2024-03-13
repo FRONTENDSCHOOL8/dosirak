@@ -28,6 +28,16 @@ const fetchDeleteRecentKeyword = async (userId, target, setRecentKeywords) => {
   return result;
 };
 
+const fetchDeleteAllRecentKeyword = async (userId, setRecentKeywords) => {
+  const result = await pb.collection('users').update(userId, {
+    recent_keyword: '',
+  });
+
+  setRecentKeywords([]);
+
+  return result;
+};
+
 const FeedRecentSearchArea = () => {
   const userInfo = useLoginUserInfo();
   const [recentKeywords, setRecentKeywords] = useState([]);
@@ -43,12 +53,20 @@ const FeedRecentSearchArea = () => {
     fetchDeleteRecentKeyword(userInfo.id, target, setRecentKeywords);
   };
 
+  const handleDeleteAllKeywords = (e) => {
+    fetchDeleteAllRecentKeyword(userInfo.id, setRecentKeywords);
+  };
+
   return (
     <section className="noto flex flex-col items-center px-8">
       <h2 className="sr-only">최근 검색어 영역</h2>
       <div className="mt-16 flex w-full justify-between">
         <h3 className="font-Gong-Gothic-l text-heading-sm">최근 검색어</h3>
-        <button type="button" className="text-paragraph-lg text-gray700">
+        <button
+          onClick={handleDeleteAllKeywords}
+          type="button"
+          className="text-paragraph-lg text-gray700"
+        >
           전체삭제
         </button>
       </div>
