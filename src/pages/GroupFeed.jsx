@@ -3,7 +3,6 @@ import NoContents from '@/components/atom/common/NoContents';
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import FeedCard from '@/components/organism/feed/FeedCard';
-import MyFeed from '@/components/organism/feed/myfeed/MyFeed';
 import { useInterSectionObserver, useLoginUserInfo } from '@/hook';
 import { getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
@@ -20,20 +19,17 @@ import {
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
 
-export const feedPath = [
-  { path: '/feed/popular', children: '인기' },
-  { path: '/feed/recommend', children: '추천' },
-  { path: '/feed/following', children: '팔로잉' },
-  { path: '/feed/myfeed', children: '내 피드' },
-];
-
 export const Component = () => {
   const userInfo = useLoginUserInfo();
   const navigate = useNavigation();
   const loadedFeedsData = useLoaderData();
-  const { feedType } = useParams();
-  const queryOptions = setQueryOptions(feedType, userInfo.id);
+  const { groupId } = useParams();
+  const queryOptions = setQueryOptions(groupId);
 
+  const groupFeedPath = [
+    { path: `/group/detail/${groupId}/feed`, children: '우리 한 끼' },
+    { path: `/group/detail/${groupId}/chat`, children: '채팅' },
+  ];
   useLayoutEffect(() => {
     if (!Object.keys(userInfo).length) {
       alert('로그인 후 이용 가능합니다.');
@@ -63,7 +59,6 @@ export const Component = () => {
 
   useEffect(() => {
     if (hasNextPage) observe(observeTarget.current);
-    // else unobserve(observeTarget.current);
   }, [feedItems.length]);
 
   useEffect(() => {
@@ -72,13 +67,13 @@ export const Component = () => {
 
   return status === 'loading' ? (
     <Spinner textArray={['탕수육 만드는중...', '레시피 찾는중...']} />
-  ) : feedType != 'myfeed' ? (
+  ) : (
     <>
       <section className="relative flex h-fit min-h-screen flex-col">
-        <h2 className="sr-only">피드</h2>
+        <h2 className="sr-only">모임</h2>
         <header>
-          <NavBar type="feed" path={feedPath}>
-            피드
+          <NavBar type="feed" path={groupFeedPath}>
+            모임
           </NavBar>
         </header>
         <section className="h-fit pt-[132px]">
@@ -88,7 +83,7 @@ export const Component = () => {
                 <FeedCard feed={feed} key={feed.id} refetch={refetch} />
               ))
             ) : (
-              <NoContents type="following" />
+              <NoContents type="groupFeed" />
             )}
             <li ref={observeTarget}>&nbsp;</li>
           </ul>
@@ -97,33 +92,16 @@ export const Component = () => {
       </section>
       <MainNavBar />
     </>
-  ) : (
-    <MyFeed feed={feedItems} />
   );
 };
 
-const fetchFeeds = (feedType, userId) => async (pageInfo) => {
-  const collection = {
-    popular: { collection: 'feed_popular', sortField: 'i_like_it', filter: '' },
-    recommend: { collection: 'feed', sortField: 'id', filter: '' },
-    following: {
-      collection: 'feed',
-      sortField: 'created',
-      filter: `writer.follower.id ?= "${userId}"`,
-    },
-    myfeed: {
-      collection: 'feed',
-      sortField: 'created',
-      filter: `writer.id ?= "${userId}"`,
-    },
-  };
-
+const fetchFeeds = (groupId) => async (pageInfo) => {
   const feeds = await pb
-    .collection(collection[feedType].collection)
+    .collection('feed')
     .getList(pageInfo.pageParam, PER_PAGE, {
-      sort: `-${collection[feedType].sortField}`,
+      sort: `-created`,
       expand: 'writer, writer.follower, like, bookmark',
-      filter: collection[feedType].filter,
+      filter: `member.id ?= "${groupId}"`,
     });
 
   const feedItems = feeds.items.map((feed) => {
@@ -141,9 +119,9 @@ const fetchFeeds = (feedType, userId) => async (pageInfo) => {
   };
 };
 
-const setQueryOptions = (feedType, userId) => ({
-  queryKey: ['feed', feedType],
-  queryFn: fetchFeeds(feedType, userId),
+const setQueryOptions = (groupId) => ({
+  queryKey: ['feed', groupId],
+  queryFn: fetchFeeds(groupId),
   initialPageParam: INITIAL_PAGE,
   getNextPageParam: (lastPage, allPages) => {
     return lastPage.page < lastPage.totalPages ? allPages.length + 1 : null;
@@ -153,23 +131,12 @@ const setQueryOptions = (feedType, userId) => ({
 export const loader =
   (queryClient) =>
   async ({ params }) => {
-    const { feedType } = params;
-
-    const sessionUser = JSON.parse(sessionStorage.getItem('loginUserInfo'))
-      .state.loginUser;
-    const rememberUser = JSON.parse(localStorage.getItem('loginUserInfo')).state
-      .loginUser;
-
-    let currentUserId;
-    if (sessionUser.length) {
-      currentUserId = sessionUser.id;
-    } else {
-      currentUserId = rememberUser.id;
-    }
+    const { groupId } = params;
 
     let feedsData = null;
-    const cachedFeedsData = queryClient.getQueryData(['feed', feedType]);
-    const queryOptions = setQueryOptions(feedType, currentUserId);
+
+    const cachedFeedsData = queryClient.getQueryData(['feed', groupId]);
+    const queryOptions = setQueryOptions(groupId);
 
     // 캐싱된 피드 데이터가 있을 경우
     if (cachedFeedsData) {
@@ -183,4 +150,4 @@ export const loader =
     return feedsData;
   };
 
-Component.displayName = 'feed';
+Component.displayName = 'groupFeed';

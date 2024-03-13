@@ -8,12 +8,16 @@ import GroupCardGradient from '@/components/atom/group/GroupCardGradient';
 import GroupInteraction from '@/components/atom/group/GroupInteraction';
 
 const GroupPopularCard = ({ group }) => {
-  const { title, thumbnail, participant, like, hashTag, isRecruiting } = group;
+  const { id, title, thumbnail, participant, like, hashTag, isRecruiting } =
+    group;
   const uploadTime = 3;
 
   return (
-    <li className="relative h-[280px] w-[280px] shrink-0 overflow-hidden rounded-2xl shadow-card">
-      <Link>
+    <li className="relative m-1 h-[280px] w-[280px]">
+      <Link
+        to={`/group/detail/${id}/feed`}
+        className="absolute bottom-0 left-0 right-0 top-0 overflow-hidden rounded-2xl shadow-card"
+      >
         <ImgBox
           size="h-[200px] w-[280px]"
           className="absolute"
@@ -24,12 +28,7 @@ const GroupPopularCard = ({ group }) => {
           <Tag
             position="absolute z-10"
             tagType="recruit"
-            recruiting={isRecruiting.toString()}
-          />
-          <GroupInteraction
-            group={group}
-            colorType="white"
-            className="absolute right-5 z-10"
+            recruiting={isRecruiting}
           />
           <HashTagList
             hashTagArr={hashTag.hashTag}
@@ -49,6 +48,11 @@ const GroupPopularCard = ({ group }) => {
         </div>
         <GroupCardGradient />
       </Link>
+      <GroupInteraction
+        group={group}
+        colorType="white"
+        className="absolute end-4 top-[18px] z-10 p-1"
+      />
     </li>
   );
 };
