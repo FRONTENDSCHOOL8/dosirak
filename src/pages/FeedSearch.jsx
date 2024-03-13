@@ -11,11 +11,12 @@ import { pb } from '@/util';
 const fetchRecentKeywordUpdate = async (userId, searchValue) => {
   const prevKeywords = await pb.collection('users').getOne(userId);
 
-  const result = await pb
-    .collection('users')
-    .update(userId, {
-      recent_keyword: `${prevKeywords.recent_keyword},${searchValue}`,
-    });
+  const nextKeywordsTemp = `${prevKeywords.recent_keyword},${searchValue}`;
+  const nextKeywords = new Set(nextKeywordsTemp.split(','));
+
+  const result = await pb.collection('users').update(userId, {
+    recent_keyword: Array.from(nextKeywords).join(','),
+  });
 
   return result;
 };

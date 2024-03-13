@@ -5,9 +5,27 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 const fetchRecentKeywords = async (userId) => {
-  const result = await pb.collection('users').getOne(userId);
+  const userInfo = await pb.collection('users').getOne(userId);
 
-  return result.recent_keyword.split(',');
+  return userInfo.recent_keyword.split(',');
+};
+
+const fetchDeleteRecentKeyword = async (userId, target, setRecentKeywords) => {
+  const userInfo = await pb.collection('users').getOne(userId);
+  const currentKeywords = userInfo.recent_keyword;
+
+  const nextKeywords = currentKeywords
+    .split(',')
+    .filter((v) => v != target)
+    .join(',');
+
+  const result = await pb.collection('users').update(userId, {
+    recent_keyword: nextKeywords,
+  });
+
+  setRecentKeywords(nextKeywords.split(','));
+
+  return result;
 };
 
 const FeedRecentSearchArea = () => {
@@ -19,6 +37,11 @@ const FeedRecentSearchArea = () => {
       setRecentKeywords(data);
     });
   }, []);
+
+  const handleDeleteKeyword = (e) => {
+    const target = e.target.previousSibling.innerText;
+    fetchDeleteRecentKeyword(userInfo.id, target, setRecentKeywords);
+  };
 
   return (
     <section className="noto flex flex-col items-center px-8">
@@ -32,7 +55,12 @@ const FeedRecentSearchArea = () => {
 
       <ul className="mt-3 flex w-full flex-wrap gap-2">
         {recentKeywords.map((item, index) => (
-          <Tag key={index} tagType="delete" customStyle="!text-paragraph-lg">
+          <Tag
+            key={index}
+            tagType="delete"
+            deleteEvent={handleDeleteKeyword}
+            customStyle="!text-paragraph-lg"
+          >
             {item}
           </Tag>
         ))}
