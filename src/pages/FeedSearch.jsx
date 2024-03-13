@@ -5,11 +5,26 @@ import { useNavigate } from 'react-router-dom';
 import FeedSearchArea from '@/components/molecule/feed/FeedSearchArea';
 import FeedRecentSearchArea from '@/components/molecule/feed/FeedRecentSearchArea';
 import FeedRecommendSearchArea from '@/components/molecule/feed/FeedRecommendSearchArea';
+import { useLoginUserInfo } from '@/hook';
+import { pb } from '@/util';
+
+const fetchRecentKeywordUpdate = async (userId, searchValue) => {
+  const prevKeywords = await pb.collection('users').getOne(userId);
+
+  const result = await pb
+    .collection('users')
+    .update(userId, {
+      recent_keyword: `${prevKeywords.recent_keyword},${searchValue}`,
+    });
+
+  return result;
+};
 
 export const Component = () => {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
   const searchFormRef = useRef(null);
+  const userInfo = useLoginUserInfo();
 
   const handleBack = () => {
     navigate('/feed/popular', { replace: true });
@@ -17,6 +32,7 @@ export const Component = () => {
 
   const handleFeedSearch = (e) => {
     e.preventDefault();
+    fetchRecentKeywordUpdate(userInfo.id, searchValue);
     navigate(`/feed/search/${searchValue}`);
   };
 
