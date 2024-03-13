@@ -91,6 +91,12 @@ const navigationItems = [
       },
     ],
   },
+  {
+    id: 'settings',
+    path: '/settings',
+    text: '설정 화면',
+    lazy: () => import('@/pages/Settings'),
+  },
 ];
 
 export default navigationItems;

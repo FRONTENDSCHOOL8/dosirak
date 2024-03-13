@@ -11,7 +11,7 @@ const MyPageHeader = () => {
           <Link>
             <Alarm />
           </Link>
-          <Link>
+          <Link to={'/settings'}>
             <Setting />
           </Link>
         </div>
