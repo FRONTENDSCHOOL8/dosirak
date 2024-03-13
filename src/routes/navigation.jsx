@@ -74,7 +74,23 @@ const navigationItems = [
         Component,
       };
     },
-    children: [{}],
+    children: [
+      {
+        id: 'feed-comment',
+        path: '/feed/:feedType/comment/:feedId',
+        text: '피드 댓글',
+        async lazy() {
+          const { Component, loader } = await import(
+            '@/components/organism/feed/FeedComment'
+          );
+
+          return {
+            loader: loader(queryClient),
+            Component,
+          };
+        },
+      },
+    ],
   },
   {
     id: 'feed-write',
