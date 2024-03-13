@@ -36,10 +36,6 @@ export const Component = () => {
     if (!confirm('모임을 생성하시겠어요?')) return;
 
     const formData = new FormData(AddFormRef.current);
-
-    for (let key of formData.keys()) {
-      console.log(key, formData.get(key));
-    }
     const addGroupFormData = {};
 
     addGroupFormData.thumbnail = formData.get('swiperImages');

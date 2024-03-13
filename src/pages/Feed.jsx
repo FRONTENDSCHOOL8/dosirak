@@ -126,8 +126,6 @@ const fetchFeeds = (feedType, userId) => async (pageInfo) => {
     },
   };
 
-  console.log(collection[feedType].filter);
-
   const feeds = await pb
     .collection(collection[feedType].collection)
     .getList(pageInfo.pageParam, PER_PAGE, {

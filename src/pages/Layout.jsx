@@ -21,7 +21,6 @@ const Layout = () => {
 
   const handleFeedCommentClose = (e) => {
     if (commentView && feedType && !e.target.closest('.comment-window')) {
-      console.log(1);
       setCommentView('');
       navigate(`/feed/${feedType ? feedType : `search/${keyword}`}`);
     }

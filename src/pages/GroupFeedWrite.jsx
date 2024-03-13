@@ -20,7 +20,6 @@ export const Component = () => {
   const navigate = useNavigate();
   const writeFormRef = useRef(null);
   const { groupId } = useParams();
-  console.log(groupId);
 
   const handleBack = () => {
     navigate(-1);

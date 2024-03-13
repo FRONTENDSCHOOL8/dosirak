@@ -15,7 +15,6 @@ const fetchLeaveGroup = async (cachedGroupInfoData, userId) => {
     participant: nextParticipant,
   });
 
-  console.log(result);
   return result;
 };
 
