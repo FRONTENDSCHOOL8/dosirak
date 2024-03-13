@@ -76,7 +76,7 @@ const RegisterForm = () => {
             storage: 'session',
           });
 
-          navigate('/');
+          navigate('/home');
           clearRegisterState();
           setTimeout(() => setIsPending(false), 500);
         }, 1000);

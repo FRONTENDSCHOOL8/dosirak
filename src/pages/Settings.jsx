@@ -5,6 +5,8 @@ import SettingsHeader from '@/components/organism/mypage/SettingsHeader';
 import { useLoginUserInfo } from '@/hook';
 import { pb } from '@/util';
 import { useNavigate } from 'react-router-dom';
+import useUserPersistStore from '@/store/useUserPersistStore';
+import useUserSessionStore from '@/store/useUserSessionStore';
 
 const fetchLeave = async (userId) => {
   const result = await pb.collection('users').update(userId, { status: 4 });
@@ -15,6 +17,8 @@ const fetchLeave = async (userId) => {
 export const Component = () => {
   const userInfo = useLoginUserInfo();
   const navigate = useNavigate();
+  const { setLoginUser: setSessionId } = useUserSessionStore((state) => state);
+  const { setLoginUser: setRememberId } = useUserPersistStore((state) => state);
 
   const handleLeave = async () => {
     if (
@@ -24,6 +28,14 @@ export const Component = () => {
 
       alert('탈퇴 처리가 완료되었어요.\n다시 만날 날을 기대하고 있을게요.');
       navigate('/login', { replace: true });
+
+      if (userInfo.storage === 'session') {
+        setSessionId({});
+      } else {
+        setRememberId({});
+      }
+
+      pb.authStore.clear();
     }
   };
 
