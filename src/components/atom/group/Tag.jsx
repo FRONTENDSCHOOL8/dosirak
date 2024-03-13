@@ -1,4 +1,12 @@
-const Tag = ({ children, tagType, recruiting, position = '', customStyle }) => {
+const Tag = ({
+  children,
+  tagType,
+  recruiting,
+  position = '',
+  customStyle,
+  deleteEvent,
+  clickEvent,
+}) => {
   const baseClass = 'noto rounded-full px-3 text-paragraph-base';
 
   const defaultClass = `border border-gray500 py-[6px] text-gray600 ${children === '전체보기' ? 'bg-content-color text-white' : ''}`;
@@ -16,10 +24,16 @@ const Tag = ({ children, tagType, recruiting, position = '', customStyle }) => {
     case 'delete':
       return (
         <li className={className}>
-          <button type="button" aria-label="태그 선택" className="py-[6px]">
+          <button
+            onClick={clickEvent}
+            type="button"
+            aria-label="태그 선택"
+            className="py-[6px]"
+          >
             {children}
           </button>
           <button
+            onClick={deleteEvent}
             type="button"
             aria-label="삭제"
             className="h-4 w-4 bg-delete bg-cover py-[6px]"
