@@ -1,5 +1,5 @@
 const Tag = ({ children, tagType, recruiting, position = '' }) => {
-  const baseClass = 'rounded-2xl px-3 text-paragraph-base';
+  const baseClass = 'noto rounded-2xl px-3 text-paragraph-base';
 
   const defaultClass = `border border-gray500 py-[6px] text-gray600 ${children === '전체보기' ? 'bg-content-color text-white' : ''}`;
 

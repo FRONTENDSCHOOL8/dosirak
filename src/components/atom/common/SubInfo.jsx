@@ -1,6 +1,6 @@
 const SubInfo = ({ children, svg, svgAlt }) => {
   return (
-    <figure className="flex gap-1">
+    <figure className="noto flex gap-1">
       <img
         src={`/assets/${svg}.svg`}
         alt={`${svgAlt} 아이콘`}
