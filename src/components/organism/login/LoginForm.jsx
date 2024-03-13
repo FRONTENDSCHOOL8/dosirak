@@ -16,6 +16,11 @@ const fetchLogin = async (data) => {
     .collection('users')
     .authWithPassword(data.username, data.password);
 
+  if (result.record.status === 4) {
+    pb.authStore.clear();
+    return 4;
+  }
+
   return result;
 };
 
@@ -80,28 +85,33 @@ const LoginForm = () => {
     setIsPending(true);
     fetchLogin(loginData)
       .then((data) => {
-        if (rememberRef.current.checked) {
-          setRememberUser({
-            id: data.record.id,
-            nickname: data.record.nickname,
-            thumbnail: setThumbnail(data),
-            follow: data.record.follow,
-            storage: 'local',
-          });
-        } else {
-          setSessionUser({
-            id: data.record.id,
-            nickname: data.record.nickname,
-            thumbnail: setThumbnail(data),
-            follow: data.record.follow,
-            storage: 'session',
-          });
-        }
-
-        setTimeout(() => {
-          navigate('/');
+        if (data === 4) {
+          alert('탈퇴한 회원입니다.');
           setIsPending(false);
-        }, 1000);
+        } else {
+          if (rememberRef.current.checked) {
+            setRememberUser({
+              id: data.record.id,
+              nickname: data.record.nickname,
+              thumbnail: setThumbnail(data),
+              follow: data.record.follow,
+              storage: 'local',
+            });
+          } else {
+            setSessionUser({
+              id: data.record.id,
+              nickname: data.record.nickname,
+              thumbnail: setThumbnail(data),
+              follow: data.record.follow,
+              storage: 'session',
+            });
+          }
+
+          setTimeout(() => {
+            navigate('/');
+            setIsPending(false);
+          }, 1000);
+        }
       })
       .catch((error) => {
         console.error(error);
