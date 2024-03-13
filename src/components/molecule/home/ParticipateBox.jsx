@@ -31,7 +31,7 @@ const ParticipateBox = () => {
   }, []);
 
   return (
-    <section className="mt-[13px] flex">
+    <section className="mt-4 flex justify-between">
       <ParticipateInfo number={count.groupCount}>모임</ParticipateInfo>
       <ParticipateInfo number={count.feedCount}>피드</ParticipateInfo>
     </section>

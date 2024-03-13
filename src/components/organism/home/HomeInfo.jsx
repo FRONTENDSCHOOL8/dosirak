@@ -5,12 +5,12 @@ const HomeInfo = () => {
   const userInfo = useLoginUserInfo();
 
   return (
-    <section className="mx-9 mt-[118px] h-[250px] w-[358px] bg-white">
-      <section className="flex h-[108px] w-full flex-col bg-[url('/src/assets/home/bubble.svg')]">
-        <span className="mb-2 ms-[22px] mt-[18px] text-label text-white">
+    <section className="h-fit w-full bg-white px-9 pb-[125px] pt-[118px] mobile:px-4">
+      <section className="noto flex h-[108px] flex-col gap-2 bg-[url('/src/assets/home/bubble.svg')] bg-cover bg-center bg-no-repeat px-5 py-3">
+        <span className="text-label text-white">
           이번 달, {userInfo.nickname}님은
         </span>
-        <div className="ms-[22px] flex gap-1">
+        <div className="flex gap-2">
           <img
             src="/assets/common/blackheart-true.svg"
             alt=""
