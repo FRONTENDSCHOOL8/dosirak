@@ -36,6 +36,33 @@ const navigationItems = [
     },
   },
   {
+    id: 'group-feed',
+    path: '/group/detail/:groupId',
+    text: '우리 한 끼 화면',
+    async lazy() {
+      const { Component } = await import('@/pages/GroupDetail');
+
+      return {
+        Component,
+      };
+    },
+    children: [
+      {
+        id: 'group-detail-feed',
+        path: '/group/detail/:groupId/feed',
+        text: '그룹 상세 페이지 - 피드',
+        async lazy() {
+          const { Component, loader } = await import('@/pages/GroupFeed');
+
+          return {
+            loader: loader(queryClient),
+            Component,
+          };
+        },
+      },
+    ],
+  },
+  {
     id: 'feed',
     path: '/feed/:feedType',
     text: '피드 화면',
@@ -47,23 +74,7 @@ const navigationItems = [
         Component,
       };
     },
-    children: [
-      {
-        id: 'feed-comment',
-        path: '/feed/:feedType/comment/:feedId',
-        text: '피드 댓글',
-        async lazy() {
-          const { Component, loader } = await import(
-            '@/components/organism/feed/FeedComment'
-          );
-
-          return {
-            loader: loader(queryClient),
-            Component,
-          };
-        },
-      },
-    ],
+    children: [{}],
   },
   {
     id: 'feed-write',
