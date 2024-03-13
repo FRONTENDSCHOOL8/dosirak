@@ -8,14 +8,16 @@ const styleClass = ({ isActive }) => {
     : defaultStyle;
 };
 
-const NavBar = ({ children, path, type }) => {
+const NavBar = ({ children, path, type, group }) => {
   return (
     <nav className="noto fixed top-0 z-20 flex h-[112px] w-[430px] select-none flex-col bg-white pt-[22px] mobile:w-screen">
       <div className="flex flex-grow justify-between px-9">
         <h3 className="text-heading-lg font-extrabold">{children}</h3>
         <div className="flex h-6 gap-4 pt-2">
           {type === 'feed' && (
-            <Link to={`/${type}/write`}>
+            <Link
+              to={group ? `/group/detail/${group}/write` : `/${type}/write`}
+            >
               <img src={`/assets/${type}/write.svg`} alt="글쓰기" />
             </Link>
           )}

@@ -84,7 +84,7 @@ export const Component = () => {
         <header>
           <NavBar type="feed" group={groupId} path={groupFeedPath(groupId)}>
             <div className="relative -left-[6px] flex items-center gap-3">
-              <Link to={-1}>
+              <Link to={'/group/popular'}>
                 <img src="/assets/common/prev.svg" alt="뒤로가기" />
               </Link>
               {groupTitle}

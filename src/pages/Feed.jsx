@@ -104,19 +104,29 @@ export const Component = () => {
 
 const fetchFeeds = (feedType, userId) => async (pageInfo) => {
   const collection = {
-    popular: { collection: 'feed_popular', sortField: 'i_like_it', filter: '' },
-    recommend: { collection: 'feed', sortField: 'id', filter: '' },
+    popular: {
+      collection: 'feed_popular',
+      sortField: 'i_like_it',
+      filter: `member ?= ""`,
+    },
+    recommend: {
+      collection: 'feed',
+      sortField: 'id',
+      filter: `member.id ?= ""`,
+    },
     following: {
       collection: 'feed',
       sortField: 'created',
-      filter: `writer.follower.id ?= "${userId}"`,
+      filter: `writer.follower.id ?= "${userId}" && member.id ?= ""`,
     },
     myfeed: {
       collection: 'feed',
       sortField: 'created',
-      filter: `writer.id ?= "${userId}"`,
+      filter: `writer.id ?= "${userId}" && member.id ?= ""`,
     },
   };
+
+  console.log(collection[feedType].filter);
 
   const feeds = await pb
     .collection(collection[feedType].collection)

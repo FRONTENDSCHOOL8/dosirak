@@ -89,6 +89,12 @@ const navigationItems = [
     ],
   },
   {
+    id: 'group-detail-write',
+    path: '/group/detail/:groupId/write',
+    text: '그룹 상세 페이지 - 글쓰기',
+    lazy: () => import('@/pages/GroupFeedWrite'),
+  },
+  {
     id: 'feed',
     path: '/feed/:feedType',
     text: '피드 화면',
