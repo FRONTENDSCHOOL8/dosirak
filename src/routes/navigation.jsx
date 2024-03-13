@@ -43,6 +43,12 @@ const navigationItems = [
     },
   },
   {
+    id: 'groupadd',
+    path: '/groupadd',
+    text: '모임 생성 화면',
+    lazy: () => import('@/pages/GroupAdd'),
+  },
+  {
     id: 'group-feed',
     path: '/group/detail/:groupId',
     text: '우리 한 끼 화면',

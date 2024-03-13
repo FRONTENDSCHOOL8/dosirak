@@ -84,7 +84,9 @@ export const Component = () => {
     <>
       <section className="relative flex h-fit min-h-screen flex-col overflow-x-hidden">
         <header>
-          <NavBar path={groupPath}>모임</NavBar>
+          <NavBar type="group" path={groupPath}>
+            모임
+          </NavBar>
         </header>
         <main className="mx-9 mb-12">
           {getGroupComponent(groupType, groupItems, likeItems)}

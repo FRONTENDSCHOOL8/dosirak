@@ -14,9 +14,16 @@ const NavBar = ({ children, path, type }) => {
       <div className="flex flex-grow justify-between px-9">
         <h3 className="text-heading-lg font-extrabold">{children}</h3>
         <div className="flex h-6 gap-4 pt-2">
-          <Link to={`/${type}/write`}>
-            <img src={`/assets/${type}/write.svg`} alt="글쓰기" />
-          </Link>
+          {type === 'feed' && (
+            <Link to={`/${type}/write`}>
+              <img src={`/assets/${type}/write.svg`} alt="글쓰기" />
+            </Link>
+          )}
+          {type === 'group' && (
+            <Link to={`/groupadd`}>
+              <img src={`/assets/${type}/add.svg`} alt="생성" />
+            </Link>
+          )}
           <Link to={`/${type}/search`}>
             <img src={`/assets/${type}/search.svg`} alt="검색" />
           </Link>

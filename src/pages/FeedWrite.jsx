@@ -74,7 +74,9 @@ export const Component = () => {
               handleUploadImage={handleUploadImage}
               imageList={imageList}
               setImageList={setImageList}
-            />
+            >
+              피드 메인에 보일 이미지를 업로드해 주세요!
+            </ImageUpload>
             <div className="flex flex-col gap-2 py-2">
               <label htmlFor="title" className="noto text-label">
                 <strong className="text-red-600">*</strong>제목을 입력해주세요!
