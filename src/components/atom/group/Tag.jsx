@@ -1,5 +1,5 @@
-const Tag = ({ children, tagType, recruiting, position = '' }) => {
-  const baseClass = 'noto rounded-2xl px-3 text-paragraph-base';
+const Tag = ({ children, tagType, recruiting, position = '', customStyle }) => {
+  const baseClass = 'noto rounded-full px-3 text-paragraph-base';
 
   const defaultClass = `border border-gray500 py-[6px] text-gray600 ${children === '전체보기' ? 'bg-content-color text-white' : ''}`;
 
@@ -10,7 +10,7 @@ const Tag = ({ children, tagType, recruiting, position = '' }) => {
   };
 
   const className =
-    `${baseClass} ${typeClasses[tagType] || defaultClass} ${position}`.trim();
+    `${baseClass} ${typeClasses[tagType] || defaultClass} ${position} ${customStyle}`.trim();
 
   switch (tagType) {
     case 'delete':

@@ -7,11 +7,13 @@ import { useParams } from 'react-router-dom';
 const CommentWindowHeader = () => {
   const setCommentView = useFeedStore((state) => state.setCommentView);
   const navigate = useNavigate();
-  const { feedType } = useParams();
+  const { feedType, keyword } = useParams();
 
   const handleCloseCommentWindow = () => {
     setCommentView('');
-    navigate(`/feed/${feedType}`, { replace: true });
+    navigate(`/feed/${feedType ? feedType : `search/${keyword}`}`, {
+      replace: true,
+    });
   };
 
   return (
