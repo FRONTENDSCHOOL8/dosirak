@@ -29,7 +29,7 @@ const buttonTheme = {
     false: '',
   },
   follow: {
-    true: 'flex items-center justify-center gap-1 rounded-3xl bg-gray-500 px-3 py-1',
+    true: 'flex items-center justify-center gap-1 rounded-3xl bg-gray500 px-3 py-1',
     false:
       'flex items-center justify-center gap-1 rounded-3xl bg-primary-color px-3 py-1',
   },
