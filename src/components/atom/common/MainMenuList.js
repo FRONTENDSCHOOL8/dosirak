@@ -1,7 +1,7 @@
 export const MENU_LIST = [
   {
     name: '홈',
-    path: '/',
+    path: '/home',
     icon: { default: 'home.svg', select: 'home-select.svg' },
   },
   {

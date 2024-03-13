@@ -108,7 +108,7 @@ const LoginForm = () => {
           }
 
           setTimeout(() => {
-            navigate('/');
+            navigate('/home');
             setIsPending(false);
           }, 1000);
         }
