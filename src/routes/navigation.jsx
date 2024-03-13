@@ -73,6 +73,19 @@ const navigationItems = [
           };
         },
       },
+      {
+        id: 'group-detail-info',
+        path: '/group/detail/:groupId/info',
+        text: '그룹 상세 페이지 - 정보',
+        async lazy() {
+          const { Component, loader } = await import('@/pages/GroupInfo');
+
+          return {
+            loader: loader(queryClient),
+            Component,
+          };
+        },
+      },
     ],
   },
   {
