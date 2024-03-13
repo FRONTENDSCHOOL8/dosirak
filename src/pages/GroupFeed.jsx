@@ -3,6 +3,7 @@ import NoContents from '@/components/atom/common/NoContents';
 import MainNavBar from '@/components/molecule/common/MainNavBar';
 import NavBar from '@/components/molecule/navbar/NavBar';
 import FeedCard from '@/components/organism/feed/FeedCard';
+import GroupParticipate from '@/components/organism/group/GroupParticipate';
 import { useInterSectionObserver, useLoginUserInfo } from '@/hook';
 import { getPbImage, pb } from '@/util';
 import { getPbImageArray } from '@/util/getPbImage';
@@ -14,6 +15,7 @@ import {
   Outlet,
   useLoaderData,
   useNavigation,
+  Link,
 } from 'react-router-dom';
 
 const INITIAL_PAGE = 1;
@@ -73,7 +75,12 @@ export const Component = () => {
         <h2 className="sr-only">모임</h2>
         <header>
           <NavBar type="feed" path={groupFeedPath}>
-            모임
+            <div className="relative -left-[6px] flex items-center gap-3">
+              <Link to={-1}>
+                <img src="/assets/common/prev.svg" alt="뒤로가기" />
+              </Link>
+              모임
+            </div>
           </NavBar>
         </header>
         <section className="h-fit pt-[132px]">
@@ -89,6 +96,7 @@ export const Component = () => {
           </ul>
         </section>
         <Outlet />
+        <GroupParticipate groupId={groupId} />
       </section>
       <MainNavBar />
     </>
