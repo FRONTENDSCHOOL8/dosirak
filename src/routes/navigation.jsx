@@ -106,6 +106,12 @@ const navigationItems = [
     lazy: () => import('@/pages/FeedWrite'),
   },
   {
+    id: 'feed-search',
+    path: '/feed/search',
+    text: '피드 검색',
+    lazy: () => import('@/pages/FeedSearch'),
+  },
+  {
     id: 'mypage',
     path: '/mypage',
     text: '마이페이지 화면',
