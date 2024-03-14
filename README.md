@@ -333,9 +333,9 @@
 - 최신 모임에서는 최근에 글이 올라왔던 모임을 시간순으로 확인할 수 있습니다.
 - 사용자가 현재 참여 중인 모임을 확인할 수 있습니다.
   
-|모임 생성|모임 탈퇴|
-|---------|---------|
-![모임 생성](https://github.com/FRONTENDSCHOOL8/dosirak/assets/46062634/a8658e62-af28-4099-b92c-490028fa1e9e)|![모임 탈퇴](https://github.com/FRONTENDSCHOOL8/dosirak/assets/46062634/d42c32de-b245-43d2-9c34-04c4b2acd8f5)|
+|모임 목록|모임 생성|모임 탈퇴|
+|---------|---------|---------|
+|![모임 목록](https://github.com/FRONTENDSCHOOL8/dosirak/assets/46062634/a700d168-677f-4d95-a173-c9bd600a5afa)|![모임 생성](https://github.com/FRONTENDSCHOOL8/dosirak/assets/46062634/a8658e62-af28-4099-b92c-490028fa1e9e)|![모임 탈퇴](https://github.com/FRONTENDSCHOOL8/dosirak/assets/46062634/d42c32de-b245-43d2-9c34-04c4b2acd8f5)|
 
 
 <br>
