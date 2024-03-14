@@ -5,7 +5,7 @@ const HeaderButtonArea = () => {
   return (
     <ul className="flex gap-[22px]">
       <li className="">
-        <Link to="/">
+        <Link to="/" aria-label="알림">
           <Bell />
         </Link>
       </li>

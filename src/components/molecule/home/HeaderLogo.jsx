@@ -6,8 +6,8 @@ const HeaderLogo = () => {
       <Link>
         <img
           src="/assets/common/logo.svg"
-          alt=""
-          className="h-[40px] w-[74px]"
+          alt="한끼도시락"
+          className="h-10 w-[74px]"
         />
       </Link>
     </h1>
