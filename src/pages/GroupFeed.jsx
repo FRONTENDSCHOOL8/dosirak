@@ -92,7 +92,7 @@ export const Component = () => {
           </NavBar>
         </header>
         <section className="h-fit pt-[132px]">
-          <ul className="flex flex-col gap-8 px-9 pb-[125px]">
+          <ul className="flex flex-col gap-2 bg-gray200 pb-[125px]">
             {feedItems.length ? (
               feedItems.map((feed) => (
                 <FeedCard feed={feed} key={feed.id} refetch={refetch} />
