@@ -9,7 +9,7 @@ const ScrollTop = () => {
     <button
       type="button"
       onClick={handleScrollTop}
-      className="noto fixed bottom-[125px] z-[9999] translate-x-[350px]"
+      className="noto fixed bottom-[125px] z-[9999] translate-x-[350px] mobile:translate-x-[310px]"
     >
       <img src="/assets/common/scrollTop.svg" alt="맨 위로 이동" />
     </button>
