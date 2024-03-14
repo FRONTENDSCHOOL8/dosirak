@@ -19,6 +19,9 @@ const RecipeBox = () => {
           type="button"
           className="absolute bottom-5 right-5 size-[18px]"
           aria-label="새로고침"
+          onClick={() => {
+            alert('아직 서비스 준비중이에요🥲');
+          }}
         >
           <Reload />
         </button>

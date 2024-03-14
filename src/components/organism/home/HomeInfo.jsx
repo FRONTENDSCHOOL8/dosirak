@@ -17,7 +17,7 @@ const HomeInfo = () => {
             className="size-6"
           />
           <p className="font-Gong-Gothic-l text-heading-sm text-white">
-            48개의 좋아요를 받았어요
+            0개의 좋아요를 받았어요
           </p>
         </div>
       </section>
