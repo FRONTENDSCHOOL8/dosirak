@@ -1,10 +1,13 @@
 import useFeedStore from '@/store/useFeedStore';
 import { Outlet, useParams, useNavigate } from 'react-router-dom';
 import QrCode from '@/pages/QrCode';
+import useCommonStore from '@/store/useCommonStore';
+import CafeWhereAdvertise from '@/components/molecule/common/CafeWhereAdvertise';
 
 const Layout = () => {
   const { expandFeed, setExpandFeed, commentView, setCommentView } =
     useFeedStore((state) => state);
+  const { isAdvertising, setIsAdvertising } = useCommonStore((state) => state);
   const navigate = useNavigate();
   const { feedType, keyword } = useParams();
 
@@ -34,6 +37,7 @@ const Layout = () => {
       <div className="relative flex w-[1024px] justify-center">
         <section className="fixed left-[calc(50%-512px)] flex h-screen w-[594px] bg-gray100 tablet:hidden">
           <QrCode />
+          {isAdvertising && <CafeWhereAdvertise />}
         </section>
         <div className="relative h-fit w-[430px] min-w-[372px] bg-white mobile:w-screen lg:ms-auto">
           <Outlet />

@@ -1,39 +1,35 @@
-import { ReactComponent as Pen } from '@/assets/common/modify-profile.svg';
 import { useLoginUserInfo } from '@/hook';
 
 const MyFeedProfile = () => {
   const userInfo = useLoginUserInfo();
   return (
-    <div className="flex gap-[54px]">
-      <div className="">
-        <figure className="relative w-[73px]">
+    <div className="flex justify-between gap-6 px-12 py-4">
+      <div className="pb-12">
+        <figure className="relative flex w-20 flex-col items-center">
           <img
             src={userInfo.thumbnail}
             alt=""
-            className="size-[73px] rounded-full border-2"
+            className="size-[73px] rounded-full border-[1px]"
           />
-          <figcaption className="absolute -bottom-1 right-0">
-            <button>
-              <Pen />
-            </button>
+          <figcaption className="absolute -bottom-9 left-0">
+            <span className="noto text-nowrap text-label font-semibold">
+              {userInfo.nickname}
+            </span>
           </figcaption>
         </figure>
-        <span className="paragraph-lg h-[24px] w-[300px] text-nowrap">
-          {userInfo.nickname}
-        </span>
       </div>
-      <div className=" ms-[20px] mt-[22px] flex space-x-6">
-        <p className="noto flex flex-col items-center text-label text-paragraph-base text-gray700">
+      <div className="noto flex gap-8 p-4">
+        <p className="flex flex-col items-center text-paragraph-lg">
           <strong>8</strong>
-          <span className="w-10 text-center">게시글</span>
+          <span className="text-center text-gray700">게시글</span>
         </p>
-        <p className="noto flex flex-col items-center text-label text-paragraph-base text-gray700">
+        <p className="flex flex-col items-center text-paragraph-lg">
           <strong>48</strong>
-          <span className="w-10 text-center">팔로워</span>
+          <span className="text-center text-gray700">팔로워</span>
         </p>
-        <p className="noto flex flex-col items-center text-label text-paragraph-base text-gray700">
+        <p className="flex flex-col items-center text-paragraph-lg">
           <strong>52</strong>
-          <span className="w-10 text-center">팔로잉</span>
+          <span className="text-center text-gray700">팔로잉</span>
         </p>
       </div>
     </div>
