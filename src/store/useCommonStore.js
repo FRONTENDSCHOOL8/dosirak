@@ -3,6 +3,7 @@ import { create } from 'zustand';
 const initialState = {
   isPending: false,
   isSplashPlay: false,
+  isAdvertising: true,
 };
 
 const createState = (set) => ({
@@ -10,6 +11,7 @@ const createState = (set) => ({
 
   setIsSplashPlay: (value) => set(() => ({ isSplashPlay: value })),
   setIsPending: (value) => set(() => ({ isPending: value })),
+  setIsAdvertising: (value) => set(() => ({ isAdvertising: value })),
 });
 
 const useCommonStore = create(createState);
