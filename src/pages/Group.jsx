@@ -9,6 +9,7 @@ import { getPbImage, pb } from '@/util';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useRef, useEffect } from 'react';
 import { useParams, Outlet, useLoaderData } from 'react-router-dom';
+import ScrollTop from '@/components/atom/common/ScrollTop';
 
 const INITIAL_PAGE = 1;
 const PER_PAGE = 15;
@@ -95,6 +96,7 @@ export const Component = () => {
           </div>
           <Outlet />
         </main>
+        <ScrollTop />
       </section>
       <MainNavBar />
     </>

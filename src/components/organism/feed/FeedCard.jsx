@@ -17,7 +17,7 @@ const FeedCard = ({ feed, refetch }) => {
   };
 
   return (
-    <li className="feed-text noto pointer flex flex-col gap-3">
+    <li className="feed-text noto pointer flex flex-col gap-3 bg-white px-9 py-6">
       <FeedWriter feed={feed} refetch={refetch} />
       <SwiperCard
         onClick={handleFeedExpand}
