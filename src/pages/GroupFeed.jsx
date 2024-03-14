@@ -18,6 +18,7 @@ import {
   Link,
 } from 'react-router-dom';
 import ScrollTop from '@/components/atom/common/ScrollTop';
+import useFeedStore from '@/store/useFeedStore';
 
 const fetchGroupInfo = async (groupId) => {
   const result = await pb.collection('groups').getOne(groupId);
@@ -41,6 +42,7 @@ export const Component = () => {
   const { groupId } = useParams();
   const queryOptions = setQueryOptions(groupId);
   const [groupTitle, setGroupTitle] = useState('');
+  const commentView = useFeedStore((state) => state.commentView);
 
   useLayoutEffect(() => {
     fetchGroupInfo(groupId).then((title) => {
@@ -106,7 +108,7 @@ export const Component = () => {
         </section>
         <Outlet />
         <GroupParticipate groupId={groupId} />
-        <ScrollTop />
+        {!commentView && <ScrollTop />}
       </section>
       <MainNavBar />
     </>
