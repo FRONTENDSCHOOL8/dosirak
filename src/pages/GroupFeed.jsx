@@ -17,6 +17,7 @@ import {
   useNavigation,
   Link,
 } from 'react-router-dom';
+import ScrollTop from '@/components/atom/common/ScrollTop';
 
 const fetchGroupInfo = async (groupId) => {
   const result = await pb.collection('groups').getOne(groupId);
@@ -105,6 +106,7 @@ export const Component = () => {
         </section>
         <Outlet />
         <GroupParticipate groupId={groupId} />
+        <ScrollTop />
       </section>
       <MainNavBar />
     </>

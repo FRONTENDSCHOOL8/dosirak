@@ -16,6 +16,7 @@ import {
   useLoaderData,
   useNavigation,
 } from 'react-router-dom';
+import ScrollTop from '@/components/atom/common/ScrollTop';
 
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
@@ -94,6 +95,7 @@ export const Component = () => {
           </ul>
         </section>
         <Outlet />
+        <ScrollTop />
       </section>
       <MainNavBar />
     </>
