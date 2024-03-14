@@ -1,5 +1,5 @@
 # 🦁 멋쟁이사자처럼 FE 9th - Final 6조: 탕수육-한끼도시락 프로젝트
-![image](https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/cbc55f7d-be7a-4fb8-8eac-78c292b478b8)
+![image](https://github.com/FRONTENDSCHOOL8/dosirak/assets/46062634/68094e37-460b-4f7c-a27b-9a5a6bc7e9c0)
 
 <br>
 
