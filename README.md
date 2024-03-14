@@ -49,7 +49,7 @@
 
 |[이상원(Lead)](https://github.com/SWLee2973)|[반현지(Design)](https://github.com/lanuioe)|[정현수(Scrum)](https://github.com/hyun9758)|[김훈](https://github.com/o0orang)|
 |:----:|:----:|:----:|:----:|
-|<img src="https://avatars.githubusercontent.com/u/46062634?v=4" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/1a2ff567-f683-4133-86dc-8dc553679cbd" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/ad014ace-2ce2-4a0a-ae8a-b12a439eb5c5" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/88832233-87b0-46ec-b5ba-ba7ddce6a3ad" width="200">|
+|<img src="https://avatars.githubusercontent.com/u/46062634?v=4" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/9e8f18c6-95c2-4fa1-8101-17aa0b1bbc24" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/ad014ace-2ce2-4a0a-ae8a-b12a439eb5c5" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/88832233-87b0-46ec-b5ba-ba7ddce6a3ad" width="200">|
 
 <br>
 
