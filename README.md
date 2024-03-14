@@ -47,9 +47,9 @@
 
 ##  👨‍👩‍👧‍👦팀원 구성
 
-|[이상원(Lead)](https://github.com/SWLee2973)|[반현지(Design)](https://github.com/lanuioe)|[정현수(Scrum)](https://github.com/hyun9758)|[김훈](https://github.com/o0orang)|
+|[이상원(Lead)](https://github.com/SWLee2973)|[반현지(Design)](https://github.com/lanuioe)|[정현수(Scrum)](https://github.com/hyun9758)|[김훈](https://github.com/hoon0817)|
 |:----:|:----:|:----:|:----:|
-|<img src="https://avatars.githubusercontent.com/u/46062634?v=4" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/9e8f18c6-95c2-4fa1-8101-17aa0b1bbc24" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/ad014ace-2ce2-4a0a-ae8a-b12a439eb5c5" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/88832233-87b0-46ec-b5ba-ba7ddce6a3ad" width="200">|
+|<img src="https://avatars.githubusercontent.com/u/46062634?v=4" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/9e8f18c6-95c2-4fa1-8101-17aa0b1bbc24" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/ad014ace-2ce2-4a0a-ae8a-b12a439eb5c5" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/2a586c78-a639-4f68-b9c6-3f749974eb27" width="200">|
 
 <br>
 
@@ -310,7 +310,7 @@
 
 ### 0) 로그인/ 회원가입
 - 한끼 도시락 커뮤니티에 로그인, 회원가입을 진행할 수 있습니다.
-- 회원가입은 단계별로 진행되며 모달창에 뜬 인증 번호로 가입할 수 있습니다.
+- 회원가입은 단계별로 진행되며 이름, 휴대폰 번호, 회원가입 순서로 진행할 수 있습니다.
 
 - 가입한 정보로 로그인이 가능합니다.
 - 로그인 유지 체크를 통해 페이지를 떠난 후에도 로그인을 유지할 것인지 설정할 수 있습니다.
@@ -334,6 +334,8 @@
 - 인기 모임에서는 가장 인기 있는 모임과 모임 추천을 받을 수 있습니다.
 - 최신 모임에서는 최근에 글이 올라왔던 모임을 시간순으로 확인할 수 있습니다.
 - 사용자가 현재 참여 중인 모임을 확인할 수 있습니다.
+
+- 모임을 직접 생성하거나 탈퇴 또한 가능합니다. 사용자가 직접 본인의 목적에 따라 모임의 이름과 해시태그를 생성 가능합니다. 탈퇴하고 싶은 모임 또한 자유롭게 탈퇴할 수 있습니다.
   
 |모임 목록|모임 생성|모임 탈퇴|
 |---------|---------|---------|
@@ -349,6 +351,7 @@
 - 내 피드에서는 본인이 쓴 게시글을 한눈에 나열해서 볼 수 있습니다.
     - 글쓰기 버튼을 눌러서 자유롭게 게시글을 작성할 수 있습니다.
     - 댓글과 좋아요, 북마크 기능을 통해 다른 사용자와 활발하게 소통할 수 있습니다.
+- 피드 검색 부분에서 궁금했던 피드에 대해 키워드를 통하여 검색이 가능합니다.
  
 |피드 목록 보기|피드 좋아요/댓글 달기|피드 쓰기|피드 검색|팔로우 피드 보기|
 |--------------|---------------------|---------|---------|---------------|

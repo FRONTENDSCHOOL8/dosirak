@@ -17,6 +17,7 @@ import {
   useNavigation,
 } from 'react-router-dom';
 import ScrollTop from '@/components/atom/common/ScrollTop';
+import useFeedStore from '@/store/useFeedStore';
 
 const INITIAL_PAGE = 1;
 const PER_PAGE = 10;
@@ -34,6 +35,7 @@ export const Component = () => {
   const loadedFeedsData = useLoaderData();
   const { feedType } = useParams();
   const queryOptions = setQueryOptions(feedType, userInfo.id);
+  const commentView = useFeedStore((state) => state.commentView);
 
   useLayoutEffect(() => {
     if (!Object.keys(userInfo).length) {
@@ -83,7 +85,7 @@ export const Component = () => {
           </NavBar>
         </header>
         <section className="h-fit bg-white pt-[132px]">
-          <ul className="flex flex-col gap-3 bg-gray200 pb-[125px]">
+          <ul className="flex flex-col gap-3 pb-[125px]">
             {feedItems.length ? (
               feedItems.map((feed) => (
                 <FeedCard feed={feed} key={feed.id} refetch={refetch} />
@@ -95,7 +97,7 @@ export const Component = () => {
           </ul>
         </section>
         <Outlet />
-        <ScrollTop />
+        {!commentView && <ScrollTop />}
       </section>
       <MainNavBar />
     </>
