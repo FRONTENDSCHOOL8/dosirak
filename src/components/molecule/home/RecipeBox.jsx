@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ReactComponent as Reload } from '@/assets/home/reload.svg';
 
 const RecipeBox = () => {
@@ -9,14 +8,21 @@ const RecipeBox = () => {
         alt=""
         className=" size-[147px] rounded-2xl"
       />
-      <div className="flex h-[133px] w-[147px] flex-col gap-3">
+      <div className="mt-[14px] flex h-[133px] w-[147px] flex-col gap-3">
         <span className="noto text-label text-primary-color">
           돈까스 도시락
         </span>
-        <span className="noto paragraph-base overflow-hidden text-ellipsis text-wrap text-gray700">
+        <p className="noto overflow-hidden text-ellipsis text-wrap text-paragraph-base text-gray700">
           돼지등심, 빵가루, 식용유, 밀가루, 계란, 허브솔트
-        </span>
-        <button type="button" className="absolute bottom-5 right-5 size-[18px]">
+        </p>
+        <button
+          type="button"
+          className="absolute bottom-5 right-5 size-[18px]"
+          aria-label="새로고침"
+          onClick={() => {
+            alert('아직 서비스 준비중이에요🥲');
+          }}
+        >
           <Reload />
         </button>
       </div>

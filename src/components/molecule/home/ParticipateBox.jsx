@@ -32,8 +32,12 @@ const ParticipateBox = () => {
 
   return (
     <section className="mt-4 flex justify-between">
-      <ParticipateInfo number={count.groupCount}>모임</ParticipateInfo>
-      <ParticipateInfo number={count.feedCount}>피드</ParticipateInfo>
+      <ParticipateInfo number={count.groupCount} url={'group/mygroup'}>
+        모임
+      </ParticipateInfo>
+      <ParticipateInfo number={count.feedCount} url={'feed/myfeed'}>
+        피드
+      </ParticipateInfo>
     </section>
   );
 };
