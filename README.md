@@ -25,8 +25,8 @@
   <br>
 
 ## 🏠배포 주소
-
-<br>
+[한끼 도시락](https://hankki.netlify.app)
+<br> 
 
 
 ## 🚀프로젝트 소개 
@@ -49,15 +49,17 @@
 
 |[이상원(Lead)](https://github.com/SWLee2973)|[반현지(Design)](https://github.com/lanuioe)|[정현수(Scrum)](https://github.com/hyun9758)|[김훈](https://github.com/o0orang)|
 |:----:|:----:|:----:|:----:|
-|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/17d2c78a-28c1-4838-809c-80e029569568" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/1a2ff567-f683-4133-86dc-8dc553679cbd" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/47759e1a-556a-4a0b-a0e4-7efcadbbf909" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/88832233-87b0-46ec-b5ba-ba7ddce6a3ad" width="200">|
+|<img src="https://avatars.githubusercontent.com/u/46062634?v=4" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/1a2ff567-f683-4133-86dc-8dc553679cbd" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/47759e1a-556a-4a0b-a0e4-7efcadbbf909" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/88832233-87b0-46ec-b5ba-ba7ddce6a3ad" width="200">|
 
 <br>
 
 ## 🤙담당 페이지
 
-| 이름   | 페이지(담당기능)                                                   |
-| ------ | ------------------------------------------------------------ |
-| **이상원** ||
+| 이름       | 페이지(담당기능)                                               
+| ---------- | ------------------------------------------------------------ 
+|            | **사용자(마이페이지)** - 회원가입 / 프로필 변경 / 비밀번호 변경 및 로그아웃 / 회원 탈퇴, 
+| **이상원** | **피드** - 피드 목록 보기 / 좋아요 및 댓글 달기 / 팔로우 피드 보기 / 피드 검색 /피드 쓰기 
+|            | **모임** - 모임 생성 / 모임 탈퇴 |
 | **반현지** ||
 | **정현수** ||
 | **김훈** | |
@@ -347,7 +349,10 @@
 <table>
   <tr>
     <th>이상원</th>
-    <td>   </td>
+    <td>
+      어떻게 생각해도 길진 않았던 프로젝트 기간이 벌써 끝나 버렸다. 작업하면서는 꽤 많이 했다고 생각했는데, 기능별로 분류하고 보니 생각했던 것 만큼 많지 않아보이는게 아쉽다. 화면에 결과가 바로 나타나는 것이 재미있어서 프론트엔드의 세계에 빠져들었는데, 그 즐거움을 만끽했던 프로젝트였지 싶다.
+      우리 조원 분들께서 잘 따라와 주시고, 가르쳐 드리는 것들도 잘 흡수하셔서 자유주제로 정말 재미있게 만들어본 프로젝트로 기억될 것 같다. 나머지 미흡한 부분도 완성하고 싶은 욕구가 생긴다.
+    </td>
   </tr>
   <tr>
     <th>반현지</th>
