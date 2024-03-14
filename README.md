@@ -49,7 +49,7 @@
 
 |[이상원(Lead)](https://github.com/SWLee2973)|[반현지(Design)](https://github.com/lanuioe)|[정현수(Scrum)](https://github.com/hyun9758)|[김훈](https://github.com/o0orang)|
 |:----:|:----:|:----:|:----:|
-|<img src="https://avatars.githubusercontent.com/u/46062634?v=4" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/1a2ff567-f683-4133-86dc-8dc553679cbd" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/47759e1a-556a-4a0b-a0e4-7efcadbbf909" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/88832233-87b0-46ec-b5ba-ba7ddce6a3ad" width="200">|
+|<img src="https://avatars.githubusercontent.com/u/46062634?v=4" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/1a2ff567-f683-4133-86dc-8dc553679cbd" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/ad014ace-2ce2-4a0a-ae8a-b12a439eb5c5" width="200">|<img src="https://github.com/FRONTENDSCHOOL6/react-project-7/assets/101504272/88832233-87b0-46ec-b5ba-ba7ddce6a3ad" width="200">|
 
 <br>
 
@@ -61,7 +61,9 @@
 | **이상원** | **피드** - 피드 목록 보기 / 좋아요 및 댓글 달기 / 팔로우 피드 보기 / 피드 검색 /피드 쓰기|
 |            | **모임** - 모임 생성 / 모임 탈퇴 / 모임 피드 쓰기|
 | **반현지** | **모임** - 모임 목록(인기 / 최신 / 내 모임) 보기 / 모임 피드 보기|
-| **정현수** | **홈** - 홈 / 내 피드|
+| **정현수** | **기타** - 전반적인 깃 관리(레이블, 위키, 리드미 등), 내비게이션 바 컴포넌트
+|            | **홈** - 홈 화면 / 모임, 좋아요 개수수
+|            | **피드** - 피드-내 피드 / 사용자 프로필 / 내 피드 그리드
 | **김훈** | |
 
 <br>
@@ -384,7 +386,11 @@
     </tr>
       <tr>
     <th>정현수</th>
-     <td> </td>
+     <td>
+       정말 시간이 빠르게 흐른 것 같다. 리액트와 친숙해지자는 목표를 가지고 시작했지만 만들어보면서 조금씩 욕심이 생기고 구현한 걸 볼수록 유의미한 결과물 또한 바라게 되었다. 
+       단순히 프로젝트를 진행한 것보다 정말로 기본적인 개발과 방법을 조금씩 깨우쳐 나간 프로젝트였던 것 같다. 프로젝트 이후 부족했던 공부와 해보고 싶었지만 시간 관계상, 또는 모르는 부분이 많아서 못했던 것들을 채워나가보고 싶다. 
+       스크럽 마스터를 하면서 깃에 익숙해질 수 있었고, 정말로 강의만 듣고 배웠던 부분들을 이해만 했었는데 직접 만들어 보고 난 이후에야 어떻게 사용하는지 감이 왔던 것 같다. 이런 기회로 좋은 팀원분들과 함께 할 수 있어서 후회없이 즐기게 되었다. 
+     </td>
       </tr>
    <tr>
     <th>김훈</th>
