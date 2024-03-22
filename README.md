@@ -47,9 +47,9 @@
 
 ##  👨‍👩‍👧‍👦팀원 구성
 
-|[이상원(Lead)](https://github.com/SWLee2973)|[반현지(Design)](https://github.com/lanuioe)|[정현수(Scrum)](https://github.com/hyun9758)|[김훈](https://github.com/hoon0817)|
-|:----:|:----:|:----:|:----:|
-|<img src="https://avatars.githubusercontent.com/u/46062634?v=4" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/9e8f18c6-95c2-4fa1-8101-17aa0b1bbc24" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/ad014ace-2ce2-4a0a-ae8a-b12a439eb5c5" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/2a586c78-a639-4f68-b9c6-3f749974eb27" width="200">|
+|[이상원(Lead)](https://github.com/SWLee2973)|[반현지(Design)](https://github.com/lanuioe)|[정현수(Scrum)](https://github.com/hyun9758)|
+|:----:|:----:|:----:|
+|<img src="https://avatars.githubusercontent.com/u/46062634?v=4" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/9e8f18c6-95c2-4fa1-8101-17aa0b1bbc24" width="200">|<img src="https://github.com/FRONTENDSCHOOL8/dosirak/assets/82191626/ad014ace-2ce2-4a0a-ae8a-b12a439eb5c5" width="200">|
 
 <br>
 
@@ -63,8 +63,7 @@
 | **반현지** | **모임** - 모임 목록(인기 / 최신 / 내 모임) 보기 / 모임 피드 보기|
 | **정현수** | **기타** - 전반적인 깃 관리(레이블, 위키, 리드미 등), 내비게이션 바 컴포넌트
 |            | **홈** - 홈 화면 / 모임, 좋아요 개수수
-|            | **피드** - 피드-내 피드 / 사용자 프로필 / 내 피드 그리드
-| **김훈** | |
+|            | **피드** - 피드-내 피드 / 사용자 프로필 / 내 피드 그리드|
 
 <br>
 
@@ -394,10 +393,6 @@
        단순히 프로젝트를 진행한 것보다 정말로 기본적인 개발과 방법을 조금씩 깨우쳐 나간 프로젝트였던 것 같다. 프로젝트 이후 부족했던 공부와 해보고 싶었지만 시간 관계상, 또는 모르는 부분이 많아서 못했던 것들을 채워나가보고 싶다. 
        스크럽 마스터를 하면서 깃에 익숙해질 수 있었고, 정말로 강의만 듣고 배웠던 부분들을 이해만 했었는데 직접 만들어 보고 난 이후에야 어떻게 사용하는지 감이 왔던 것 같다. 이런 기회로 좋은 팀원분들과 함께 할 수 있어서 후회없이 즐기게 되었다. 
      </td>
-      </tr>
-   <tr>
-    <th>김훈</th>
-     <td> </td>
       </tr>
   </table>
 <br>
